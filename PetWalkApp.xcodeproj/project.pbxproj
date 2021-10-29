@@ -1,0 +1,614 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2385F2DF270F6ADF0096D588 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2385F2DE270F6ADF0096D588 /* GoogleService-Info.plist */; };
+		23B160F42729A8F500ACAB86 /* MyPetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B160F32729A8F500ACAB86 /* MyPetsViewController.swift */; };
+		23B160F62729AAB600ACAB86 /* MyPetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B160F52729AAB600ACAB86 /* MyPetsViewModel.swift */; };
+		23B160F82729AAEB00ACAB86 /* MyPetsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B160F72729AAEB00ACAB86 /* MyPetsCoordinator.swift */; };
+		23B71E0C270C7A5600010C87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E0B270C7A5600010C87 /* AppDelegate.swift */; };
+		23B71E0E270C7A5600010C87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E0D270C7A5600010C87 /* SceneDelegate.swift */; };
+		23B71E10270C7A5600010C87 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E0F270C7A5600010C87 /* StartScreenViewController.swift */; };
+		23B71E13270C7A5600010C87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23B71E11270C7A5600010C87 /* Main.storyboard */; };
+		23B71E15270C7A5700010C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B71E14270C7A5700010C87 /* Assets.xcassets */; };
+		23B71E20270C8D7B00010C87 /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E1F270C8D7B00010C87 /* Stylesheet.swift */; };
+		23B71E22270DA74D00010C87 /* AccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E21270DA74D00010C87 /* AccountCreationViewController.swift */; };
+		23DEF8DB272024D90022DCC6 /* StartScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8DA272024D90022DCC6 /* StartScreenViewModel.swift */; };
+		23DEF8DE272025610022DCC6 /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8DD272025610022DCC6 /* CoordinatorType.swift */; };
+		23DEF8E02720257A0022DCC6 /* StartScreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8DF2720257A0022DCC6 /* StartScreenCoordinator.swift */; };
+		23DEF8E3272026330022DCC6 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8E2272026330022DCC6 /* BaseViewController.swift */; };
+		23DEF8E6272034880022DCC6 /* AccountCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8E5272034880022DCC6 /* AccountCreationViewModel.swift */; };
+		23DEF8E92720363A0022DCC6 /* Observable+replaceNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8E82720363A0022DCC6 /* Observable+replaceNil.swift */; };
+		23DEF8EB272037560022DCC6 /* AccountCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8EA272037560022DCC6 /* AccountCreationCoordinator.swift */; };
+		23DEF8EF272047AC0022DCC6 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8EE272047AC0022DCC6 /* UserSession.swift */; };
+		23DEF8F1272051ED0022DCC6 /* AccountProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8F0272051ED0022DCC6 /* AccountProfileViewController.swift */; };
+		23DEF8F4272052E90022DCC6 /* AccountProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8F3272052E90022DCC6 /* AccountProfileViewModel.swift */; };
+		23DEF8F8272053C90022DCC6 /* AccountProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8F7272053C90022DCC6 /* AccountProfileCoordinator.swift */; };
+		23DEF8FB2721AA4C0022DCC6 /* SessionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8FA2721AA4C0022DCC6 /* SessionRepository.swift */; };
+		23DEF8FD2721B0320022DCC6 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DEF8FC2721B0320022DCC6 /* UserState.swift */; };
+		23F7FA3427281DB5009C2AC8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F7FA3327281DB5009C2AC8 /* User.swift */; };
+		23F7FA3627281E8F009C2AC8 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F7FA3527281E8F009C2AC8 /* Pet.swift */; };
+		B72FDE8331F8332D365074A6 /* Pods_PetWalkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C580E4AA26CFB5DFD1179EB /* Pods_PetWalkApp.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		098BB68DA7546E48C96D539D /* Pods-PetWalkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetWalkApp.debug.xcconfig"; path = "Target Support Files/Pods-PetWalkApp/Pods-PetWalkApp.debug.xcconfig"; sourceTree = "<group>"; };
+		2385F2DE270F6ADF0096D588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		23B160F32729A8F500ACAB86 /* MyPetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsViewController.swift; sourceTree = "<group>"; };
+		23B160F52729AAB600ACAB86 /* MyPetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsViewModel.swift; sourceTree = "<group>"; };
+		23B160F72729AAEB00ACAB86 /* MyPetsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsCoordinator.swift; sourceTree = "<group>"; };
+		23B71E08270C7A5600010C87 /* PetWalkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetWalkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		23B71E0B270C7A5600010C87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		23B71E0D270C7A5600010C87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		23B71E0F270C7A5600010C87 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
+		23B71E12270C7A5600010C87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		23B71E14270C7A5700010C87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		23B71E19270C7A5700010C87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		23B71E1F270C8D7B00010C87 /* Stylesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
+		23B71E21270DA74D00010C87 /* AccountCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationViewController.swift; sourceTree = "<group>"; };
+		23DEF8DA272024D90022DCC6 /* StartScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewModel.swift; sourceTree = "<group>"; };
+		23DEF8DD272025610022DCC6 /* CoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorType.swift; sourceTree = "<group>"; };
+		23DEF8DF2720257A0022DCC6 /* StartScreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenCoordinator.swift; sourceTree = "<group>"; };
+		23DEF8E2272026330022DCC6 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		23DEF8E5272034880022DCC6 /* AccountCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationViewModel.swift; sourceTree = "<group>"; };
+		23DEF8E82720363A0022DCC6 /* Observable+replaceNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+replaceNil.swift"; sourceTree = "<group>"; };
+		23DEF8EA272037560022DCC6 /* AccountCreationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationCoordinator.swift; sourceTree = "<group>"; };
+		23DEF8EE272047AC0022DCC6 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		23DEF8F0272051ED0022DCC6 /* AccountProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountProfileViewController.swift; sourceTree = "<group>"; };
+		23DEF8F3272052E90022DCC6 /* AccountProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountProfileViewModel.swift; sourceTree = "<group>"; };
+		23DEF8F7272053C90022DCC6 /* AccountProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountProfileCoordinator.swift; sourceTree = "<group>"; };
+		23DEF8FA2721AA4C0022DCC6 /* SessionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRepository.swift; sourceTree = "<group>"; };
+		23DEF8FC2721B0320022DCC6 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
+		23F7FA3327281DB5009C2AC8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		23F7FA3527281E8F009C2AC8 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		6C580E4AA26CFB5DFD1179EB /* Pods_PetWalkApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetWalkApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF71B5A0D0D1DD87137846F3 /* Pods-PetWalkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetWalkApp.release.xcconfig"; path = "Target Support Files/Pods-PetWalkApp/Pods-PetWalkApp.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		23B71E05270C7A5600010C87 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B72FDE8331F8332D365074A6 /* Pods_PetWalkApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07CDE69827AAA48AC94B5489 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				098BB68DA7546E48C96D539D /* Pods-PetWalkApp.debug.xcconfig */,
+				BF71B5A0D0D1DD87137846F3 /* Pods-PetWalkApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		08DD636AFEDC42A45DE9F89F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C580E4AA26CFB5DFD1179EB /* Pods_PetWalkApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		23B160F22729A6FB00ACAB86 /* MyPets */ = {
+			isa = PBXGroup;
+			children = (
+				23B160F32729A8F500ACAB86 /* MyPetsViewController.swift */,
+				23B160F52729AAB600ACAB86 /* MyPetsViewModel.swift */,
+			);
+			path = MyPets;
+			sourceTree = "<group>";
+		};
+		23B71DFF270C7A5600010C87 = {
+			isa = PBXGroup;
+			children = (
+				23B71E0A270C7A5600010C87 /* PetWalkApp */,
+				23B71E09270C7A5600010C87 /* Products */,
+				07CDE69827AAA48AC94B5489 /* Pods */,
+				08DD636AFEDC42A45DE9F89F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		23B71E09270C7A5600010C87 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				23B71E08270C7A5600010C87 /* PetWalkApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		23B71E0A270C7A5600010C87 /* PetWalkApp */ = {
+			isa = PBXGroup;
+			children = (
+				23DEF8EC2720479B0022DCC6 /* Models */,
+				23DEF8F92721AA370022DCC6 /* Repositories */,
+				23DEF8D8272023D20022DCC6 /* Screens */,
+				23DEF8DC272025180022DCC6 /* Coordinators */,
+				23DEF8E1272026290022DCC6 /* Types */,
+				23F7FA3227281DA6009C2AC8 /* Database */,
+				23DEF8E7272036200022DCC6 /* Extensions */,
+				23B71E0D270C7A5600010C87 /* SceneDelegate.swift */,
+				23B71E0B270C7A5600010C87 /* AppDelegate.swift */,
+				23B71E11270C7A5600010C87 /* Main.storyboard */,
+				23B71E14270C7A5700010C87 /* Assets.xcassets */,
+				23B71E19270C7A5700010C87 /* Info.plist */,
+				2385F2DE270F6ADF0096D588 /* GoogleService-Info.plist */,
+			);
+			path = PetWalkApp;
+			sourceTree = "<group>";
+		};
+		23DEF8D8272023D20022DCC6 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				23DEF8D9272023F60022DCC6 /* StartScreen */,
+				23DEF8E427202EF30022DCC6 /* AccountCreation */,
+				23B160F22729A6FB00ACAB86 /* MyPets */,
+				23DEF8F2272051F60022DCC6 /* AccountProfile */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		23DEF8D9272023F60022DCC6 /* StartScreen */ = {
+			isa = PBXGroup;
+			children = (
+				23B71E0F270C7A5600010C87 /* StartScreenViewController.swift */,
+				23DEF8DA272024D90022DCC6 /* StartScreenViewModel.swift */,
+			);
+			path = StartScreen;
+			sourceTree = "<group>";
+		};
+		23DEF8DC272025180022DCC6 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				23DEF8DD272025610022DCC6 /* CoordinatorType.swift */,
+				23DEF8DF2720257A0022DCC6 /* StartScreenCoordinator.swift */,
+				23DEF8EA272037560022DCC6 /* AccountCreationCoordinator.swift */,
+				23B160F72729AAEB00ACAB86 /* MyPetsCoordinator.swift */,
+				23DEF8F7272053C90022DCC6 /* AccountProfileCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		23DEF8E1272026290022DCC6 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				23DEF8E2272026330022DCC6 /* BaseViewController.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		23DEF8E427202EF30022DCC6 /* AccountCreation */ = {
+			isa = PBXGroup;
+			children = (
+				23B71E21270DA74D00010C87 /* AccountCreationViewController.swift */,
+				23DEF8E5272034880022DCC6 /* AccountCreationViewModel.swift */,
+			);
+			path = AccountCreation;
+			sourceTree = "<group>";
+		};
+		23DEF8E7272036200022DCC6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				23DEF8E82720363A0022DCC6 /* Observable+replaceNil.swift */,
+				23B71E1F270C8D7B00010C87 /* Stylesheet.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		23DEF8EC2720479B0022DCC6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				23DEF8EE272047AC0022DCC6 /* UserSession.swift */,
+				23DEF8FC2721B0320022DCC6 /* UserState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		23DEF8F2272051F60022DCC6 /* AccountProfile */ = {
+			isa = PBXGroup;
+			children = (
+				23DEF8F0272051ED0022DCC6 /* AccountProfileViewController.swift */,
+				23DEF8F3272052E90022DCC6 /* AccountProfileViewModel.swift */,
+			);
+			path = AccountProfile;
+			sourceTree = "<group>";
+		};
+		23DEF8F92721AA370022DCC6 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				23DEF8FA2721AA4C0022DCC6 /* SessionRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		23F7FA3227281DA6009C2AC8 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				23F7FA3327281DB5009C2AC8 /* User.swift */,
+				23F7FA3527281E8F009C2AC8 /* Pet.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		23B71E07270C7A5600010C87 /* PetWalkApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23B71E1C270C7A5700010C87 /* Build configuration list for PBXNativeTarget "PetWalkApp" */;
+			buildPhases = (
+				E49C48B768212CC3BBE48AE5 /* [CP] Check Pods Manifest.lock */,
+				23B71E04270C7A5600010C87 /* Sources */,
+				23B71E05270C7A5600010C87 /* Frameworks */,
+				23B71E06270C7A5600010C87 /* Resources */,
+				DA7EAF9A17CF00A7E334DF9E /* [CP] Embed Pods Frameworks */,
+				2385F2E0270F76810096D588 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PetWalkApp;
+			productName = PetWalkApp;
+			productReference = 23B71E08270C7A5600010C87 /* PetWalkApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		23B71E00270C7A5600010C87 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					23B71E07270C7A5600010C87 = {
+						CreatedOnToolsVersion = 13.0;
+					};
+				};
+			};
+			buildConfigurationList = 23B71E03270C7A5600010C87 /* Build configuration list for PBXProject "PetWalkApp" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 23B71DFF270C7A5600010C87;
+			productRefGroup = 23B71E09270C7A5600010C87 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				23B71E07270C7A5600010C87 /* PetWalkApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		23B71E06270C7A5600010C87 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2385F2DF270F6ADF0096D588 /* GoogleService-Info.plist in Resources */,
+				23B71E15270C7A5700010C87 /* Assets.xcassets in Resources */,
+				23B71E13270C7A5600010C87 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2385F2E0270F76810096D588 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		DA7EAF9A17CF00A7E334DF9E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PetWalkApp/Pods-PetWalkApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PetWalkApp/Pods-PetWalkApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetWalkApp/Pods-PetWalkApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E49C48B768212CC3BBE48AE5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PetWalkApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		23B71E04270C7A5600010C87 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23DEF8FD2721B0320022DCC6 /* UserState.swift in Sources */,
+				23DEF8F1272051ED0022DCC6 /* AccountProfileViewController.swift in Sources */,
+				23B71E10270C7A5600010C87 /* StartScreenViewController.swift in Sources */,
+				23DEF8FB2721AA4C0022DCC6 /* SessionRepository.swift in Sources */,
+				23DEF8E6272034880022DCC6 /* AccountCreationViewModel.swift in Sources */,
+				23F7FA3627281E8F009C2AC8 /* Pet.swift in Sources */,
+				23B160F82729AAEB00ACAB86 /* MyPetsCoordinator.swift in Sources */,
+				23DEF8E02720257A0022DCC6 /* StartScreenCoordinator.swift in Sources */,
+				23B71E20270C8D7B00010C87 /* Stylesheet.swift in Sources */,
+				23B71E22270DA74D00010C87 /* AccountCreationViewController.swift in Sources */,
+				23DEF8F4272052E90022DCC6 /* AccountProfileViewModel.swift in Sources */,
+				23DEF8E92720363A0022DCC6 /* Observable+replaceNil.swift in Sources */,
+				23DEF8E3272026330022DCC6 /* BaseViewController.swift in Sources */,
+				23B71E0C270C7A5600010C87 /* AppDelegate.swift in Sources */,
+				23DEF8DB272024D90022DCC6 /* StartScreenViewModel.swift in Sources */,
+				23DEF8DE272025610022DCC6 /* CoordinatorType.swift in Sources */,
+				23DEF8F8272053C90022DCC6 /* AccountProfileCoordinator.swift in Sources */,
+				23DEF8EB272037560022DCC6 /* AccountCreationCoordinator.swift in Sources */,
+				23DEF8EF272047AC0022DCC6 /* UserSession.swift in Sources */,
+				23B160F62729AAB600ACAB86 /* MyPetsViewModel.swift in Sources */,
+				23B71E0E270C7A5600010C87 /* SceneDelegate.swift in Sources */,
+				23B160F42729A8F500ACAB86 /* MyPetsViewController.swift in Sources */,
+				23F7FA3427281DB5009C2AC8 /* User.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		23B71E11270C7A5600010C87 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23B71E12270C7A5600010C87 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		23B71E1A270C7A5700010C87 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		23B71E1B270C7A5700010C87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		23B71E1D270C7A5700010C87 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 098BB68DA7546E48C96D539D /* Pods-PetWalkApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4F5C4V5J4M;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetWalkApp/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chernook.PetWalkApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		23B71E1E270C7A5700010C87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF71B5A0D0D1DD87137846F3 /* Pods-PetWalkApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4F5C4V5J4M;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetWalkApp/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chernook.PetWalkApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		23B71E03270C7A5600010C87 /* Build configuration list for PBXProject "PetWalkApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23B71E1A270C7A5700010C87 /* Debug */,
+				23B71E1B270C7A5700010C87 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23B71E1C270C7A5700010C87 /* Build configuration list for PBXNativeTarget "PetWalkApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23B71E1D270C7A5700010C87 /* Debug */,
+				23B71E1E270C7A5700010C87 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 23B71E00270C7A5600010C87 /* Project object */;
+}
