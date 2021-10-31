@@ -21,18 +21,17 @@ class MyPetsCoordinator: CoordinatorType {
         return navigationController
     }
     
-    
     func showMyPetsScreen() -> UIViewController {
         let viewController = MyPetsViewController()
         let viewModel = MyPetsViewModel()
-//        viewController.bind(viewModel: viewModel)
-//
-//        viewModel.route
-//            .emit(onNext: { [weak self] in
-//                guard let self = self else { return }
-//                    self.coordinate(to: HomeCoordinator(), animating: true)
-//            })
-//            .disposed(by: disposeBag)
+        viewController.bind(viewModel: viewModel)
+
+        viewModel.route
+            .emit(onNext: { [weak self] in
+                guard let self = self else { return }
+                    self.coordinate(to: AddAPetCoordinator(), animating: true)
+            })
+            .disposed(by: disposeBag)
         
         
         
