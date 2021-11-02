@@ -14,8 +14,7 @@ final class AccountProfileViewModel {
 
     private let disposeBag = DisposeBag()
 
-
-
+    
     init() {
     }
 

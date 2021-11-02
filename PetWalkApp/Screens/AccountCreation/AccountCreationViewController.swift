@@ -52,7 +52,6 @@ class AccountCreationViewController: BaseViewController {
     var bottomButton = Stylesheet().createButton(buttonText: "Create my account", buttonColor: "Background", textColor: UIColor.black)
     var loginButton = UIButton()
     
-    
     override func loadView() {
         super.loadView()
         
@@ -120,10 +119,11 @@ class AccountCreationViewController: BaseViewController {
             bottomButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             bottomButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             bottomButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            bottomButton.heightAnchor.constraint(equalToConstant: 53),
 
             loginButton.topAnchor.constraint(equalTo: bottomButton.bottomAnchor, constant: 4),
             loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            loginButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -5)
+            loginButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -5),
         ])
         
         subtitle.textColor = UIColor.black

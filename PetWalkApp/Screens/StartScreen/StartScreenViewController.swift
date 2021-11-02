@@ -79,6 +79,8 @@ class StartScreenViewController: BaseViewController {
             stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 29),
             stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -29),
             stackView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -83),
+            
+            bottomButton.heightAnchor.constraint(equalToConstant: 53),
         ])
         
         logoImage.image = UIImage(named: "Logo")

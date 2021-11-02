@@ -52,9 +52,9 @@ class AccountProfileViewController: BaseViewController {
         
         
         navigationController?.navigationBar.isHidden = true
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        title = "Account"
-//        navigationItem.setHidesBackButton(true, animated: false)
+        //        navigationController?.navigationBar.prefersLargeTitles = true
+        //        title = "Account"
+        //        navigationItem.setHidesBackButton(true, animated: false)
         
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
@@ -100,7 +100,7 @@ class AccountProfileViewController: BaseViewController {
         screenTitle.text = "Account"
         
         subtitle.textColor = UIColor.black
-//        subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.semibold)
+        //        subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.semibold)
         subtitle.font = UIFont.boldSystemFont(ofSize: 30)
         subtitle.text = "Profile"
         
@@ -112,6 +112,5 @@ class AccountProfileViewController: BaseViewController {
         
         userName.text = realm.objects(User.self).last?.fullName
         userName.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
-        
     }
 }

@@ -31,17 +31,6 @@ class StartScreenCoordinator: CoordinatorType {
             })
             .disposed(by: disposeBag)
         
-        
-        
-        //        viewModel.route
-        //            .emit(onNext: { [weak self] in
-        //                guard let self = self else { return }
-        //                switch $0 {
-        //                case .loginSuccess:
-        //                    self.coordinate(to: HomeCoordinator(), animating: true)
-        //                }
-        //            })
-        //            .disposed(by: disposeBag)
         return viewController
     }
 }

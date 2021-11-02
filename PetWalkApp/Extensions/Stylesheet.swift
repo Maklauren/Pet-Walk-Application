@@ -30,8 +30,6 @@ class Stylesheet {
         
         button.layer.cornerRadius = 26.5
         
-        button.heightAnchor.constraint(equalToConstant: 53).isActive = true
-        
         return button
     }
     

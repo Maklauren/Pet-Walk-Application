@@ -50,15 +50,6 @@ class MyPetsCoordinator: CoordinatorType {
     func showAccaountProfileScreen() -> UIViewController {
         let viewController = AccountProfileViewController()
         let viewModel = AccountProfileViewModel()
-//
-//        viewModel.route
-//            .emit(onNext: { [weak self] in
-//                guard let self = self else { return }
-//                    self.coordinate(to: HomeCoordinator(), animating: true)
-//            })
-//            .disposed(by: disposeBag)
-        
-        
         
         //        viewModel.route
         //            .emit(onNext: { [weak self] in
