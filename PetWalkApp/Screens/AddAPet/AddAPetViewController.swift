@@ -34,7 +34,7 @@ class AddAPetViewController: BaseViewController {
         return stack
     }()
     
-//    private var viewModel: AccountProfileViewModel!
+    private var viewModel: AddAPetViewModel!
     
     private let disposeBag = DisposeBag()
     
@@ -48,7 +48,12 @@ class AddAPetViewController: BaseViewController {
     var dogBreedTextField = Stylesheet().createTextField(textFieldText: "Breed")
     
     var dogBirthdayLabel = Stylesheet().createLabel(labelText: "Birthday")
-    var dogBirthdayTextField = Stylesheet().createTextField(textFieldText: "Birthday")
+    
+    var dogBirthdayDatePicker = UIDatePicker()
+    
+//    var dogBirthdayTextField = Stylesheet().createTextField(textFieldText: "Birthday")
+    
+    var bottomButton = Stylesheet().createButton(buttonText: "Add a pet", buttonColor: "Blue button", textColor: UIColor.white)
     
     let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
     
@@ -72,10 +77,12 @@ class AddAPetViewController: BaseViewController {
         backgroundView.addSubview(subtitle)
         backgroundView.addSubview(dogPicture)
         backgroundView.addSubview(stackView)
+        backgroundView.addSubview(bottomButton)
+        backgroundView.addSubview(dogBirthdayDatePicker)
         
         backgroundView.backgroundColor = UIColor(named: "Background")
         
-        [subtitle, dogPicture].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [subtitle, dogPicture, dogBirthdayDatePicker].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         //MARK: -Stack View
         stackView.addArrangedSubview(dogNameLabel)
@@ -83,13 +90,11 @@ class AddAPetViewController: BaseViewController {
         stackView.addArrangedSubview(dogBreedLabel)
         stackView.addArrangedSubview(dogBreedTextField)
         stackView.addArrangedSubview(dogBirthdayLabel)
-        stackView.addArrangedSubview(dogBirthdayTextField)
         
         stackView.setCustomSpacing(4, after: dogNameLabel)
         stackView.setCustomSpacing(16, after: dogNameTextField)
         stackView.setCustomSpacing(4, after: dogBreedLabel)
         stackView.setCustomSpacing(16, after: dogBreedTextField)
-        stackView.setCustomSpacing(4, after: dogBirthdayLabel)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -114,12 +119,20 @@ class AddAPetViewController: BaseViewController {
             stackView.topAnchor.constraint(equalTo: dogPicture.bottomAnchor, constant: 16),
             stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
-            stackView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -150),
             
             dogNameTextField.heightAnchor.constraint(equalToConstant: 35),
             dogBreedTextField.heightAnchor.constraint(equalToConstant: 35),
-            dogBirthdayTextField.heightAnchor.constraint(equalToConstant: 35),
+            dogBirthdayDatePicker.heightAnchor.constraint(equalToConstant: 35),
             
+            dogBirthdayDatePicker.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
+            dogBirthdayDatePicker.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            dogBirthdayDatePicker.heightAnchor.constraint(equalToConstant: 200),
+            
+            bottomButton.topAnchor.constraint(equalTo: dogBirthdayDatePicker.bottomAnchor, constant: 163),
+            bottomButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            bottomButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
+            bottomButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -5),
+            bottomButton.heightAnchor.constraint(equalToConstant: 53),
         ])
 
         subtitle.textColor = UIColor.black
@@ -131,5 +144,48 @@ class AddAPetViewController: BaseViewController {
         dogPicture.layer.cornerRadius = 60
         dogPicture.clipsToBounds = true
         
+        dogBirthdayDatePicker.datePickerMode = .date
+        dogBirthdayDatePicker.tintColor = UIColor.white
+    }
+    
+    func bind(viewModel: AddAPetViewModel) {
+        self.viewModel = viewModel
+        
+        viewModel.dogNameTextField
+            .drive(dogNameTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.dogBreedTextField
+            .drive(dogBreedTextField.rx.text)
+            .disposed(by: disposeBag)
+
+//        viewModel.dogBirthdayTextField
+//            .drive(dogBirthdayTextField.rx.text)
+//            .disposed(by: disposeBag)
+
+        dogNameTextField.rx.controlEvent(.editingChanged)
+            .withLatestFrom(dogNameTextField.rx.text)
+            .distinctUntilChanged()
+            .replaceNil(with: "")
+            .bind(onNext: viewModel.dogNameFieldChanged)
+            .disposed(by: disposeBag)
+
+        dogBreedTextField.rx.controlEvent(.editingChanged)
+            .withLatestFrom(dogBreedTextField.rx.text)
+            .distinctUntilChanged()
+            .replaceNil(with: "")
+            .bind(onNext: viewModel.dogBreedFieldChanged)
+            .disposed(by: disposeBag)
+        
+//        dogBirthdayTextField.rx.controlEvent(.editingChanged)
+//            .withLatestFrom(dogBirthdayTextField.rx.text)
+//            .distinctUntilChanged()
+//            .replaceNil(with: "")
+//            .bind(onNext: viewModel.dogBirthdayFieldChanged)
+//            .disposed(by: disposeBag)
+
+        bottomButton.rx.tap
+            .bind(onNext: viewModel.createPetTapped)
+            .disposed(by: disposeBag)
     }
 }

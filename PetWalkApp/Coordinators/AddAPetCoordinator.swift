@@ -22,14 +22,7 @@ class AddAPetCoordinator: CoordinatorType {
     func showAddAPetScreen() -> UIViewController {
         let viewController = AddAPetViewController()
         let viewModel = AddAPetViewModel()
-//        viewController.bind(viewModel: viewModel)
-//
-//        viewModel.route
-//            .emit(onNext: { [weak self] in
-//                guard let self = self else { return }
-//                    self.coordinate(to: AccountCreationCoordinator(), animating: false)
-//            })
-//            .disposed(by: disposeBag)
+        viewController.bind(viewModel: viewModel)
         
         return viewController
     }
