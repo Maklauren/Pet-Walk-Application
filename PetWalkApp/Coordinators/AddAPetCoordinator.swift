@@ -15,7 +15,8 @@ class AddAPetCoordinator: CoordinatorType {
     let navigationController = UINavigationController(rootViewController: UIViewController())
     
     func start() -> UIViewController {
-        navigationController.setViewControllers([showAddAPetScreen()], animated: false)
+        navigationController.pushViewController(showAddAPetScreen(), animated: true)
+//        navigationController.setViewControllers([showAddAPetScreen()], animated: false)
         return navigationController
     }
 

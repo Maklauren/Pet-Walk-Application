@@ -62,15 +62,13 @@ class AddAPetViewController: BaseViewController {
         
         self.view.backgroundColor = UIColor(named: "Background")
         
-//        self.tabBarItem = UITabBarItem(title: "Profile",
-//                                       image: UIImage(systemName: "camera.metering.unknown"),
-//                                       selectedImage: UIImage(systemName: "camera.metering.spot"))
-        
         navigationController?.navigationBar.isHidden = false
-        navigationController?.navigationBar.prefersLargeTitles = false
-        title = "Test title"
-//        title = "My pets"
-        navigationItem.setHidesBackButton(true, animated: false)
+        navigationItem.setHidesBackButton(false, animated: false)
+        
+        var backImageButton =  UIImage(named: "Back icon")
+        backImageButton = backImageButton?.withRenderingMode(.alwaysOriginal)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImageButton, style: .plain, target: self, action: nil)
         
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
@@ -148,6 +146,10 @@ class AddAPetViewController: BaseViewController {
         dogBirthdayDatePicker.tintColor = UIColor.white
     }
     
+    @IBAction func onBack(_ sender: AnyObject) {
+        _ = navigationController?.popViewController(animated: true)
+    }
+    
     func bind(viewModel: AddAPetViewModel) {
         self.viewModel = viewModel
         
@@ -159,9 +161,9 @@ class AddAPetViewController: BaseViewController {
             .drive(dogBreedTextField.rx.text)
             .disposed(by: disposeBag)
 
-//        viewModel.dogBirthdayTextField
-//            .drive(dogBirthdayTextField.rx.text)
-//            .disposed(by: disposeBag)
+        viewModel.dogBirthdayTextField
+            .bind(to: dogBirthdayDatePicker.rx.date)
+            .disposed(by: disposeBag)
 
         dogNameTextField.rx.controlEvent(.editingChanged)
             .withLatestFrom(dogNameTextField.rx.text)
@@ -177,12 +179,11 @@ class AddAPetViewController: BaseViewController {
             .bind(onNext: viewModel.dogBreedFieldChanged)
             .disposed(by: disposeBag)
         
-//        dogBirthdayTextField.rx.controlEvent(.editingChanged)
-//            .withLatestFrom(dogBirthdayTextField.rx.text)
-//            .distinctUntilChanged()
-//            .replaceNil(with: "")
-//            .bind(onNext: viewModel.dogBirthdayFieldChanged)
-//            .disposed(by: disposeBag)
+        dogBirthdayDatePicker.rx.controlEvent(.editingChanged)
+            .withLatestFrom(dogBirthdayDatePicker.rx.date)
+            .distinctUntilChanged()
+            .bind(onNext: viewModel.dogBirthdayFieldChanged)
+            .disposed(by: disposeBag)
 
         bottomButton.rx.tap
             .bind(onNext: viewModel.createPetTapped)

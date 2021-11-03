@@ -33,8 +33,6 @@ class MyPetsCoordinator: CoordinatorType {
             })
             .disposed(by: disposeBag)
         
-        
-        
         //        viewModel.route
         //            .emit(onNext: { [weak self] in
         //                guard let self = self else { return }
