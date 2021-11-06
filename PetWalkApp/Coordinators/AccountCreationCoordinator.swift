@@ -33,13 +33,6 @@ class AccountCreationCoordinator: CoordinatorType {
                 }
             })
             .disposed(by: disposeBag)
-//        viewModel.route
-//            .emit(onNext: { [weak self] in
-//                guard let self = self else { return }
-//                    self.coordinate(to: AccountProfileCoordinator(), animating: false)
-//            })
-//            .disposed(by: disposeBag)
-        
         
         return viewController
     }

@@ -12,9 +12,11 @@ class Dog: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     
     @Persisted var dogName: String = ""
-    @Persisted var dogAge: Date
+    @Persisted var dogAge: Date? = nil
     @Persisted var dogBreed: String = ""
-    @Persisted var dogDayEnergy: Double
-    @Persisted var dogWalkLenghts: Double
-    @Persisted var dogWeeklyEnergy: Double
+    @Persisted var dogDayEnergy: Double = 0
+    @Persisted var dogWalkLenghts: Double = 0
+    @Persisted var dogWeeklyEnergy: Double = 0
+    
+    @Persisted var owner: User?
 }

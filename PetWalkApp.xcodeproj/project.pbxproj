@@ -18,6 +18,9 @@
 		23B71E15270C7A5700010C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B71E14270C7A5700010C87 /* Assets.xcassets */; };
 		23B71E20270C8D7B00010C87 /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E1F270C8D7B00010C87 /* Stylesheet.swift */; };
 		23B71E22270DA74D00010C87 /* AccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E21270DA74D00010C87 /* AccountCreationViewController.swift */; };
+		23D5E1E127368ADF00D75D4E /* PetAdditionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E1E027368ADF00D75D4E /* PetAdditionRepository.swift */; };
+		23D5E1E3273692B800D75D4E /* PetInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E1E2273692B800D75D4E /* PetInformation.swift */; };
+		23D5E1E52736AB4200D75D4E /* PetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E1E42736AB4200D75D4E /* PetState.swift */; };
 		23DCF5D3272EB6AE00B295AA /* AddAPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DCF5D2272EB6AE00B295AA /* AddAPetViewController.swift */; };
 		23DCF5D5272EBE9600B295AA /* AddAPetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DCF5D4272EBE9600B295AA /* AddAPetCoordinator.swift */; };
 		23DCF5D7272EC24F00B295AA /* AddAPetViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DCF5D6272EC24F00B295AA /* AddAPetViewMode.swift */; };
@@ -53,6 +56,9 @@
 		23B71E19270C7A5700010C87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23B71E1F270C8D7B00010C87 /* Stylesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
 		23B71E21270DA74D00010C87 /* AccountCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationViewController.swift; sourceTree = "<group>"; };
+		23D5E1E027368ADF00D75D4E /* PetAdditionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetAdditionRepository.swift; sourceTree = "<group>"; };
+		23D5E1E2273692B800D75D4E /* PetInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInformation.swift; sourceTree = "<group>"; };
+		23D5E1E42736AB4200D75D4E /* PetState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetState.swift; sourceTree = "<group>"; };
 		23DCF5D2272EB6AE00B295AA /* AddAPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAPetViewController.swift; sourceTree = "<group>"; };
 		23DCF5D4272EBE9600B295AA /* AddAPetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAPetCoordinator.swift; sourceTree = "<group>"; };
 		23DCF5D6272EC24F00B295AA /* AddAPetViewMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAPetViewMode.swift; sourceTree = "<group>"; };
@@ -223,6 +229,8 @@
 			children = (
 				23DEF8EE272047AC0022DCC6 /* UserSession.swift */,
 				23DEF8FC2721B0320022DCC6 /* UserState.swift */,
+				23D5E1E2273692B800D75D4E /* PetInformation.swift */,
+				23D5E1E42736AB4200D75D4E /* PetState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				23DEF8FA2721AA4C0022DCC6 /* SessionRepository.swift */,
+				23D5E1E027368ADF00D75D4E /* PetAdditionRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -397,6 +406,9 @@
 				23B160F82729AAEB00ACAB86 /* MyPetsCoordinator.swift in Sources */,
 				23DEF8E02720257A0022DCC6 /* StartScreenCoordinator.swift in Sources */,
 				23DCF5D3272EB6AE00B295AA /* AddAPetViewController.swift in Sources */,
+				23D5E1E3273692B800D75D4E /* PetInformation.swift in Sources */,
+				23D5E1E127368ADF00D75D4E /* PetAdditionRepository.swift in Sources */,
+				23D5E1E52736AB4200D75D4E /* PetState.swift in Sources */,
 				23B71E20270C8D7B00010C87 /* Stylesheet.swift in Sources */,
 				23B71E22270DA74D00010C87 /* AccountCreationViewController.swift in Sources */,
 				23DEF8F4272052E90022DCC6 /* AccountProfileViewModel.swift in Sources */,

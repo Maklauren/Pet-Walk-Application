@@ -124,7 +124,6 @@ class AddAPetViewController: BaseViewController {
             
             dogBirthdayDatePicker.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
             dogBirthdayDatePicker.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
-            dogBirthdayDatePicker.heightAnchor.constraint(equalToConstant: 200),
             
             bottomButton.topAnchor.constraint(equalTo: dogBirthdayDatePicker.bottomAnchor, constant: 163),
             bottomButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),

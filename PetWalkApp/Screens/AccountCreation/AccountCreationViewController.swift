@@ -181,13 +181,3 @@ class AccountCreationViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 }
-
-
-    
-//ДОДЕЛАТЬ ДЕЙСТВИЕ ДЛЯ КНОПКИ "LOGIN" И СДЕЛАТЬ ДЛЯ НЕЕ VIEWCONTROLLER
-//СДЕЛАТЬ SCROLLVIEW
-//СДЕЛАТЬ ПОДНИМАЮЩИЕСЯ TEXTFIELD'bI ПРИ ВЫЗОВЕ КЛАВИАТУРЫ
-//СДЕЛАТЬ СОХРАНЕНИЕ ДАННЫХ О ПОЛЬЗОВАТЕЛЯХ ВО ВНУТРЕННЕМ ХРАНИЛИЩЕ
-
-
-//241 - 228 - 195 - 187

@@ -39,7 +39,6 @@ final class AccountCreationViewModel {
         _createAccountTapped.accept(())
     }
     
-    
     lazy var fullnameTextField = _fullnameFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
     
     lazy var emailTextField = _emailFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
@@ -59,20 +58,8 @@ final class AccountCreationViewModel {
                 .asSignal(onErrorSignalWith: .never())
         )
     
-    
     init() {
         _createAccountTapped.asSignal().emit(onNext: { print("NEXT VC") }).disposed(by: disposeBag)
-        
-//        _createAccountTapped.asObservable()
-//            .withLatestFrom(Observable.combineLatest(fullnameTextField.asObservable(), emailTextField.asObservable()))
-//            .flatMapLatest { fullname, email in
-//                SessionRepository.shared.logUserIn(fullname: fullname, email: email)
-//            }
-//            .debug("SESSION LOGIN")
-//            .subscribe(onNext: { _ in })
-//            .disposed(by: disposeBag)
-        
     }
-    
 }
 
