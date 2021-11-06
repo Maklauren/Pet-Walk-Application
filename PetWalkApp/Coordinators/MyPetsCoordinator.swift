@@ -29,7 +29,7 @@ class MyPetsCoordinator: CoordinatorType {
         viewModel.route
             .emit(onNext: { [weak self] in
                 guard let self = self else { return }
-                    self.coordinate(to: AddAPetCoordinator(), animating: true)
+                    self.coordinate(to: PetAdditionCoordinator(), animating: true)
             })
             .disposed(by: disposeBag)
         

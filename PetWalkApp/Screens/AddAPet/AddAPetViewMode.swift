@@ -10,7 +10,7 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-final class AddAPetViewModel {
+final class PetAdditionViewModel {
     
     enum Route {
         case creationSuccess

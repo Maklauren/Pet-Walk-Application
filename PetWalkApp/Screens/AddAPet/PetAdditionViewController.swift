@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RealmSwift
 
-class AddAPetViewController: BaseViewController {
+class PetAdditionViewController: BaseViewController {
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -34,7 +34,7 @@ class AddAPetViewController: BaseViewController {
         return stack
     }()
     
-    private var viewModel: AddAPetViewModel!
+    private var viewModel: PetAdditionViewModel!
     
     private let disposeBag = DisposeBag()
     
@@ -149,7 +149,7 @@ class AddAPetViewController: BaseViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    func bind(viewModel: AddAPetViewModel) {
+    func bind(viewModel: PetAdditionViewModel) {
         self.viewModel = viewModel
         
         viewModel.dogNameTextField

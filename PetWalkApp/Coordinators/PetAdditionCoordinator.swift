@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class AddAPetCoordinator: CoordinatorType {
+class PetAdditionCoordinator: CoordinatorType {
     
     private let disposeBag = DisposeBag()
     
@@ -21,8 +21,8 @@ class AddAPetCoordinator: CoordinatorType {
     }
     
     func showAddAPetScreen() -> UIViewController {
-        let viewController = AddAPetViewController()
-        let viewModel = AddAPetViewModel()
+        let viewController = PetAdditionViewController()
+        let viewModel = PetAdditionViewModel()
         viewController.bind(viewModel: viewModel)
         
         viewModel.route
