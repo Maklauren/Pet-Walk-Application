@@ -15,7 +15,7 @@ class PetAdditionCoordinator: CoordinatorType {
     let navigationController = UINavigationController(rootViewController: UIViewController())
     
     func start() -> UIViewController {
-        //        navigationController.pushViewController(showAddAPetScreen(), animated: true)
+        navigationController.modalPresentationStyle = .fullScreen
         navigationController.setViewControllers([showAddAPetScreen()], animated: false)
         return navigationController
     }
@@ -30,7 +30,7 @@ class PetAdditionCoordinator: CoordinatorType {
                 guard let self = self else { return }
                 switch $0 {
                 case .creationSuccess:
-                    self.coordinate(to: MyPetsCoordinator(), animating: false)
+                    self.navigationController.dismiss(animated: true, completion: nil)
                 }
             })
             .disposed(by: disposeBag)

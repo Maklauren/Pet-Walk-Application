@@ -15,6 +15,8 @@ class MyPetsCoordinator: CoordinatorType {
     let navigationController = UINavigationController(rootViewController: UIViewController())
     let tabController = UITabBarController()
     
+    let nextCoordinator = PetAdditionCoordinator()
+    
     func start() -> UIViewController {
         navigationController.setViewControllers([tabController], animated: false)
         tabController.setViewControllers([showMyPetsScreen(), showAccaountProfileScreen()], animated: false)
@@ -25,23 +27,14 @@ class MyPetsCoordinator: CoordinatorType {
         let viewController = MyPetsViewController()
         let viewModel = MyPetsViewModel()
         viewController.bind(viewModel: viewModel)
-
+        
         viewModel.route
             .emit(onNext: { [weak self] in
                 guard let self = self else { return }
-                    self.coordinate(to: PetAdditionCoordinator(), animating: true)
+                self.navigationController.present(self.nextCoordinator.start(), animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
         
-        //        viewModel.route
-        //            .emit(onNext: { [weak self] in
-        //                guard let self = self else { return }
-        //                switch $0 {
-        //                case .loginSuccess:
-        //                    self.coordinate(to: HomeCoordinator(), animating: true)
-        //                }
-        //            })
-        //            .disposed(by: disposeBag)
         return viewController
     }
     
@@ -49,15 +42,6 @@ class MyPetsCoordinator: CoordinatorType {
         let viewController = AccountProfileViewController()
         let viewModel = AccountProfileViewModel()
         
-        //        viewModel.route
-        //            .emit(onNext: { [weak self] in
-        //                guard let self = self else { return }
-        //                switch $0 {
-        //                case .loginSuccess:
-        //                    self.coordinate(to: HomeCoordinator(), animating: true)
-        //                }
-        //            })
-        //            .disposed(by: disposeBag)
         return viewController
     }
 }

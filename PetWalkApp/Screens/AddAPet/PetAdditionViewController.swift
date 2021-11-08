@@ -51,8 +51,6 @@ class PetAdditionViewController: BaseViewController {
     
     var dogBirthdayDatePicker = UIDatePicker()
     
-//    var dogBirthdayTextField = Stylesheet().createTextField(textFieldText: "Birthday")
-    
     var bottomButton = Stylesheet().createButton(buttonText: "Add a pet", buttonColor: "Blue button", textColor: UIColor.white)
     
     let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
@@ -68,7 +66,7 @@ class PetAdditionViewController: BaseViewController {
         var backImageButton =  UIImage(named: "Back icon")
         backImageButton = backImageButton?.withRenderingMode(.alwaysOriginal)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImageButton, style: .plain, target: self, action: nil)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImageButton, style: .plain, target: self, action: #selector(onBack(_:)))
         
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
@@ -145,8 +143,8 @@ class PetAdditionViewController: BaseViewController {
         dogBirthdayDatePicker.tintColor = UIColor.white
     }
     
-    @IBAction func onBack(_ sender: AnyObject) {
-        _ = navigationController?.popViewController(animated: true)
+    @objc func onBack(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     func bind(viewModel: PetAdditionViewModel) {
@@ -178,7 +176,7 @@ class PetAdditionViewController: BaseViewController {
             .bind(onNext: viewModel.dogBreedFieldChanged)
             .disposed(by: disposeBag)
         
-        dogBirthdayDatePicker.rx.controlEvent(.editingChanged)
+        dogBirthdayDatePicker.rx.controlEvent(.valueChanged)
             .withLatestFrom(dogBirthdayDatePicker.rx.date)
             .distinctUntilChanged()
             .bind(onNext: viewModel.dogBirthdayFieldChanged)
