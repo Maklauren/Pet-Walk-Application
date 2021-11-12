@@ -39,7 +39,7 @@ class PetAdditionViewController: BaseViewController {
     private let disposeBag = DisposeBag()
     
     var subtitle = UILabel()
-    var dogPicture = UIImageView()
+    var dogPicture = UIButton()
     
     var dogNameLabel = Stylesheet().createLabel(labelText: "Name")
     var dogNameTextField = Stylesheet().createTextField(textFieldText: "Name")
@@ -134,10 +134,11 @@ class PetAdditionViewController: BaseViewController {
         subtitle.font = UIFont.boldSystemFont(ofSize: 30)
         subtitle.text = "Add a pet"
         
-        dogPicture.image = UIImage(named: "Default user")
+        dogPicture.setImage(UIImage(named: "Default user"), for: .normal)
         dogPicture.contentMode = .scaleAspectFill
         dogPicture.layer.cornerRadius = 60
         dogPicture.clipsToBounds = true
+        dogPicture.addTarget(self, action: #selector(addPicture(_:)), for: .touchUpInside)
         
         dogBirthdayDatePicker.datePickerMode = .date
         dogBirthdayDatePicker.tintColor = UIColor.white
@@ -186,4 +187,42 @@ class PetAdditionViewController: BaseViewController {
             .bind(onNext: viewModel.createPetTapped)
             .disposed(by: disposeBag)
     }
+
+    @objc func addPicture(_ sender: UIButton) {
+        let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
+        let photoLibrary = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+        
+        let pickerController = UIImagePickerController()
+        
+        if cameraAvailable && photoLibrary {
+            pickerController.sourceType = .camera
+        } else if photoLibrary {
+            pickerController.sourceType = .photoLibrary
+            pickerController.allowsEditing = true
+        } else {
+            return
+        }
+        
+        pickerController.delegate = self
+        
+        present(pickerController, animated: true, completion: nil)
+    }
 }
+
+extension PetAdditionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let imageUrl = info[.editedImage] as? UIImage {
+            
+            dogPicture.setImage(imageUrl, for: .normal)
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+

@@ -24,7 +24,7 @@ class AccountCreationViewController: BaseViewController {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         return backgroundView
     }()
-
+    
     var stackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -34,11 +34,11 @@ class AccountCreationViewController: BaseViewController {
     }()
     
     private var viewModel: AccountCreationViewModel!
-
+    
     private let disposeBag = DisposeBag()
     
     var subtitle = UILabel()
-    var userPicture = UIImageView()
+    var userPicture = UIButton()
     
     var fullNameLabel = Stylesheet().createLabel(labelText: "Required field")
     var fullNameTextField = Stylesheet().createTextField(textFieldText: "Full name")
@@ -120,7 +120,7 @@ class AccountCreationViewController: BaseViewController {
             bottomButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             bottomButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             bottomButton.heightAnchor.constraint(equalToConstant: 53),
-
+            
             loginButton.topAnchor.constraint(equalTo: bottomButton.bottomAnchor, constant: 4),
             loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             loginButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -5),
@@ -130,10 +130,11 @@ class AccountCreationViewController: BaseViewController {
         subtitle.font = UIFont.boldSystemFont(ofSize: 25)
         subtitle.text = "Account creation"
         
-        userPicture.image = UIImage(named: "Default user")
+        userPicture.setImage(UIImage(named: "Default user"), for: .normal)
         userPicture.contentMode = .scaleAspectFill
         userPicture.layer.cornerRadius = 60
         userPicture.clipsToBounds = true
+        userPicture.addTarget(self, action: #selector(addPicture(_:)), for: .touchUpInside)
         
         loginButton.setTitle("You have an account ? Login", for: .normal)
         loginButton.setTitleColor(UIColor(named: "Blue"), for: .normal)
@@ -150,18 +151,18 @@ class AccountCreationViewController: BaseViewController {
         viewModel.emailTextField
             .drive(emailTextField.rx.text)
             .disposed(by: disposeBag)
-
+        
         viewModel.passwordTextField
             .drive(passwordTextField.rx.text)
             .disposed(by: disposeBag)
-
+        
         fullNameTextField.rx.controlEvent(.editingChanged)
             .withLatestFrom(fullNameTextField.rx.text)
             .distinctUntilChanged()
             .replaceNil(with: "")
             .bind(onNext: viewModel.fullnameFieldChanged)
             .disposed(by: disposeBag)
-
+        
         emailTextField.rx.controlEvent(.editingChanged)
             .withLatestFrom(emailTextField.rx.text)
             .distinctUntilChanged()
@@ -175,9 +176,46 @@ class AccountCreationViewController: BaseViewController {
             .replaceNil(with: "")
             .bind(onNext: viewModel.passwordFieldChanged)
             .disposed(by: disposeBag)
-
+        
         bottomButton.rx.tap
             .bind(onNext: viewModel.createAccountTapped)
             .disposed(by: disposeBag)
+    }
+    
+    @objc func addPicture(_ sender: UIButton) {
+        let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
+        let photoLibrary = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+        
+        let pickerController = UIImagePickerController()
+        
+        if cameraAvailable && photoLibrary {
+            pickerController.sourceType = .camera
+        } else if photoLibrary {
+            pickerController.sourceType = .photoLibrary
+            pickerController.allowsEditing = true
+        } else {
+            return
+        }
+        
+        pickerController.delegate = self
+        
+        present(pickerController, animated: true, completion: nil)
+    }
+}
+
+extension AccountCreationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let imageUrl = info[.editedImage] as? UIImage {
+            
+            userPicture.setImage(imageUrl, for: .normal)
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
     }
 }
