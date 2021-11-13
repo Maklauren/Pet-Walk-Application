@@ -142,6 +142,10 @@ class PetAdditionViewController: BaseViewController {
         
         dogBirthdayDatePicker.datePickerMode = .date
         dogBirthdayDatePicker.tintColor = UIColor.white
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(notification:)), name: UIView.keyboardWillChangeFrameNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIView.keyboardWillShowNotification, object: nil)
     }
     
     @objc func onBack(_ sender: Any) {
@@ -188,6 +192,25 @@ class PetAdditionViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 
+    @objc func keyboardWillShow(_: Notification) {
+        let firstResponder: UIView
+        if dogNameTextField.isFirstResponder {
+            firstResponder = dogNameTextField
+        } else if dogBreedTextField.isFirstResponder {
+            firstResponder = dogBreedTextField
+        } else {
+            return
+        }
+        scrollView.scrollRectToVisible(firstResponder.frame, animated: true)
+    }
+    
+    @objc func keyboardWillChangeFrame(notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIView.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        scrollView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: view.frame.height - keyboardFrame.origin.y, right: 0.0)
+    }
+    
     @objc func addPicture(_ sender: UIButton) {
         let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
         let photoLibrary = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
@@ -202,7 +225,6 @@ class PetAdditionViewController: BaseViewController {
         } else {
             return
         }
-        
         pickerController.delegate = self
         
         present(pickerController, animated: true, completion: nil)
