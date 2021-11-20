@@ -14,5 +14,5 @@ class User: Object {
     @Persisted var fullName: String = ""
     @Persisted var email: String = ""
     
-    var pets = List<Dog>()
+    @Persisted var pets: List<Dog>
 }
