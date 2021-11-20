@@ -28,8 +28,7 @@ final class PetAdditionRepository {
         pet.dogName = name
         pet.dogBreed = breed
         pet.dogAge = birtday
-        
-        
+    
         try! realm.write {
             realm.add(pet)
         }

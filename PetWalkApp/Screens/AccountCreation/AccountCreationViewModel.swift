@@ -19,6 +19,11 @@ final class AccountCreationViewModel {
     
     private let disposeBag = DisposeBag()
     
+    private let _userPictureChanged = PublishRelay<UIImageView>()
+    func userPictureChanged(_ image: UIImageView) {
+        _userPictureChanged.accept(image)
+    }
+    
     private let _fullnameFieldChanged = PublishRelay<String>()
     func fullnameFieldChanged(_ text: String) {
         _fullnameFieldChanged.accept(text)
@@ -38,6 +43,8 @@ final class AccountCreationViewModel {
     func createAccountTapped() {
         _createAccountTapped.accept(())
     }
+    
+    lazy var userPicture = _userPictureChanged
     
     lazy var fullnameTextField = _fullnameFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
     

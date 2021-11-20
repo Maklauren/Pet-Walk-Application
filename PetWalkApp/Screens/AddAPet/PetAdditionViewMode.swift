@@ -38,11 +38,6 @@ final class PetAdditionViewModel {
         _createPetTapped.accept(())
     }
     
-    private let _leftNavigationBarItemTapped = PublishRelay<Void>()
-    func leftNavigationBarItemTapped() {
-        _leftNavigationBarItemTapped.accept(())
-    }
-    
     lazy var dogNameTextField = _dogNameFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
     
     lazy var dogBreedTextField = _dogBreedFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
@@ -64,7 +59,5 @@ final class PetAdditionViewModel {
     
     init() {
         _createPetTapped.asSignal().emit(onNext: { print("PET ADDED") }).disposed(by: disposeBag)
-        _leftNavigationBarItemTapped.asSignal().emit(onNext: { print("BACK") }).disposed(by: disposeBag)
     }
-    
 }
