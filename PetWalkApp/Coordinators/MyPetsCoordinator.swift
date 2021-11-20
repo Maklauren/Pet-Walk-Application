@@ -15,17 +15,19 @@ class MyPetsCoordinator: CoordinatorType {
     let navigationController = UINavigationController(rootViewController: UIViewController())
     let tabController = UITabBarController()
     
+    var petsRepository = PetRepository()
+    
     let nextCoordinator = PetAdditionCoordinator()
     
     func start() -> UIViewController {
         navigationController.setViewControllers([tabController], animated: false)
-        tabController.setViewControllers([showMyPetsScreen(), showAccaountProfileScreen()], animated: false)
+        tabController.setViewControllers([showMyPetsScreen(), showAccountProfileScreen()], animated: false)
         return navigationController
     }
     
     func showMyPetsScreen() -> UIViewController {
         let viewController = MyPetsViewController()
-        let viewModel = MyPetsViewModel()
+        let viewModel = MyPetsViewModel(petsRepository: petsRepository)
         viewController.bind(viewModel: viewModel)
         
         viewModel.route
@@ -38,7 +40,7 @@ class MyPetsCoordinator: CoordinatorType {
         return viewController
     }
     
-    func showAccaountProfileScreen() -> UIViewController {
+    func showAccountProfileScreen() -> UIViewController {
         let viewController = AccountProfileViewController()
         let viewModel = AccountProfileViewModel()
         

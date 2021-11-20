@@ -11,17 +11,39 @@ import RxRelay
 import RxCocoa
 
 final class MyPetsViewModel {
-
+    
     private let disposeBag = DisposeBag()
-
+    
+    struct Cell {
+        var breed: String
+        var name: String
+        //        var age: String
+    }
+    
+    private var dogArray = BehaviorRelay<[Dog]>(value: [])
+    
+    lazy var cells = dogArray.asDriver()
+        .map {
+            $0.map { (dog: Dog) -> Cell in
+                Cell(breed: dog.dogBreed, name: dog.dogName)
+            }
+        }
+    
     private let _createPetTapped = PublishRelay<Void>()
     func createPetTapped() {
         _createPetTapped.accept(())
     }
     
     lazy var route: Signal<Void> = _createPetTapped.asSignal()
-
-    init() {
+    
+    init(petsRepository: PetRepository) {
+        
+        petsRepository.getPets()
+            .subscribe(onSuccess: {
+                self.dogArray.accept(Array($0))
+            })
+            .disposed(by: disposeBag)
     }
-
 }
+
+

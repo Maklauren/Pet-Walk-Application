@@ -30,6 +30,8 @@ class MyPetsViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
+    private let tableView = UITableView()
+    
     var screenTitle = UILabel()
     var subtitle = UILabel()
     
@@ -50,19 +52,17 @@ class MyPetsViewController: BaseViewController {
         self.view.backgroundColor = UIColor(named: "Background")
         
         navigationController?.navigationBar.isHidden = true
-        //        navigationController?.navigationBar.prefersLargeTitles = true
-        //        title = "My pets"
-        //        navigationItem.setHidesBackButton(true, animated: false)
         
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         backgroundView.addSubview(screenTitle)
         backgroundView.addSubview(subtitle)
+        backgroundView.addSubview(tableView)
         backgroundView.addSubview(addButton)
         
         backgroundView.backgroundColor = UIColor(named: "Background")
         
-        [screenTitle, subtitle, addButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [screenTitle, subtitle, tableView, addButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -82,7 +82,12 @@ class MyPetsViewController: BaseViewController {
             subtitle.topAnchor.constraint(equalTo: screenTitle.bottomAnchor, constant: 16),
             subtitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             
-            addButton.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 500),
+            tableView.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 8),
+            tableView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            tableView.heightAnchor.constraint(equalToConstant: 480),
+            
+            addButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),
             addButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -100),
             addButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             addButton.heightAnchor.constraint(equalToConstant: 200),
@@ -91,25 +96,38 @@ class MyPetsViewController: BaseViewController {
         
         screenTitle.textColor = UIColor.black
         screenTitle.font = UIFont.systemFont(ofSize: 39, weight: UIFont.Weight.heavy)
-        //        screenTitle.font = UIFont.boldSystemFont(ofSize: 30)
         screenTitle.text = "My pets"
         
         subtitle.textColor = UIColor.black
-        subtitle.font = UIFont.boldSystemFont(ofSize: 30)
+        subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
         subtitle.text = "Dogs"
         
+        tableView.register(PetCellView.self, forCellReuseIdentifier: "cell")
+        tableView.backgroundColor = UIColor(named: "Background")
+        tableView.delegate = self
+        
         addButton.setImage(UIImage(named: "Add button"), for: .normal)
-        //        addButton.image = UIImage(named: "Add button")
-        //        addButton.contentMode = .scaleAspectFill
-        //        //        userPicture.layer.cornerRadius = 60
-        //        addButton.clipsToBounds = false
     }
     
     func bind(viewModel: MyPetsViewModel) {
         self.viewModel = viewModel
         
+        viewModel.cells
+                .drive(tableView.rx.items(cellIdentifier: "cell", cellType: PetCellView.self)) { index, model, cell in
+                    cell.breedText = model.breed
+                    cell.nameText = model.name
+                    //                    cell.dogAge.text = model.age
+                }
+                .disposed(by: disposeBag)
+        
         addButton.rx.tap
             .bind(onNext: viewModel.createPetTapped)
             .disposed(by: disposeBag)
+    }
+}
+
+extension MyPetsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 96
     }
 }
