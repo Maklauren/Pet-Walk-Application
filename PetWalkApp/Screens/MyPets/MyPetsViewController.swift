@@ -100,7 +100,7 @@ class MyPetsViewController: BaseViewController {
         subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
         subtitle.text = "Dogs"
         
-        tableView.register(PetCellView.self, forCellReuseIdentifier: "cell")
+        tableView.register(PetTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = UIColor(named: "Background")
         tableView.delegate = self
         
@@ -111,7 +111,7 @@ class MyPetsViewController: BaseViewController {
         self.viewModel = viewModel
         
         viewModel.cells
-                .drive(tableView.rx.items(cellIdentifier: "cell", cellType: PetCellView.self)) { index, model, cell in
+                .drive(tableView.rx.items(cellIdentifier: "cell", cellType: PetTableViewCell.self)) { index, model, cell in
                     cell.breedText = model.breed
                     cell.nameText = model.name
                     //                    cell.dogAge.text = model.age
