@@ -29,7 +29,7 @@ class AccountCreationCoordinator: CoordinatorType {
                 guard let self = self else { return }
                 switch $0 {
                 case .creationSuccess:
-                    self.coordinate(to: MyPetsCoordinator(), animating: false)
+                    self.coordinate(to: HomeCoordinator(), animating: false)
                 }
             })
             .disposed(by: disposeBag)

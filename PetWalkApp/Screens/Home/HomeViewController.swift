@@ -1,8 +1,8 @@
 //
-//  AccountProfileViewController.swift
+//  HomeViewController.swift
 //  PetWalkApp
 //
-//  Created by Павел Черноок on 20.10.21.
+//  Created by Павел Черноок on 21.11.21.
 //
 
 import UIKit
@@ -10,8 +10,8 @@ import RxSwift
 import RxCocoa
 import RealmSwift
 
-class AccountProfileViewController: BaseViewController {
-    
+class HomeViewController: BaseViewController {
+
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor(named: "Background")
@@ -26,46 +26,33 @@ class AccountProfileViewController: BaseViewController {
         return backgroundView
     }()
     
-    private var viewModel: AccountProfileViewModel!
+    private var viewModel: HomeViewModel!
     
     private let disposeBag = DisposeBag()
     
     var screenTitle = UILabel()
     var subtitle = UILabel()
-    var userPicture = UIImageView()
-    
-    var userName = UILabel()
-    
-    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
     
     override init() {
         super.init()
-        self.tabBarItem = UITabBarItem(title: "Profile",
-                                       image: UIImage(systemName: "person.circle"),
-                                       selectedImage: UIImage(systemName: "person.circle.fill"))
+        self.tabBarItem = UITabBarItem(title: "",
+                                       image: UIImage(systemName: "house"),
+                                       selectedImage: UIImage(systemName: "house.fill"))
     }
     
-    override func loadView() {
-        super.loadView()
-        
-        self.view.backgroundColor = UIColor(named: "Background")
-        
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
         navigationController?.navigationBar.isHidden = true
-        //        navigationController?.navigationBar.prefersLargeTitles = true
-        //        title = "Account"
-        //        navigationItem.setHidesBackButton(true, animated: false)
         
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         backgroundView.addSubview(screenTitle)
         backgroundView.addSubview(subtitle)
-        backgroundView.addSubview(userPicture)
-        backgroundView.addSubview(userName)
         
         backgroundView.backgroundColor = UIColor(named: "Background")
         
-        [screenTitle, subtitle, userPicture, userName].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [screenTitle, subtitle].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -84,37 +71,18 @@ class AccountProfileViewController: BaseViewController {
             
             subtitle.topAnchor.constraint(equalTo: screenTitle.bottomAnchor, constant: 16),
             subtitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
-            
-            userPicture.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 19),
-            userPicture.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
-            userPicture.heightAnchor.constraint(equalToConstant: 80),
-            userPicture.widthAnchor.constraint(equalToConstant: 80),
-            
-            userName.centerYAnchor.constraint(equalTo: userPicture.centerYAnchor),
-            userName.leadingAnchor.constraint(equalTo: userPicture.trailingAnchor, constant: 8),
-            
         ])
         
         screenTitle.textColor = UIColor.black
         screenTitle.font = UIFont.systemFont(ofSize: 39, weight: UIFont.Weight.heavy)
-        screenTitle.text = "Account"
+        screenTitle.text = "Home"
         
         subtitle.textColor = UIColor.black
-        //        subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.semibold)
-        subtitle.font = UIFont.boldSystemFont(ofSize: 30)
-        subtitle.text = "Profile"
-        
-        userPicture.image = UIImage(named: "Default user")
-        userPicture.contentMode = .scaleAspectFill
-        userPicture.layer.cornerRadius = 40
-        userPicture.clipsToBounds = true
-        
-        
-        userName.text = realm.objects(User.self).last?.fullName
-        userName.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
+        subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
+        subtitle.text = "Dashboard"
     }
     
-    func bind(viewModel: AccountProfileViewModel) {
+    func bind(viewModel: HomeViewModel) {
         self.viewModel = viewModel
     }
 }

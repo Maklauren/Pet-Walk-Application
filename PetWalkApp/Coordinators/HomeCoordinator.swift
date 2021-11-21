@@ -1,14 +1,14 @@
 //
-//  MyPetsCoordinator.swift
+//  HomeCoordinator.swift
 //  PetWalkApp
 //
-//  Created by Павел Черноок on 27.10.21.
+//  Created by Павел Черноок on 21.11.21.
 //
 
 import UIKit
 import RxSwift
 
-class MyPetsCoordinator: CoordinatorType {
+class HomeCoordinator: CoordinatorType {
     
     private let disposeBag = DisposeBag()
     
@@ -16,13 +16,20 @@ class MyPetsCoordinator: CoordinatorType {
     let tabController = UITabBarController()
     
     var petsRepository = PetRepository()
-    
     let nextCoordinator = PetAdditionCoordinator()
     
     func start() -> UIViewController {
         navigationController.setViewControllers([tabController], animated: false)
-        tabController.setViewControllers([showMyPetsScreen(), showAccountProfileScreen()], animated: false)
+        tabController.setViewControllers([showHomeScreen(), showMyPetsScreen(), showAccountProfileScreen()], animated: false)
         return navigationController
+    }
+    
+    func showHomeScreen() -> UIViewController {
+        let viewController = HomeViewController()
+        let viewModel = HomeViewModel()
+        viewController.bind(viewModel: viewModel)
+        
+        return viewController
     }
     
     func showMyPetsScreen() -> UIViewController {
@@ -43,9 +50,9 @@ class MyPetsCoordinator: CoordinatorType {
     func showAccountProfileScreen() -> UIViewController {
         let viewController = AccountProfileViewController()
         let viewModel = AccountProfileViewModel()
+        viewController.bind(viewModel: viewModel)
         
         return viewController
     }
 }
-
 
