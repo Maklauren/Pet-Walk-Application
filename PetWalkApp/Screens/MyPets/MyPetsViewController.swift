@@ -41,16 +41,14 @@ class MyPetsViewController: BaseViewController {
     
     override init() {
         super.init()
-        self.tabBarItem = UITabBarItem(title: "Profile",
-                                       image: UIImage(systemName: "camera.metering.unknown"),
-                                       selectedImage: UIImage(systemName: "camera.metering.spot"))
+        self.tabBarItem = UITabBarItem(title: "",
+                                       image: UIImage(systemName: "heart"),
+                                       selectedImage: UIImage(systemName: "heart.fill"))
     }
     
     override func loadView() {
         super.loadView()
-        
-        self.view.backgroundColor = UIColor(named: "Background")
-        
+    
         navigationController?.navigationBar.isHidden = true
         
         view.addSubview(scrollView)

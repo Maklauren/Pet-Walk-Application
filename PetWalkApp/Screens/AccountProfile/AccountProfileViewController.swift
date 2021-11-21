@@ -40,7 +40,7 @@ class AccountProfileViewController: BaseViewController {
     
     override init() {
         super.init()
-        self.tabBarItem = UITabBarItem(title: "Profile",
+        self.tabBarItem = UITabBarItem(title: "",
                                        image: UIImage(systemName: "person.circle"),
                                        selectedImage: UIImage(systemName: "person.circle.fill"))
     }
@@ -52,9 +52,6 @@ class AccountProfileViewController: BaseViewController {
         
         
         navigationController?.navigationBar.isHidden = true
-        //        navigationController?.navigationBar.prefersLargeTitles = true
-        //        title = "Account"
-        //        navigationItem.setHidesBackButton(true, animated: false)
         
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
@@ -92,7 +89,6 @@ class AccountProfileViewController: BaseViewController {
             
             userName.centerYAnchor.constraint(equalTo: userPicture.centerYAnchor),
             userName.leadingAnchor.constraint(equalTo: userPicture.trailingAnchor, constant: 8),
-            
         ])
         
         screenTitle.textColor = UIColor.black
@@ -100,8 +96,7 @@ class AccountProfileViewController: BaseViewController {
         screenTitle.text = "Account"
         
         subtitle.textColor = UIColor.black
-        //        subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.semibold)
-        subtitle.font = UIFont.boldSystemFont(ofSize: 30)
+        subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
         subtitle.text = "Profile"
         
         userPicture.image = UIImage(named: "Default user")
