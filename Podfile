@@ -12,5 +12,6 @@ pod 'RxSwift'
 pod 'RxCocoa'
 pod 'RxRelay'
 pod 'RealmSwift'
+pod 'RxDataSources' 
 
 end
