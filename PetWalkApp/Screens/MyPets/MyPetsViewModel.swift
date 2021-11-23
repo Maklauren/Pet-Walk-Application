@@ -34,12 +34,26 @@ final class MyPetsViewModel {
         _createPetTapped.accept(())
     }
     
+    private let _refresh = PublishRelay<Void>()
+    func refresh() {
+        _refresh.accept(())
+    }
+    
     lazy var route: Signal<Void> = _createPetTapped.asSignal()
     
     init(petsRepository: PetRepository) {
         
         petsRepository.getPets()
             .subscribe(onSuccess: {
+                self.dogArray.accept(Array($0))
+            })
+            .disposed(by: disposeBag)
+        
+        _refresh
+            .flatMap {
+                petsRepository.getPets()
+                    }
+            .subscribe(onNext: {
                 self.dogArray.accept(Array($0))
             })
             .disposed(by: disposeBag)

@@ -32,6 +32,10 @@ class MyPetsViewController: BaseViewController {
     
     private let tableView = UITableView()
     
+    private lazy var refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { [weak self] _ in
+        self?.viewModel.refresh()
+    }))
+    
     var screenTitle = UILabel()
     var subtitle = UILabel()
     
@@ -48,7 +52,7 @@ class MyPetsViewController: BaseViewController {
     
     override func loadView() {
         super.loadView()
-    
+        
         navigationController?.navigationBar.isHidden = true
         
         view.addSubview(scrollView)
@@ -59,6 +63,8 @@ class MyPetsViewController: BaseViewController {
         backgroundView.addSubview(addButton)
         
         backgroundView.backgroundColor = UIColor(named: "Background")
+        
+        scrollView.refreshControl = refreshControl
         
         [screenTitle, subtitle, tableView, addButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
@@ -111,12 +117,15 @@ class MyPetsViewController: BaseViewController {
         self.viewModel = viewModel
         
         viewModel.cells
-                .drive(tableView.rx.items(cellIdentifier: "cell", cellType: PetTableViewCell.self)) { index, model, cell in
-                    cell.breedText = model.breed
-                    cell.nameText = model.name
-                    //                    cell.dogAge.text = model.age
-                }
-                .disposed(by: disposeBag)
+            .do(onNext: { [weak self] _ in
+                self?.refreshControl.endRefreshing()
+            })
+            .drive(tableView.rx.items(cellIdentifier: "cell", cellType: PetTableViewCell.self)) { index, model, cell in
+                cell.breedText = model.breed
+                cell.nameText = model.name
+                //                    cell.dogAge.text = model.age
+            }
+            .disposed(by: disposeBag)
         
         addButton.rx.tap
             .bind(onNext: viewModel.createPetTapped)
