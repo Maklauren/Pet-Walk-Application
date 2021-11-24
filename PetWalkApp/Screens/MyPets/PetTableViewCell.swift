@@ -8,24 +8,26 @@
 import UIKit
 
 class PetTableViewCell: UITableViewCell {
-
+    
+    static var identifier = "PetTableViewCell"
+    
     private let image = UIImageView()
     private let breed = UILabel()
     private let name = UILabel()
     private let age = UILabel()
     private let infoButton = UIImageView()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
         contentView.addSubview(image)
         contentView.addSubview(breed)
         contentView.addSubview(name)
         contentView.addSubview(age)
         contentView.addSubview(infoButton)
-
+        
         [image, breed, name, age, infoButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-
+        
         NSLayoutConstraint.activate([
             image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
@@ -51,8 +53,8 @@ class PetTableViewCell: UITableViewCell {
         image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 40
         image.clipsToBounds = true
-        image.layer.borderWidth = 5.0
-        image.layer.borderColor = UIColor.white.cgColor
+        image.layer.borderWidth = 1.5
+        image.layer.borderColor = UIColor.black.cgColor
         
         breed.textColor = UIColor(named: "Text")
         breed.font = UIFont.systemFont(ofSize: 16)
@@ -67,14 +69,11 @@ class PetTableViewCell: UITableViewCell {
         infoButton.contentMode = .scaleAspectFill
         infoButton.clipsToBounds = true
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func prepareForReuse() {
-    }
-
+    
     var breedText: String = "" {
         didSet {
             breed.text = breedText

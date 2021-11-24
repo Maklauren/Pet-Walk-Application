@@ -30,18 +30,15 @@ class MyPetsViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    private let tableView = UITableView()
-    
     private lazy var refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { [weak self] _ in
         self?.viewModel.refresh()
     }))
     
     var screenTitle = UILabel()
     var subtitle = UILabel()
-    
     var addButton = UIButton()
     
-    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
+    private let tableView = UITableView()
     
     override init() {
         super.init()
@@ -61,8 +58,6 @@ class MyPetsViewController: BaseViewController {
         backgroundView.addSubview(subtitle)
         backgroundView.addSubview(tableView)
         backgroundView.addSubview(addButton)
-        
-        backgroundView.backgroundColor = UIColor(named: "Background")
         
         scrollView.refreshControl = refreshControl
         
@@ -106,7 +101,7 @@ class MyPetsViewController: BaseViewController {
         subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
         subtitle.text = "Dogs"
         
-        tableView.register(PetTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(PetTableViewCell.self, forCellReuseIdentifier: PetTableViewCell.identifier)
         tableView.backgroundColor = UIColor(named: "Background")
         tableView.delegate = self
         
@@ -120,10 +115,9 @@ class MyPetsViewController: BaseViewController {
             .do(onNext: { [weak self] _ in
                 self?.refreshControl.endRefreshing()
             })
-            .drive(tableView.rx.items(cellIdentifier: "cell", cellType: PetTableViewCell.self)) { index, model, cell in
+            .drive(tableView.rx.items(cellIdentifier: PetTableViewCell.identifier, cellType: PetTableViewCell.self)) { index, model, cell in
                 cell.breedText = model.breed
                 cell.nameText = model.name
-                //                    cell.dogAge.text = model.age
             }
             .disposed(by: disposeBag)
         

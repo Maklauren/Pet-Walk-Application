@@ -69,8 +69,6 @@ class AccountCreationViewController: BaseViewController {
         backgroundView.addSubview(bottomButton)
         backgroundView.addSubview(loginButton)
         
-        backgroundView.backgroundColor = UIColor(named: "Background")
-        
         [subtitle, userPicture, loginButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         //MARK: -Stack View

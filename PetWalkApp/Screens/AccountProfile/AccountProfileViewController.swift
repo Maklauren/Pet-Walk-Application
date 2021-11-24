@@ -30,13 +30,12 @@ class AccountProfileViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
+    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
+    
     var screenTitle = UILabel()
     var subtitle = UILabel()
     var userPicture = UIImageView()
-    
     var userName = UILabel()
-    
-    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
     
     override init() {
         super.init()
@@ -59,8 +58,6 @@ class AccountProfileViewController: BaseViewController {
         backgroundView.addSubview(subtitle)
         backgroundView.addSubview(userPicture)
         backgroundView.addSubview(userName)
-        
-        backgroundView.backgroundColor = UIColor(named: "Background")
         
         [screenTitle, subtitle, userPicture, userName].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         

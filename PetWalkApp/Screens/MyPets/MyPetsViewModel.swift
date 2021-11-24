@@ -17,7 +17,6 @@ final class MyPetsViewModel {
     struct Cell {
         var breed: String
         var name: String
-        //        var age: String
     }
     
     private var dogArray = BehaviorRelay<[Dog]>(value: [])
@@ -52,7 +51,7 @@ final class MyPetsViewModel {
         _refresh
             .flatMap {
                 petsRepository.getPets()
-                    }
+            }
             .subscribe(onNext: {
                 self.dogArray.accept(Array($0))
             })

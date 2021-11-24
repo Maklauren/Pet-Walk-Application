@@ -24,7 +24,7 @@ class StartScreenViewController: BaseViewController {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         return backgroundView
     }()
-
+    
     var stackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ class StartScreenViewController: BaseViewController {
     }()
     
     private var viewModel: StartScreenViewModel!
-
+    
     private let disposeBag = DisposeBag()
     
     var logoImage = UIImageView()
@@ -51,8 +51,6 @@ class StartScreenViewController: BaseViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         backgroundView.addSubview(stackView)
-        
-        backgroundView.backgroundColor = UIColor(named: "Background")
         
         stackView.addArrangedSubview(logoImage)
         stackView.addArrangedSubview(illustrationImage)
@@ -92,9 +90,9 @@ class StartScreenViewController: BaseViewController {
         appInformation.textColor = UIColor(named: "Text")
         appInformation.numberOfLines = 10
         appInformation.font = UIFont.systemFont(ofSize: 18)
-
+        
         let attributedString = NSMutableAttributedString(string: "The Pet Walk app is designed for taking care of your pet. Fixe objectives based on their needs. See their progresses and share them with the community.")
-
+        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 8
         paragraphStyle.alignment = .left

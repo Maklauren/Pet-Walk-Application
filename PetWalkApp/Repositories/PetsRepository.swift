@@ -14,7 +14,7 @@ import Alamofire
 final class PetRepository {
     
     private lazy var realm = try! Realm()
-
+    
     func getPets() -> Single<Results<Dog>> {
         return .just(realm.objects(Dog.self))
     }

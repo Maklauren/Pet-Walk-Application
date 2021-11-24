@@ -38,6 +38,8 @@ class PetAdditionViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
+    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
+    
     var subtitle = UILabel()
     var dogPicture = UIButton()
     
@@ -53,12 +55,8 @@ class PetAdditionViewController: BaseViewController {
     
     var bottomButton = Stylesheet().createButton(buttonText: "Add a pet", buttonColor: "Blue button", textColor: UIColor.white)
     
-    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
-    
     override func loadView() {
         super.loadView()
-        
-        self.view.backgroundColor = UIColor(named: "Background")
         
         navigationController?.navigationBar.isHidden = false
         navigationItem.setHidesBackButton(false, animated: false)
@@ -75,8 +73,6 @@ class PetAdditionViewController: BaseViewController {
         backgroundView.addSubview(stackView)
         backgroundView.addSubview(bottomButton)
         backgroundView.addSubview(dogBirthdayDatePicker)
-        
-        backgroundView.backgroundColor = UIColor(named: "Background")
         
         [subtitle, dogPicture, dogBirthdayDatePicker].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
@@ -129,7 +125,7 @@ class PetAdditionViewController: BaseViewController {
             bottomButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -5),
             bottomButton.heightAnchor.constraint(equalToConstant: 53),
         ])
-
+        
         subtitle.textColor = UIColor.black
         subtitle.font = UIFont.boldSystemFont(ofSize: 30)
         subtitle.text = "Add a pet"
@@ -162,18 +158,18 @@ class PetAdditionViewController: BaseViewController {
         viewModel.dogBreedTextField
             .drive(dogBreedTextField.rx.text)
             .disposed(by: disposeBag)
-
+        
         viewModel.dogBirthdayTextField
             .bind(to: dogBirthdayDatePicker.rx.date)
             .disposed(by: disposeBag)
-
+        
         dogNameTextField.rx.controlEvent(.editingChanged)
             .withLatestFrom(dogNameTextField.rx.text)
             .distinctUntilChanged()
             .replaceNil(with: "")
             .bind(onNext: viewModel.dogNameFieldChanged)
             .disposed(by: disposeBag)
-
+        
         dogBreedTextField.rx.controlEvent(.editingChanged)
             .withLatestFrom(dogBreedTextField.rx.text)
             .distinctUntilChanged()
@@ -186,12 +182,12 @@ class PetAdditionViewController: BaseViewController {
             .distinctUntilChanged()
             .bind(onNext: viewModel.dogBirthdayFieldChanged)
             .disposed(by: disposeBag)
-
+        
         bottomButton.rx.tap
             .bind(onNext: viewModel.createPetTapped)
             .disposed(by: disposeBag)
     }
-
+    
     @objc func keyboardWillShow(_: Notification) {
         let firstResponder: UIView
         if dogNameTextField.isFirstResponder {
