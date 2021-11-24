@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2301DC6B27490145008BF4AE /* PetCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301DC6A27490145008BF4AE /* PetCellView.swift */; };
+		2301DC6B27490145008BF4AE /* PetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301DC6A27490145008BF4AE /* PetTableViewCell.swift */; };
 		2335FD1D2747DFBD00AC89CF /* PetsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335FD1C2747DFBD00AC89CF /* PetsRepository.swift */; };
 		237F4D11274A4FE600153D38 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F4D10274A4FE600153D38 /* HomeViewController.swift */; };
 		237F4D13274A501D00153D38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F4D12274A501D00153D38 /* HomeViewModel.swift */; };
 		237F4D15274A526400153D38 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F4D14274A526400153D38 /* HomeCoordinator.swift */; };
+		237F4D18274A691E00153D38 /* PetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F4D17274A691E00153D38 /* PetCollectionViewCell.swift */; };
 		2385F2DF270F6ADF0096D588 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2385F2DE270F6ADF0096D588 /* GoogleService-Info.plist */; };
 		23B160F42729A8F500ACAB86 /* MyPetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B160F32729A8F500ACAB86 /* MyPetsViewController.swift */; };
 		23B160F62729AAB600ACAB86 /* MyPetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B160F52729AAB600ACAB86 /* MyPetsViewModel.swift */; };
@@ -47,11 +48,12 @@
 
 /* Begin PBXFileReference section */
 		098BB68DA7546E48C96D539D /* Pods-PetWalkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetWalkApp.debug.xcconfig"; path = "Target Support Files/Pods-PetWalkApp/Pods-PetWalkApp.debug.xcconfig"; sourceTree = "<group>"; };
-		2301DC6A27490145008BF4AE /* PetCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetCellView.swift; sourceTree = "<group>"; };
+		2301DC6A27490145008BF4AE /* PetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTableViewCell.swift; sourceTree = "<group>"; };
 		2335FD1C2747DFBD00AC89CF /* PetsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetsRepository.swift; sourceTree = "<group>"; };
 		237F4D10274A4FE600153D38 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		237F4D12274A501D00153D38 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		237F4D14274A526400153D38 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		237F4D17274A691E00153D38 /* PetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetCollectionViewCell.swift; sourceTree = "<group>"; };
 		2385F2DE270F6ADF0096D588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		23B160F32729A8F500ACAB86 /* MyPetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsViewController.swift; sourceTree = "<group>"; };
 		23B160F52729AAB600ACAB86 /* MyPetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsViewModel.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 			children = (
 				237F4D10274A4FE600153D38 /* HomeViewController.swift */,
 				237F4D12274A501D00153D38 /* HomeViewModel.swift */,
+				237F4D17274A691E00153D38 /* PetCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -131,7 +134,7 @@
 			children = (
 				23B160F32729A8F500ACAB86 /* MyPetsViewController.swift */,
 				23B160F52729AAB600ACAB86 /* MyPetsViewModel.swift */,
-				2301DC6A27490145008BF4AE /* PetCellView.swift */,
+				2301DC6A27490145008BF4AE /* PetTableViewCell.swift */,
 			);
 			path = MyPets;
 			sourceTree = "<group>";
@@ -428,7 +431,7 @@
 				23F7FA3627281E8F009C2AC8 /* Pet.swift in Sources */,
 				23DEF8E02720257A0022DCC6 /* StartScreenCoordinator.swift in Sources */,
 				23DCF5D3272EB6AE00B295AA /* PetAdditionViewController.swift in Sources */,
-				2301DC6B27490145008BF4AE /* PetCellView.swift in Sources */,
+				2301DC6B27490145008BF4AE /* PetTableViewCell.swift in Sources */,
 				23D5E1E3273692B800D75D4E /* PetInformation.swift in Sources */,
 				23D5E1E127368ADF00D75D4E /* PetAdditionRepository.swift in Sources */,
 				23D5E1E52736AB4200D75D4E /* PetState.swift in Sources */,
@@ -440,6 +443,7 @@
 				23B71E0C270C7A5600010C87 /* AppDelegate.swift in Sources */,
 				23DEF8DB272024D90022DCC6 /* StartScreenViewModel.swift in Sources */,
 				23DEF8DE272025610022DCC6 /* CoordinatorType.swift in Sources */,
+				237F4D18274A691E00153D38 /* PetCollectionViewCell.swift in Sources */,
 				23DEF8EB272037560022DCC6 /* AccountCreationCoordinator.swift in Sources */,
 				23DEF8EF272047AC0022DCC6 /* UserSession.swift in Sources */,
 				23B160F62729AAB600ACAB86 /* MyPetsViewModel.swift in Sources */,
