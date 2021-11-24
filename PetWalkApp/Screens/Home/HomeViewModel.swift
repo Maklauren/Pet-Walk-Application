@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import RxRelay
 import RxCocoa
+import RxOptional
 
 final class HomeViewModel {
     
@@ -17,11 +18,29 @@ final class HomeViewModel {
     
     private let disposeBag = DisposeBag()
     
+    struct Cell {
+        var name: String
+    }
+    
     lazy var route: Signal<Route> = Signal
         .merge(
             .never()
         )
     
-    init() {
+    private var dogArray = BehaviorRelay<[Dog]>(value: [])
+    
+    lazy var cells = dogArray.asDriver()
+        .map {
+            $0.map { (dog: Dog) -> Cell in
+                Cell(name: dog.dogName)
+            }
+        }
+    
+    init(petsRepository: PetRepository) {
+        petsRepository.getPets()
+            .subscribe(onSuccess: {
+                self.dogArray.accept(Array($0))
+            })
+            .disposed(by: disposeBag)
     }
 }

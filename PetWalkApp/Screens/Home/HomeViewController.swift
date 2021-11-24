@@ -9,9 +9,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RealmSwift
+import RxDataSources
+import RxOptional
+
+struct Doggie: Hashable {
+    var doggieName: String
+}
 
 class HomeViewController: BaseViewController {
-
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor(named: "Background")
@@ -33,6 +39,8 @@ class HomeViewController: BaseViewController {
     var screenTitle = UILabel()
     var subtitle = UILabel()
     
+    private var collectionView: UICollectionView?
+    
     override init() {
         super.init()
         self.tabBarItem = UITabBarItem(title: "",
@@ -42,17 +50,32 @@ class HomeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 344.0, height: 96.0)
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        guard let collectionView = collectionView else {
+            return
+        }
+        
+        collectionView.register(PetCollectionViewCell.self, forCellWithReuseIdentifier: PetCollectionViewCell.identifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
         navigationController?.navigationBar.isHidden = true
         
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         backgroundView.addSubview(screenTitle)
         backgroundView.addSubview(subtitle)
+        backgroundView.addSubview(collectionView)
         
-        backgroundView.backgroundColor = UIColor(named: "Background")
+        collectionView.frame = backgroundView.bounds
         
-        [screenTitle, subtitle].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [screenTitle, subtitle, collectionView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -71,6 +94,12 @@ class HomeViewController: BaseViewController {
             
             subtitle.topAnchor.constraint(equalTo: screenTitle.bottomAnchor, constant: 16),
             subtitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            
+            collectionView.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 8),
+            collectionView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            collectionView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -550),
+            collectionView.heightAnchor.constraint(equalToConstant: 100),
         ])
         
         screenTitle.textColor = UIColor.black
@@ -80,9 +109,37 @@ class HomeViewController: BaseViewController {
         subtitle.textColor = UIColor.black
         subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
         subtitle.text = "Dashboard"
+        
+        collectionView.backgroundColor = UIColor(named: "Background")
     }
     
     func bind(viewModel: HomeViewModel) {
         self.viewModel = viewModel
+        
+        guard let collectionView = collectionView else {
+            return
+        }
+        
+        viewModel.cells
+            .drive(collectionView.rx.items(cellIdentifier: PetCollectionViewCell.identifier, cellType: PetCollectionViewCell.self)) { index, model, cell in
+                cell.nameText = model.name
+            }
+            .disposed(by: disposeBag)
+        
+        //            .filterNil()
+        //            .filter { $0 != nil }
+        //            .map { $0 }
     }
 }
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetCollectionViewCell.identifier, for: indexPath)
+        return cell
+    }
+}
+

@@ -26,7 +26,7 @@ class HomeCoordinator: CoordinatorType {
     
     func showHomeScreen() -> UIViewController {
         let viewController = HomeViewController()
-        let viewModel = HomeViewModel()
+        let viewModel = HomeViewModel(petsRepository: petsRepository)
         viewController.bind(viewModel: viewModel)
         
         return viewController
