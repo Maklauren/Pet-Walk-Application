@@ -11,10 +11,7 @@ import RxCocoa
 import RealmSwift
 import RxDataSources
 import RxOptional
-
-struct Doggie: Hashable {
-    var doggieName: String
-}
+import RAMAnimatedTabBarController
 
 class HomeViewController: BaseViewController {
     
@@ -43,9 +40,8 @@ class HomeViewController: BaseViewController {
     
     override init() {
         super.init()
-        self.tabBarItem = UITabBarItem(title: "",
-                                       image: UIImage(systemName: "house"),
-                                       selectedImage: UIImage(systemName: "house.fill"))
+        self.tabBarItem = RAMAnimatedTabBarItem(title: "", image: UIImage(systemName: "house"), tag: 1)
+        (self.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
     }
     
     override func viewDidLoad() {

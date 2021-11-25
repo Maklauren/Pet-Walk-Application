@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RealmSwift
+import RAMAnimatedTabBarController
 
 class AccountProfileViewController: BaseViewController {
     
@@ -39,9 +40,8 @@ class AccountProfileViewController: BaseViewController {
     
     override init() {
         super.init()
-        self.tabBarItem = UITabBarItem(title: "",
-                                       image: UIImage(systemName: "person.circle"),
-                                       selectedImage: UIImage(systemName: "person.circle.fill"))
+        self.tabBarItem = RAMAnimatedTabBarItem(title: "", image: UIImage(systemName: "person.circle"), tag: 1)
+        (self.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
     }
     
     override func loadView() {

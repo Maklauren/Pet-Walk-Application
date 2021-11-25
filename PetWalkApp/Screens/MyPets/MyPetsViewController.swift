@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RealmSwift
+import RAMAnimatedTabBarController
 
 class MyPetsViewController: BaseViewController {
     
@@ -42,9 +43,8 @@ class MyPetsViewController: BaseViewController {
     
     override init() {
         super.init()
-        self.tabBarItem = UITabBarItem(title: "",
-                                       image: UIImage(systemName: "heart"),
-                                       selectedImage: UIImage(systemName: "heart.fill"))
+        self.tabBarItem = RAMAnimatedTabBarItem(title: "", image: UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(weight: .medium))?.withTintColor(.black, renderingMode: .alwaysOriginal), tag: 1)
+        (self.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
     }
     
     override func loadView() {

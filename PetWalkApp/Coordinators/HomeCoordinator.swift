@@ -7,13 +7,14 @@
 
 import UIKit
 import RxSwift
+import RAMAnimatedTabBarController
 
 class HomeCoordinator: CoordinatorType {
     
     private let disposeBag = DisposeBag()
     
     let navigationController = UINavigationController(rootViewController: UIViewController())
-    let tabController = UITabBarController()
+    let tabController = RAMAnimatedTabBarController()
     
     var petsRepository = PetRepository()
     let nextCoordinator = PetAdditionCoordinator()
