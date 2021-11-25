@@ -14,5 +14,6 @@ pod 'RxRelay'
 pod 'RealmSwift'
 pod 'RxDataSources'
 pod 'RxOptional'
+pod 'RAMAnimatedTabBarController'
 
 end

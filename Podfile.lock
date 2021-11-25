@@ -43,6 +43,7 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.0.0)
+  - RAMAnimatedTabBarController (5.2.0)
   - Realm (10.17.0):
     - Realm/Headers (= 10.17.0)
   - Realm/Headers (10.17.0)
@@ -65,6 +66,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.4)
   - Firebase/Crashlytics
+  - RAMAnimatedTabBarController
   - RealmSwift
   - RxCocoa
   - RxDataSources
@@ -85,6 +87,7 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - RAMAnimatedTabBarController
     - Realm
     - RealmSwift
     - RxCocoa
@@ -105,6 +108,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
   Realm: 9533276bd76f66aa2fd0d3ffe700c1f6023dcab6
   RealmSwift: 57f5d59aa29852587aad1e861989e7af139894b5
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
@@ -113,6 +117,6 @@ SPEC CHECKSUMS:
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
 
-PODFILE CHECKSUM: 89317b6a4ebe8d4e6c20717de533f7f651656e09
+PODFILE CHECKSUM: eb3882f19bb891b877f93712576016345a460f53
 
 COCOAPODS: 1.11.2
