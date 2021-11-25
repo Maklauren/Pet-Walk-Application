@@ -16,7 +16,7 @@ class PetAdditionCoordinator: CoordinatorType {
     
     func start() -> UIViewController {
         navigationController.modalPresentationStyle = .fullScreen
-        navigationController.setViewControllers([showAddAPetScreen()], animated: false)
+        navigationController.setViewControllers([showAddAPetScreen()], animated: true)
         return navigationController
     }
     

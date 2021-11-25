@@ -15,7 +15,7 @@ class StartScreenCoordinator: CoordinatorType {
     let navigationController = UINavigationController(rootViewController: UIViewController())
     
     func start() -> UIViewController {
-        navigationController.setViewControllers([showStartScreen()], animated: false)
+        navigationController.setViewControllers([showStartScreen()], animated: true)
         return navigationController
     }
     
@@ -27,7 +27,7 @@ class StartScreenCoordinator: CoordinatorType {
         viewModel.route
             .emit(onNext: { [weak self] in
                 guard let self = self else { return }
-                    self.coordinate(to: AccountCreationCoordinator(), animating: false)
+                    self.coordinate(to: AccountCreationCoordinator(), animating: true)
             })
             .disposed(by: disposeBag)
         

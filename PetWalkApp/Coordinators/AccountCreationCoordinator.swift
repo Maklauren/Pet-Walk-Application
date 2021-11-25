@@ -15,7 +15,7 @@ class AccountCreationCoordinator: CoordinatorType {
     let navigationController = UINavigationController(rootViewController: UIViewController())
     
     func start() -> UIViewController {
-        navigationController.setViewControllers([showAccountCreationScreen()], animated: false)
+        navigationController.setViewControllers([showAccountCreationScreen()], animated: true)
         return navigationController
     }
     
@@ -31,7 +31,7 @@ class AccountCreationCoordinator: CoordinatorType {
                 guard let self = self else { return }
                 switch $0 {
                 case .creationSuccess:
-                    self.coordinate(to: HomeCoordinator(), animating: false)
+                    self.coordinate(to: HomeCoordinator(), animating: true)
                 case .haveAnAccount:
                     self.navigationController.present(loginCoordinator.start(), animated: true, completion: nil)
                 }

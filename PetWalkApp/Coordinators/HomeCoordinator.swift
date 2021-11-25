@@ -19,8 +19,8 @@ class HomeCoordinator: CoordinatorType {
     var petsRepository = PetRepository()
     
     func start() -> UIViewController {
-        navigationController.setViewControllers([tabController], animated: false)
-        tabController.setViewControllers([showHomeScreen(), showMyPetsScreen(), showAccountProfileScreen()], animated: false)
+        navigationController.setViewControllers([tabController], animated: true)
+        tabController.setViewControllers([showHomeScreen(), showMyPetsScreen(), showAccountProfileScreen()], animated: true)
         return navigationController
     }
     

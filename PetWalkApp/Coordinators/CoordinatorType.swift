@@ -23,7 +23,7 @@ extension CoordinatorType {
             sceneDelegate?.rootCoordinator = coordinator
         }
         if animating {
-            UIView.transition(with: sceneDelegate!.window!, duration: 0.2, options: [.transitionFlipFromRight]) {
+            UIView.transition(with: sceneDelegate!.window!, duration: 0.2, options: [.curveEaseOut, .transitionCrossDissolve]) {
                 coordinate()
             } completion: { _ in
             }

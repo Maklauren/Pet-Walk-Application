@@ -16,7 +16,7 @@ class LoginCoordinator: CoordinatorType {
     
     func start() -> UIViewController {
         navigationController.modalPresentationStyle = .fullScreen
-        navigationController.setViewControllers([showLoginScreen()], animated: false)
+        navigationController.setViewControllers([showLoginScreen()], animated: true)
         return navigationController
     }
     
@@ -28,7 +28,7 @@ class LoginCoordinator: CoordinatorType {
         viewModel.route
             .emit(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.coordinate(to: HomeCoordinator(), animating: false)
+                self.coordinate(to: HomeCoordinator(), animating: true)
             })
             .disposed(by: disposeBag)
         
