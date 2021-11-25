@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2301DC6B27490145008BF4AE /* PetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301DC6A27490145008BF4AE /* PetTableViewCell.swift */; };
 		2335FD1D2747DFBD00AC89CF /* PetsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335FD1C2747DFBD00AC89CF /* PetsRepository.swift */; };
+		236F6B15274F96060006FFBA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F6B14274F96060006FFBA /* LoginViewController.swift */; };
+		236F6B17274FA1770006FFBA /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F6B16274FA1770006FFBA /* LoginCoordinator.swift */; };
+		236F6B19274FA9470006FFBA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F6B18274FA9470006FFBA /* LoginViewModel.swift */; };
 		237F4D11274A4FE600153D38 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F4D10274A4FE600153D38 /* HomeViewController.swift */; };
 		237F4D13274A501D00153D38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F4D12274A501D00153D38 /* HomeViewModel.swift */; };
 		237F4D15274A526400153D38 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F4D14274A526400153D38 /* HomeCoordinator.swift */; };
@@ -50,6 +53,9 @@
 		098BB68DA7546E48C96D539D /* Pods-PetWalkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetWalkApp.debug.xcconfig"; path = "Target Support Files/Pods-PetWalkApp/Pods-PetWalkApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2301DC6A27490145008BF4AE /* PetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTableViewCell.swift; sourceTree = "<group>"; };
 		2335FD1C2747DFBD00AC89CF /* PetsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetsRepository.swift; sourceTree = "<group>"; };
+		236F6B14274F96060006FFBA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		236F6B16274FA1770006FFBA /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		236F6B18274FA9470006FFBA /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		237F4D10274A4FE600153D38 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		237F4D12274A501D00153D38 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		237F4D14274A526400153D38 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
@@ -117,6 +123,15 @@
 				6C580E4AA26CFB5DFD1179EB /* Pods_PetWalkApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		236F6B13274F95B80006FFBA /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				236F6B14274F96060006FFBA /* LoginViewController.swift */,
+				236F6B18274FA9470006FFBA /* LoginViewModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		237F4D0F274A4FC000153D38 /* Home */ = {
@@ -191,6 +206,7 @@
 			children = (
 				23DEF8D9272023F60022DCC6 /* StartScreen */,
 				23DEF8E427202EF30022DCC6 /* AccountCreation */,
+				236F6B13274F95B80006FFBA /* Login */,
 				237F4D0F274A4FC000153D38 /* Home */,
 				23B160F22729A6FB00ACAB86 /* MyPets */,
 				23DCF5D1272EB67000B295AA /* AddAPet */,
@@ -214,6 +230,7 @@
 				23DEF8DD272025610022DCC6 /* CoordinatorType.swift */,
 				23DEF8DF2720257A0022DCC6 /* StartScreenCoordinator.swift */,
 				23DEF8EA272037560022DCC6 /* AccountCreationCoordinator.swift */,
+				236F6B16274FA1770006FFBA /* LoginCoordinator.swift */,
 				237F4D14274A526400153D38 /* HomeCoordinator.swift */,
 				23DCF5D4272EBE9600B295AA /* PetAdditionCoordinator.swift */,
 			);
@@ -422,11 +439,13 @@
 			files = (
 				23DEF8FD2721B0320022DCC6 /* UserState.swift in Sources */,
 				23DEF8F1272051ED0022DCC6 /* AccountProfileViewController.swift in Sources */,
+				236F6B17274FA1770006FFBA /* LoginCoordinator.swift in Sources */,
 				237F4D11274A4FE600153D38 /* HomeViewController.swift in Sources */,
 				237F4D13274A501D00153D38 /* HomeViewModel.swift in Sources */,
 				23B71E10270C7A5600010C87 /* StartScreenViewController.swift in Sources */,
 				2335FD1D2747DFBD00AC89CF /* PetsRepository.swift in Sources */,
 				23DEF8FB2721AA4C0022DCC6 /* SessionRepository.swift in Sources */,
+				236F6B19274FA9470006FFBA /* LoginViewModel.swift in Sources */,
 				23DEF8E6272034880022DCC6 /* AccountCreationViewModel.swift in Sources */,
 				23F7FA3627281E8F009C2AC8 /* Pet.swift in Sources */,
 				23DEF8E02720257A0022DCC6 /* StartScreenCoordinator.swift in Sources */,
@@ -450,6 +469,7 @@
 				23DCF5D7272EC24F00B295AA /* PetAdditionViewMode.swift in Sources */,
 				23B71E0E270C7A5600010C87 /* SceneDelegate.swift in Sources */,
 				23B160F42729A8F500ACAB86 /* MyPetsViewController.swift in Sources */,
+				236F6B15274F96060006FFBA /* LoginViewController.swift in Sources */,
 				23F7FA3427281DB5009C2AC8 /* User.swift in Sources */,
 				23DCF5D5272EBE9600B295AA /* PetAdditionCoordinator.swift in Sources */,
 				237F4D15274A526400153D38 /* HomeCoordinator.swift in Sources */,

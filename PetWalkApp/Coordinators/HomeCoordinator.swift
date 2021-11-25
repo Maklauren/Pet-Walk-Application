@@ -17,7 +17,6 @@ class HomeCoordinator: CoordinatorType {
     let tabController = RAMAnimatedTabBarController()
     
     var petsRepository = PetRepository()
-    let nextCoordinator = PetAdditionCoordinator()
     
     func start() -> UIViewController {
         navigationController.setViewControllers([tabController], animated: false)
@@ -38,10 +37,12 @@ class HomeCoordinator: CoordinatorType {
         let viewModel = MyPetsViewModel(petsRepository: petsRepository)
         viewController.bind(viewModel: viewModel)
         
+        let petAdditionCoordinator = PetAdditionCoordinator()
+        
         viewModel.route
             .emit(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.navigationController.present(self.nextCoordinator.start(), animated: true, completion: nil)
+                self.navigationController.present(petAdditionCoordinator.start(), animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
         

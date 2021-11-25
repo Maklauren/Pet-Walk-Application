@@ -15,6 +15,7 @@ final class AccountCreationViewModel {
     
     enum Route {
         case creationSuccess
+        case haveAnAccount
     }
     
     private let disposeBag = DisposeBag()
@@ -44,6 +45,11 @@ final class AccountCreationViewModel {
         _createAccountTapped.accept(())
     }
     
+    private let _haveAnAccountTapped = PublishRelay<Void>()
+    func haveAnAccountTapped() {
+        _haveAnAccountTapped.accept(())
+    }
+    
     lazy var userPicture = _userPictureChanged
     
     lazy var fullnameTextField = _fullnameFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
@@ -62,7 +68,9 @@ final class AccountCreationViewModel {
                 .debug("SESSION LOGIN")
                 .filter { $0 == true }
                 .map { _ in .creationSuccess }
-                .asSignal(onErrorSignalWith: .never())
+                .asSignal(onErrorSignalWith: .never()),
+            _haveAnAccountTapped.asSignal()
+                .map { _ in .haveAnAccount }
         )
     
     init() {

@@ -121,7 +121,7 @@ class AccountCreationViewController: BaseViewController {
             
             loginButton.topAnchor.constraint(equalTo: bottomButton.bottomAnchor, constant: 4),
             loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            loginButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -5),
+            loginButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
         ])
         
         subtitle.textColor = UIColor.black
@@ -181,6 +181,10 @@ class AccountCreationViewController: BaseViewController {
         
         bottomButton.rx.tap
             .bind(onNext: viewModel.createAccountTapped)
+            .disposed(by: disposeBag)
+        
+        loginButton.rx.tap
+            .bind(onNext: viewModel.haveAnAccountTapped)
             .disposed(by: disposeBag)
     }
     
