@@ -15,5 +15,8 @@ pod 'RealmSwift'
 pod 'RxDataSources'
 pod 'RxOptional'
 pod 'RAMAnimatedTabBarController'
+pod 'Firebase/Auth'
+pod 'Firebase/Database'
+pod 'Firebase/Storage'
 
 end
