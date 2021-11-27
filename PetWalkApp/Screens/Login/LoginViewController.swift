@@ -100,6 +100,15 @@ class LoginViewController: BaseViewController {
             loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 53),
         ])
+        
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.autocapitalizationType = .none
+        emailTextField.autocorrectionType = .no
+        emailTextField.textContentType = .emailAddress
+
+        passwordTextField.autocapitalizationType = .none
+        passwordTextField.autocorrectionType = .no
+        passwordTextField.textContentType = .password
     }
     
     @objc func onBack(_ sender: Any) {

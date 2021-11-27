@@ -138,6 +138,20 @@ class AccountCreationViewController: BaseViewController {
         loginButton.setTitleColor(UIColor(named: "Blue"), for: .normal)
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         
+        fullNameTextField.textContentType = .username
+        fullNameTextField.autocapitalizationType = .none
+        fullNameTextField.autocorrectionType = .no
+        fullNameTextField.textContentType = .nickname
+        
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.autocapitalizationType = .none
+        emailTextField.autocorrectionType = .no
+        emailTextField.textContentType = .emailAddress
+
+        passwordTextField.autocapitalizationType = .none
+        passwordTextField.autocorrectionType = .no
+        passwordTextField.textContentType = .password
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(notification:)), name: UIView.keyboardWillChangeFrameNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIView.keyboardWillShowNotification, object: nil)
