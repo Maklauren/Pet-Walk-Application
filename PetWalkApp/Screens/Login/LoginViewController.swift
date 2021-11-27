@@ -59,8 +59,6 @@ class LoginViewController: BaseViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImageButton, style: .plain, target: self, action: #selector(onBack(_:)))
         
-        loginButton.addTarget(self, action: #selector(print123(_:)), for: .touchUpInside)
-        
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         
@@ -106,10 +104,6 @@ class LoginViewController: BaseViewController {
     
     @objc func onBack(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func print123(_ sender: Any) {
-        print("asasda")
     }
     
     func bind(viewModel: LoginViewModel) {

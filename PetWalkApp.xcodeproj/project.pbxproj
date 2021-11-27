@@ -18,6 +18,7 @@
 		237F4D15274A526400153D38 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F4D14274A526400153D38 /* HomeCoordinator.swift */; };
 		237F4D18274A691E00153D38 /* PetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237F4D17274A691E00153D38 /* PetCollectionViewCell.swift */; };
 		2385F2DF270F6ADF0096D588 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2385F2DE270F6ADF0096D588 /* GoogleService-Info.plist */; };
+		23940CBE27527A3E00238263 /* SessionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23940CBD27527A3E00238263 /* SessionToken.swift */; };
 		23B160F42729A8F500ACAB86 /* MyPetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B160F32729A8F500ACAB86 /* MyPetsViewController.swift */; };
 		23B160F62729AAB600ACAB86 /* MyPetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B160F52729AAB600ACAB86 /* MyPetsViewModel.swift */; };
 		23B71E0C270C7A5600010C87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E0B270C7A5600010C87 /* AppDelegate.swift */; };
@@ -62,6 +63,7 @@
 		237F4D14274A526400153D38 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		237F4D17274A691E00153D38 /* PetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetCollectionViewCell.swift; sourceTree = "<group>"; };
 		2385F2DE270F6ADF0096D588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		23940CBD27527A3E00238263 /* SessionToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionToken.swift; sourceTree = "<group>"; };
 		23B160F32729A8F500ACAB86 /* MyPetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsViewController.swift; sourceTree = "<group>"; };
 		23B160F52729AAB600ACAB86 /* MyPetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetsViewModel.swift; sourceTree = "<group>"; };
 		23B71E08270C7A5600010C87 /* PetWalkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetWalkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -298,6 +300,7 @@
 			children = (
 				23F7FA3327281DB5009C2AC8 /* User.swift */,
 				23F7FA3527281E8F009C2AC8 /* Pet.swift */,
+				23940CBD27527A3E00238263 /* SessionToken.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				23DEF8E02720257A0022DCC6 /* StartScreenCoordinator.swift in Sources */,
 				23DCF5D3272EB6AE00B295AA /* PetAdditionViewController.swift in Sources */,
 				2301DC6B27490145008BF4AE /* PetTableViewCell.swift in Sources */,
+				23940CBE27527A3E00238263 /* SessionToken.swift in Sources */,
 				23D5E1E3273692B800D75D4E /* PetInformation.swift in Sources */,
 				23D5E1E127368ADF00D75D4E /* PetAdditionRepository.swift in Sources */,
 				23D5E1E52736AB4200D75D4E /* PetState.swift in Sources */,

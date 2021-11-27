@@ -13,6 +13,10 @@ import RealmSwift
 
 final class LoginViewModel {
     
+    enum Route {
+        case loginSuccess
+    }
+    
     private let disposeBag = DisposeBag()
     
     private let _emailFieldChanged = PublishRelay<String>()
@@ -34,7 +38,19 @@ final class LoginViewModel {
     
     lazy var passwordTextField = _passwordFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
     
-    lazy var route: Signal<Void> = _loginTapped.asSignal()
+    lazy var route: Signal<Route> = Signal
+        .merge(
+            _loginTapped.asObservable()
+                .withLatestFrom(Observable.combineLatest(emailTextField.asObservable(), passwordTextField.asObservable()))
+                .flatMapLatest { email, password in
+                    SessionRepository.shared.logUserIn(email: email, password: password)
+                        .debug("Login Result")
+                        .asSignal(onErrorSignalWith: .never())
+                }
+                .debug("SESSION LOGIN")
+                .map { _ in .loginSuccess}
+                .asSignal(onErrorSignalWith: .never())
+        )
     
     init() {
         _loginTapped.asSignal().emit(onNext: { print("NEXT VC") }).disposed(by: disposeBag)

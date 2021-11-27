@@ -61,13 +61,14 @@ final class AccountCreationViewModel {
     lazy var route: Signal<Route> = Signal
         .merge(
             _createAccountTapped.asObservable()
-                .withLatestFrom(Observable.combineLatest(fullnameTextField.asObservable(), emailTextField.asObservable()))
-                .flatMapLatest { fullname, email in
-                    SessionRepository.shared.logUserIn(fullname: fullname, email: email).asObservable()
+                .withLatestFrom(Observable.combineLatest(fullnameTextField.asObservable(), emailTextField.asObservable(), passwordTextField.asObservable()))
+                .flatMapLatest { fullname, email, password in
+                    SessionRepository.shared.createUser(fullname: fullname, email: email, password: password)
+                        .debug("Registration Result")
+                        .asSignal(onErrorSignalWith: .never())
                 }
                 .debug("SESSION LOGIN")
-                .filter { $0 == true }
-                .map { _ in .creationSuccess }
+                .map { _ in .creationSuccess}
                 .asSignal(onErrorSignalWith: .never()),
             _haveAnAccountTapped.asSignal()
                 .map { _ in .haveAnAccount }
