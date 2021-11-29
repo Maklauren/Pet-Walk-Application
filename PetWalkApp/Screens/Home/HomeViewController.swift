@@ -36,7 +36,7 @@ class HomeViewController: BaseViewController {
     var screenTitle = UILabel()
     var subtitle = UILabel()
     
-    private var collectionView: UICollectionView?
+    private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     override init() {
         super.init()
@@ -47,18 +47,11 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layout = UICollectionViewFlowLayout()
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 344.0, height: 96.0)
         
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        guard let collectionView = collectionView else {
-            return
-        }
-        
         collectionView.register(PetCollectionViewCell.self, forCellWithReuseIdentifier: PetCollectionViewCell.identifier)
-        collectionView.dataSource = self
         collectionView.delegate = self
         
         navigationController?.navigationBar.isHidden = true
@@ -112,19 +105,11 @@ class HomeViewController: BaseViewController {
     func bind(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         
-        guard let collectionView = collectionView else {
-            return
-        }
-        
         viewModel.cells
             .drive(collectionView.rx.items(cellIdentifier: PetCollectionViewCell.identifier, cellType: PetCollectionViewCell.self)) { index, model, cell in
                 cell.nameText = model.name
             }
             .disposed(by: disposeBag)
-        
-        //            .filterNil()
-        //            .filter { $0 != nil }
-        //            .map { $0 }
     }
 }
 
