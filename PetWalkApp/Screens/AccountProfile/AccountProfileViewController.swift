@@ -34,6 +34,7 @@ class AccountProfileViewController: BaseViewController {
     let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
     
     var screenTitle = UILabel()
+    var settings = UIButton()
     var subtitle = UILabel()
     var userPicture = UIImageView()
     var userName = UILabel()
@@ -47,19 +48,17 @@ class AccountProfileViewController: BaseViewController {
     override func loadView() {
         super.loadView()
         
-        self.view.backgroundColor = UIColor(named: "Background")
-        
-        
         navigationController?.navigationBar.isHidden = true
         
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         backgroundView.addSubview(screenTitle)
         backgroundView.addSubview(subtitle)
+        backgroundView.addSubview(settings)
         backgroundView.addSubview(userPicture)
         backgroundView.addSubview(userName)
         
-        [screenTitle, subtitle, userPicture, userName].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [screenTitle, subtitle, settings, userPicture, userName].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -79,8 +78,12 @@ class AccountProfileViewController: BaseViewController {
             subtitle.topAnchor.constraint(equalTo: screenTitle.bottomAnchor, constant: 16),
             subtitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             
+            settings.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -15),
+            settings.centerYAnchor.constraint(equalTo: screenTitle.centerYAnchor),
+            
             userPicture.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 19),
             userPicture.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            userPicture.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -300),
             userPicture.heightAnchor.constraint(equalToConstant: 80),
             userPicture.widthAnchor.constraint(equalToConstant: 80),
             
@@ -96,11 +99,14 @@ class AccountProfileViewController: BaseViewController {
         subtitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
         subtitle.text = "Profile"
         
+        settings.setTitleColor(UIColor(named: "Text"), for: .normal)
+        settings.setTitle("settings", for: .normal)
+        settings.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        
         userPicture.image = UIImage(named: "Default user")
         userPicture.contentMode = .scaleAspectFill
         userPicture.layer.cornerRadius = 40
         userPicture.clipsToBounds = true
-        
         
         userName.text = realm.objects(User.self).last?.fullName
         userName.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
@@ -108,5 +114,13 @@ class AccountProfileViewController: BaseViewController {
     
     func bind(viewModel: AccountProfileViewModel) {
         self.viewModel = viewModel
+        
+        viewModel.userImage
+            .drive(userPicture.rx.image)
+            .disposed(by: disposeBag)
+        
+        settings.rx.tap
+            .bind(onNext: viewModel.settingsTapped)
+            .disposed(by: disposeBag)
     }
 }

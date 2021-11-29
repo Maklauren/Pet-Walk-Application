@@ -54,6 +54,15 @@ class HomeCoordinator: CoordinatorType {
         let viewModel = AccountProfileViewModel()
         viewController.bind(viewModel: viewModel)
         
+        let settingsCoordinator = SettingsCoordinator()
+        
+        viewModel.route
+            .emit(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.navigationController.present(settingsCoordinator.start(), animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+        
         return viewController
     }
 }
