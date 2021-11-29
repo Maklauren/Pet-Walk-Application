@@ -38,7 +38,7 @@ class AccountCreationViewController: BaseViewController {
     private let disposeBag = DisposeBag()
     
     var subtitle = UILabel()
-    var userPicture = UIButton()
+    var logoPicture = UIImageView()
     
     var fullNameLabel = Stylesheet().createLabel(labelText: "Required field")
     var fullNameTextField = Stylesheet().createTextField(textFieldText: "Full name")
@@ -64,14 +64,13 @@ class AccountCreationViewController: BaseViewController {
         scrollView.addSubview(backgroundView)
         
         backgroundView.addSubview(subtitle)
-        backgroundView.addSubview(userPicture)
+        backgroundView.addSubview(logoPicture)
         backgroundView.addSubview(stackView)
         backgroundView.addSubview(bottomButton)
         backgroundView.addSubview(loginButton)
         
-        [subtitle, userPicture, loginButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [subtitle, logoPicture, loginButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        //MARK: -Stack View
         stackView.addArrangedSubview(fullNameLabel)
         stackView.addArrangedSubview(fullNameTextField)
         stackView.addArrangedSubview(emailLabel)
@@ -100,12 +99,12 @@ class AccountCreationViewController: BaseViewController {
             subtitle.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
             subtitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             
-            userPicture.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 40),
-            userPicture.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            userPicture.heightAnchor.constraint(equalToConstant: 120),
-            userPicture.widthAnchor.constraint(equalToConstant: 120),
+            logoPicture.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 40),
+            logoPicture.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            logoPicture.heightAnchor.constraint(equalToConstant: 120),
+            logoPicture.widthAnchor.constraint(equalToConstant: 120),
             
-            stackView.topAnchor.constraint(equalTo: userPicture.bottomAnchor, constant: 16),
+            stackView.topAnchor.constraint(equalTo: logoPicture.bottomAnchor, constant: 22),
             stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             
@@ -128,11 +127,9 @@ class AccountCreationViewController: BaseViewController {
         subtitle.font = UIFont.boldSystemFont(ofSize: 25)
         subtitle.text = "Account creation"
         
-        userPicture.setImage(UIImage(named: "Default user"), for: .normal)
-        userPicture.contentMode = .scaleAspectFill
-        userPicture.layer.cornerRadius = 60
-        userPicture.clipsToBounds = true
-        userPicture.addTarget(self, action: #selector(addPicture(_:)), for: .touchUpInside)
+        logoPicture.image = UIImage(named: "Illustration")
+        logoPicture.contentMode = .scaleAspectFill
+        logoPicture.clipsToBounds = true
         
         loginButton.setTitle("You have an account ? Login", for: .normal)
         loginButton.setTitleColor(UIColor(named: "Blue"), for: .normal)
@@ -147,7 +144,7 @@ class AccountCreationViewController: BaseViewController {
         emailTextField.autocapitalizationType = .none
         emailTextField.autocorrectionType = .no
         emailTextField.textContentType = .emailAddress
-
+        
         passwordTextField.autocapitalizationType = .none
         passwordTextField.autocorrectionType = .no
         passwordTextField.textContentType = .password
@@ -170,6 +167,10 @@ class AccountCreationViewController: BaseViewController {
         
         viewModel.passwordTextField
             .drive(passwordTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.userPicture
+            .bind(to: logoPicture.rx.image)
             .disposed(by: disposeBag)
         
         fullNameTextField.rx.controlEvent(.editingChanged)
@@ -222,41 +223,6 @@ class AccountCreationViewController: BaseViewController {
         }
         scrollView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: view.frame.height - keyboardFrame.origin.y, right: 0.0)
     }
-    
-    @objc func addPicture(_ sender: UIButton) {
-        let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
-        let photoLibrary = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
-        
-        let pickerController = UIImagePickerController()
-        
-        if cameraAvailable && photoLibrary {
-            pickerController.sourceType = .camera
-        } else if photoLibrary {
-            pickerController.sourceType = .photoLibrary
-            pickerController.allowsEditing = true
-        } else {
-            return
-        }
-        
-        pickerController.delegate = self
-        
-        present(pickerController, animated: true, completion: nil)
-    }
 }
 
-extension AccountCreationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        if let imageUrl = info[.editedImage] as? UIImage {
-            
-            userPicture.setImage(imageUrl, for: .normal)
-        }
-        
-        picker.dismiss(animated: true, completion: nil)
-    }
-}
+

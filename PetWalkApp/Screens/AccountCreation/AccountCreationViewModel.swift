@@ -20,11 +20,6 @@ final class AccountCreationViewModel {
     
     private let disposeBag = DisposeBag()
     
-    private let _userPictureChanged = PublishRelay<UIImageView>()
-    func userPictureChanged(_ image: UIImageView) {
-        _userPictureChanged.accept(image)
-    }
-    
     private let _fullnameFieldChanged = PublishRelay<String>()
     func fullnameFieldChanged(_ text: String) {
         _fullnameFieldChanged.accept(text)
@@ -40,6 +35,11 @@ final class AccountCreationViewModel {
         _passwordFieldChanged.accept(text)
     }
     
+    private let _imageChanged = PublishRelay<UIImage>()
+    func imageChanged(_ image: UIImage) {
+        _imageChanged.accept(image)
+    }
+    
     private let _createAccountTapped = PublishRelay<Void>()
     func createAccountTapped() {
         _createAccountTapped.accept(())
@@ -50,13 +50,21 @@ final class AccountCreationViewModel {
         _haveAnAccountTapped.accept(())
     }
     
-    lazy var userPicture = _userPictureChanged
+    lazy var userPicture = _imageChanged
     
     lazy var fullnameTextField = _fullnameFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
     
     lazy var emailTextField = _emailFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
     
     lazy var passwordTextField = _passwordFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
+    
+    private let accountRepository: AccountsRepository
+    
+    func uploadPhoto(_ image: UIImage) {
+        accountRepository.uploadAvatar(image: image)
+            .subscribe(onSuccess: { print("Photo uploaded") })
+            .disposed(by: disposeBag)
+    }
     
     lazy var route: Signal<Route> = Signal
         .merge(
@@ -70,11 +78,14 @@ final class AccountCreationViewModel {
                 .debug("SESSION LOGIN")
                 .map { _ in .creationSuccess}
                 .asSignal(onErrorSignalWith: .never()),
+            
             _haveAnAccountTapped.asSignal()
                 .map { _ in .haveAnAccount }
         )
     
     init() {
+        self.accountRepository = AccountsRepository()
+        
         _createAccountTapped.asSignal().emit(onNext: { print("NEXT VC") }).disposed(by: disposeBag)
     }
 }
