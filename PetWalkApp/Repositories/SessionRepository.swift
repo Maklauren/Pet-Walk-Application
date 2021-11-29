@@ -51,6 +51,7 @@ final class SessionRepository {
                     let user = User()
                     user.fullName = fullname
                     user.email = email
+                    user.city = ""
                     
                     try! self.realm.write {
                         self.realm.add(user)
