@@ -54,10 +54,10 @@ class PetTableViewCell: UITableViewCell {
         image.layer.cornerRadius = 40
         image.clipsToBounds = true
         image.layer.borderWidth = 1.5
-        image.layer.borderColor = UIColor.black.cgColor
+        image.layer.borderColor = UIColor(named: "Text")?.cgColor
         
         breed.textColor = UIColor(named: "Text")
-        breed.font = UIFont.systemFont(ofSize: 16)
+        breed.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
         
         name.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.heavy)
         

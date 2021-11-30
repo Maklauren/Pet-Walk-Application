@@ -20,6 +20,8 @@ final class HomeViewModel {
     
     struct Cell {
         var name: String
+        var breed: String
+        var mood: Int
     }
     
     lazy var route: Signal<Route> = Signal
@@ -32,7 +34,7 @@ final class HomeViewModel {
     lazy var cells = dogArray.asDriver()
         .map {
             $0.map { (dog: Dog) -> Cell in
-                Cell(name: dog.dogName)
+                Cell(name: dog.dogName, breed: dog.dogBreed, mood: dog.dogDayEnergyCurrent)
             }
         }
     
