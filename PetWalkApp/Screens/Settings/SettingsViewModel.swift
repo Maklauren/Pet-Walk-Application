@@ -34,16 +34,6 @@ final class SettingsViewModel {
         _userCityChanged.accept(text)
     }
     
-    private let _weekdayQuantityChanged = PublishRelay<String>()
-    func weekdayQuantityChanged(_ string: String) {
-        _weekdayQuantityChanged.accept(string)
-    }
-    
-    private let _weekendQuantityChanged = PublishRelay<String>()
-    func weekendQuantityChanged(_ string: String) {
-        _weekendQuantityChanged.accept(string)
-    }
-    
     private let _applySettingsTapped = PublishRelay<Void>()
     func applySettingsTapped() {
         _applySettingsTapped.accept(())
@@ -51,16 +41,12 @@ final class SettingsViewModel {
     
     lazy var userCityTextField = _userCityChanged.asDriver(onErrorJustReturn: "").startWith("")
     
-    lazy var weekdayQuantityTextField = _weekdayQuantityChanged.asDriver(onErrorJustReturn: "").startWith("")
-    
-    lazy var weekendQuantityTextField = _weekendQuantityChanged.asDriver(onErrorJustReturn: "").startWith("")
-    
     lazy var route: Signal<Route> = Signal
         .merge(
             _applySettingsTapped.asObservable()
-                .withLatestFrom(Observable.combineLatest(userCityTextField.asObservable(), weekdayQuantityTextField.asObservable(), weekendQuantityTextField.asObservable()))
-                .flatMapLatest { city, week, weekend in
-                    AccountsRepository.shared.settingsChanges(city: city, weekdayQuantity: week, weekendQuantity: weekend).asObservable()
+                .withLatestFrom(userCityTextField.asObservable())
+                .flatMapLatest { city in
+                    AccountsRepository.shared.settingsChanges(city: city).asObservable()
                 }
                 .debug("SETTING SESSION")
                 .filter { $0 == true }

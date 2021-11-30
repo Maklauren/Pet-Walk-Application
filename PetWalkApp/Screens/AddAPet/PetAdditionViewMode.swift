@@ -33,6 +33,16 @@ final class PetAdditionViewModel {
         _dogBirthdayFieldChanged.accept(date)
     }
     
+    private let _weekdayQuantityChanged = PublishRelay<String>()
+    func weekdayQuantityChanged(_ string: String) {
+        _weekdayQuantityChanged.accept(string)
+    }
+    
+    private let _weekendQuantityChanged = PublishRelay<String>()
+    func weekendQuantityChanged(_ string: String) {
+        _weekendQuantityChanged.accept(string)
+    }
+    
     private let _createPetTapped = PublishRelay<Void>()
     func createPetTapped() {
         _createPetTapped.accept(())
@@ -42,14 +52,18 @@ final class PetAdditionViewModel {
     
     lazy var dogBreedTextField = _dogBreedFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
     
+    lazy var weekdayQuantityTextField = _weekdayQuantityChanged.asDriver(onErrorJustReturn: "").startWith("")
+    
+    lazy var weekendQuantityTextField = _weekendQuantityChanged.asDriver(onErrorJustReturn: "").startWith("")
+    
     lazy var dogBirthdayTextField = _dogBirthdayFieldChanged
     
     lazy var route: Signal<Route> = Signal
         .merge(
             _createPetTapped.asObservable()
-                .withLatestFrom(Observable.combineLatest(dogNameTextField.asObservable(), dogBreedTextField.asObservable(), dogBirthdayTextField.asObservable()))
-                .flatMapLatest { name, breed, birthday in
-                    PetAdditionRepository.shared.addPet(name: name, breed: breed, birtday: birthday).asObservable()
+                .withLatestFrom(Observable.combineLatest(dogNameTextField.asObservable(), dogBreedTextField.asObservable(), dogBirthdayTextField.asObservable(), weekdayQuantityTextField.asObservable(), weekendQuantityTextField.asObservable()))
+                .flatMapLatest { name, breed, birthday, week, weekend in
+                    PetAdditionRepository.shared.addPet(name: name, breed: breed, birtday: birthday, weekdayQuantity: week, weekendQuantity: weekend).asObservable()
                 }
                 .debug("PET SESSION")
                 .filter { $0 == true }

@@ -56,18 +56,10 @@ final class AccountsRepository {
         .map { UIImage(data: $0)! }
     }
     
-    func settingsChanges(city: String, weekdayQuantity: String, weekendQuantity: String) -> Single<Bool>  {
+    func settingsChanges(city: String) -> Single<Bool>  {
         
-        let user = User()
-        user.city = city
-        
-        let pet = Dog()
-        pet.dogDayEnergy = Int(weekdayQuantity) ?? 2
-        pet.dogWeeklyEnergy = (Int(weekdayQuantity) ?? 2 * 5) + (Int(weekendQuantity) ?? 3 * 2)
-    
-        try! realm.write {
-            realm.add(pet)
-        }
+        let user = realm.objects(User.self).last
+        user?.city = city
         
         return .just(true).delay(.seconds(1), scheduler: MainScheduler.asyncInstance)
     }

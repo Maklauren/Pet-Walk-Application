@@ -48,14 +48,6 @@ class SettingsViewController: BaseViewController {
     var userCityLabel = Stylesheet().createLabel(labelText: "Enter your country and city")
     var userCityTextField = Stylesheet().createTextField(textFieldText: "Country, city")
     
-    var question = UILabel()
-    
-    var weekdayLabel = Stylesheet().createLabel(labelText: "Weekday")
-    var weekdayTextField = Stylesheet().createTextField(textFieldText: "Just a number")
-    
-    var weekendLabel = Stylesheet().createLabel(labelText: "Weekend")
-    var weekendTextField = Stylesheet().createTextField(textFieldText: "Just a number")
-    
     var bottomButton = Stylesheet().createButton(buttonText: "Apply changes", buttonColor: "Background", textColor: UIColor.black)
     
     override init() {
@@ -87,18 +79,9 @@ class SettingsViewController: BaseViewController {
         
         stackView.addArrangedSubview(userCityLabel)
         stackView.addArrangedSubview(userCityTextField)
-        stackView.addArrangedSubview(question)
-        stackView.addArrangedSubview(weekdayLabel)
-        stackView.addArrangedSubview(weekdayTextField)
-        stackView.addArrangedSubview(weekendLabel)
-        stackView.addArrangedSubview(weekendTextField)
         
         stackView.setCustomSpacing(4, after: userCityLabel)
         stackView.setCustomSpacing(16, after: userCityTextField)
-        stackView.setCustomSpacing(4, after: question)
-        stackView.setCustomSpacing(4, after: weekdayLabel)
-        stackView.setCustomSpacing(16, after: weekdayTextField)
-        stackView.setCustomSpacing(4, after: weekendLabel)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -128,8 +111,6 @@ class SettingsViewController: BaseViewController {
             stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             
             userCityTextField.heightAnchor.constraint(equalToConstant: 35),
-            weekdayTextField.heightAnchor.constraint(equalToConstant: 35),
-            weekendTextField.heightAnchor.constraint(equalToConstant: 35),
             
             bottomButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 163),
             bottomButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
@@ -147,10 +128,6 @@ class SettingsViewController: BaseViewController {
         userPicture.contentMode = .scaleAspectFill
         userPicture.layer.cornerRadius = 60
         userPicture.clipsToBounds = true
-        
-        question.text = "How many times a day you walk your dog?"
-        question.textColor = UIColor(named: "Text-2")
-        question.font = UIFont.systemFont(ofSize: 18)
         
         selectUserPicture.setTitleColor(UIColor(named: "Text-2"), for: .normal)
         selectUserPicture.setTitle("Select photo", for: .normal)
@@ -177,34 +154,12 @@ class SettingsViewController: BaseViewController {
             .drive(userCityTextField.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.weekdayQuantityTextField
-            .drive(weekdayTextField.rx.text)
-            .disposed(by: disposeBag)
-//
-//        viewModel.weekendQuantityTextField
-//            .drive(weekendTextField.rx.text)
-//            .disposed(by: disposeBag)
-        
         userCityTextField.rx.controlEvent(.editingChanged)
             .withLatestFrom(userCityTextField.rx.text)
             .distinctUntilChanged()
             .replaceNil(with: "")
             .bind(onNext: viewModel.userCityChanged)
             .disposed(by: disposeBag)
-        
-//        weekdayTextField.rx.controlEvent(.editingChanged)
-//            .withLatestFrom(weekdayTextField.rx.text)
-//            .distinctUntilChanged()
-//            .replaceNil(with: "")
-//            .bind(onNext: viewModel.weekdayQuantityChanged)
-//            .disposed(by: disposeBag)
-//
-//        weekendTextField.rx.controlEvent(.editingChanged)
-//            .withLatestFrom(weekendTextField.rx.text)
-//            .distinctUntilChanged()
-//            .replaceNil(with: "")
-//            .bind(onNext: viewModel.weekendQuantityChanged)
-//            .disposed(by: disposeBag)
         
         bottomButton.rx.tap
             .bind(onNext: viewModel.applySettingsTapped)
@@ -215,10 +170,6 @@ class SettingsViewController: BaseViewController {
         let firstResponder: UIView
         if userCityTextField.isFirstResponder {
             firstResponder = userCityTextField
-        } else if weekdayTextField.isFirstResponder {
-            firstResponder = weekdayTextField
-        } else if weekendTextField.isFirstResponder {
-            firstResponder = weekendTextField
         } else {
             return
         }
