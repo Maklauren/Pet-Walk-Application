@@ -38,11 +38,17 @@ class AccountProfileViewController: BaseViewController {
     var subtitle = UILabel()
     var userPicture = UIImageView()
     var userName = UILabel()
+    var userCity = UILabel()
+//    var userPetQuantity = UILabel()
     
     override init() {
         super.init()
         self.tabBarItem = RAMAnimatedTabBarItem(title: "", image: UIImage(systemName: "person.circle"), tag: 1)
         (self.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        bind(viewModel: viewModel)
     }
     
     override func loadView() {
@@ -57,8 +63,9 @@ class AccountProfileViewController: BaseViewController {
         backgroundView.addSubview(settings)
         backgroundView.addSubview(userPicture)
         backgroundView.addSubview(userName)
+        backgroundView.addSubview(userCity)
         
-        [screenTitle, subtitle, settings, userPicture, userName].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [screenTitle, subtitle, settings, userPicture, userName, userCity].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -89,6 +96,9 @@ class AccountProfileViewController: BaseViewController {
             
             userName.centerYAnchor.constraint(equalTo: userPicture.centerYAnchor),
             userName.leadingAnchor.constraint(equalTo: userPicture.trailingAnchor, constant: 8),
+            
+            userCity.leadingAnchor.constraint(equalTo: userPicture.trailingAnchor, constant: 8),
+            userCity.bottomAnchor.constraint(equalTo: userName.topAnchor, constant: -4),
         ])
         
         screenTitle.textColor = UIColor.black
@@ -107,9 +117,15 @@ class AccountProfileViewController: BaseViewController {
         userPicture.contentMode = .scaleAspectFill
         userPicture.layer.cornerRadius = 40
         userPicture.clipsToBounds = true
+        userPicture.layer.borderColor = UIColor.white.cgColor
+        userPicture.layer.borderWidth = 3.5
         
         userName.text = realm.objects(User.self).last?.fullName
-        userName.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
+        userName.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.bold)
+        
+        userCity.text = realm.objects(User.self).last?.city
+        userCity.textColor = UIColor(named: "Text")
+        userCity.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
     }
     
     func bind(viewModel: AccountProfileViewModel) {

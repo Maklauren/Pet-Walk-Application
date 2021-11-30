@@ -58,8 +58,10 @@ final class AccountsRepository {
     
     func settingsChanges(city: String) -> Single<Bool>  {
         
-        let user = realm.objects(User.self).last
-        user?.city = city
+        try! realm.write {
+            let user = realm.objects(User.self).last
+            user?.city = city
+        }
         
         return .just(true).delay(.seconds(1), scheduler: MainScheduler.asyncInstance)
     }
