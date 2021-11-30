@@ -38,6 +38,10 @@ class HomeViewController: BaseViewController {
     
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
+    private lazy var refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { [weak self] _ in
+        self?.viewModel.refresh()
+    }))
+    
     override init() {
         super.init()
         self.tabBarItem = RAMAnimatedTabBarItem(title: "", image: UIImage(systemName: "house"), tag: 1)
@@ -61,6 +65,8 @@ class HomeViewController: BaseViewController {
         backgroundView.addSubview(screenTitle)
         backgroundView.addSubview(subtitle)
         backgroundView.addSubview(collectionView)
+        
+        scrollView.refreshControl = refreshControl
         
         collectionView.frame = backgroundView.bounds
         
@@ -106,6 +112,9 @@ class HomeViewController: BaseViewController {
         self.viewModel = viewModel
         
         viewModel.cells
+            .do(onNext: { [weak self] _ in
+                self?.refreshControl.endRefreshing()
+            })
             .drive(collectionView.rx.items(cellIdentifier: PetCollectionViewCell.identifier, cellType: PetCollectionViewCell.self)) { index, model, cell in
                 cell.nameText = model.name
                 cell.breedText = model.breed

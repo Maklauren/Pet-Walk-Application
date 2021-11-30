@@ -29,6 +29,11 @@ final class HomeViewModel {
             .never()
         )
     
+    private let _refresh = PublishRelay<Void>()
+    func refresh() {
+        _refresh.accept(())
+    }
+    
     private var dogArray = BehaviorRelay<[Dog]>(value: [])
     
     lazy var cells = dogArray.asDriver()
@@ -41,6 +46,15 @@ final class HomeViewModel {
     init(petsRepository: PetRepository) {
         petsRepository.getPets()
             .subscribe(onSuccess: {
+                self.dogArray.accept(Array($0))
+            })
+            .disposed(by: disposeBag)
+        
+        _refresh
+            .flatMap {
+                petsRepository.getPets()
+            }
+            .subscribe(onNext: {
                 self.dogArray.accept(Array($0))
             })
             .disposed(by: disposeBag)
