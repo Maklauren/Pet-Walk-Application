@@ -38,6 +38,8 @@ class HomeViewController: BaseViewController {
     
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
+    var startAWalkButton = Stylesheet().createButton(buttonText: "Start a walk", buttonColor: "Blue button", textColor: UIColor.white)
+    
     private lazy var refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { [weak self] _ in
         self?.viewModel.refresh()
     }))
@@ -65,6 +67,7 @@ class HomeViewController: BaseViewController {
         backgroundView.addSubview(screenTitle)
         backgroundView.addSubview(subtitle)
         backgroundView.addSubview(collectionView)
+        backgroundView.addSubview(startAWalkButton)
         
         scrollView.refreshControl = refreshControl
         
@@ -93,8 +96,13 @@ class HomeViewController: BaseViewController {
             collectionView.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            collectionView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -550),
             collectionView.heightAnchor.constraint(equalToConstant: 100),
+            
+            startAWalkButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 450),
+            startAWalkButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            startAWalkButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
+            startAWalkButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
+            startAWalkButton.heightAnchor.constraint(equalToConstant: 53),
         ])
         
         screenTitle.textColor = UIColor.black
@@ -120,6 +128,10 @@ class HomeViewController: BaseViewController {
                 cell.breedText = model.breed
                 cell.moodText = String(model.mood)
             }
+            .disposed(by: disposeBag)
+        
+        startAWalkButton.rx.tap
+            .bind(onNext: viewModel.startAWalkTapped)
             .disposed(by: disposeBag)
     }
 }

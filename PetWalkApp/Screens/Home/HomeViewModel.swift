@@ -13,9 +13,6 @@ import RxOptional
 
 final class HomeViewModel {
     
-    enum Route {
-    }
-    
     private let disposeBag = DisposeBag()
     
     struct Cell {
@@ -24,10 +21,10 @@ final class HomeViewModel {
         var mood: Int
     }
     
-    lazy var route: Signal<Route> = Signal
-        .merge(
-            .never()
-        )
+    private let _startAWalkTapped = PublishRelay<Void>()
+    func startAWalkTapped() {
+        _startAWalkTapped.accept(())
+    }
     
     private let _refresh = PublishRelay<Void>()
     func refresh() {
@@ -42,6 +39,8 @@ final class HomeViewModel {
                 Cell(name: dog.dogName, breed: dog.dogBreed, mood: dog.dogDayEnergyCurrent)
             }
         }
+    
+    lazy var route: Signal<Void> = _startAWalkTapped.asSignal()
     
     init(petsRepository: PetRepository) {
         petsRepository.getPets()

@@ -29,6 +29,15 @@ class HomeCoordinator: CoordinatorType {
         let viewModel = HomeViewModel(petsRepository: petsRepository)
         viewController.bind(viewModel: viewModel)
         
+        let methodSelectionCoordinator = MethodSelectionCoordinator()
+        
+        viewModel.route
+            .emit(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.navigationController.present(methodSelectionCoordinator.start(), animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+        
         return viewController
     }
     

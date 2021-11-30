@@ -31,6 +31,9 @@
 		23B71E15270C7A5700010C87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B71E14270C7A5700010C87 /* Assets.xcassets */; };
 		23B71E20270C8D7B00010C87 /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E1F270C8D7B00010C87 /* Stylesheet.swift */; };
 		23B71E22270DA74D00010C87 /* AccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B71E21270DA74D00010C87 /* AccountCreationViewController.swift */; };
+		23D22D9127563A95004E4650 /* MethodSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22D9027563A95004E4650 /* MethodSelectionViewController.swift */; };
+		23D22D9327563B7A004E4650 /* MethodSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22D9227563B7A004E4650 /* MethodSelectionViewModel.swift */; };
+		23D22D9527563BD9004E4650 /* MethodSelectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22D9427563BD9004E4650 /* MethodSelectionCoordinator.swift */; };
 		23D5E1E127368ADF00D75D4E /* PetAdditionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E1E027368ADF00D75D4E /* PetAdditionRepository.swift */; };
 		23D5E1E3273692B800D75D4E /* PetInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E1E2273692B800D75D4E /* PetInformation.swift */; };
 		23D5E1E52736AB4200D75D4E /* PetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E1E42736AB4200D75D4E /* PetState.swift */; };
@@ -82,6 +85,9 @@
 		23B71E19270C7A5700010C87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23B71E1F270C8D7B00010C87 /* Stylesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
 		23B71E21270DA74D00010C87 /* AccountCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationViewController.swift; sourceTree = "<group>"; };
+		23D22D9027563A95004E4650 /* MethodSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectionViewController.swift; sourceTree = "<group>"; };
+		23D22D9227563B7A004E4650 /* MethodSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectionViewModel.swift; sourceTree = "<group>"; };
+		23D22D9427563BD9004E4650 /* MethodSelectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectionCoordinator.swift; sourceTree = "<group>"; };
 		23D5E1E027368ADF00D75D4E /* PetAdditionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetAdditionRepository.swift; sourceTree = "<group>"; };
 		23D5E1E2273692B800D75D4E /* PetInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInformation.swift; sourceTree = "<group>"; };
 		23D5E1E42736AB4200D75D4E /* PetState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetState.swift; sourceTree = "<group>"; };
@@ -211,6 +217,15 @@
 			path = PetWalkApp;
 			sourceTree = "<group>";
 		};
+		23D22D8F27563A4E004E4650 /* MethodSelection */ = {
+			isa = PBXGroup;
+			children = (
+				23D22D9027563A95004E4650 /* MethodSelectionViewController.swift */,
+				23D22D9227563B7A004E4650 /* MethodSelectionViewModel.swift */,
+			);
+			path = MethodSelection;
+			sourceTree = "<group>";
+		};
 		23DCF5D1272EB67000B295AA /* AddAPet */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,8 +243,9 @@
 				236F6B13274F95B80006FFBA /* Login */,
 				237F4D0F274A4FC000153D38 /* Home */,
 				23B160F22729A6FB00ACAB86 /* MyPets */,
-				23DCF5D1272EB67000B295AA /* AddAPet */,
 				23DEF8F2272051F60022DCC6 /* AccountProfile */,
+				23D22D8F27563A4E004E4650 /* MethodSelection */,
+				23DCF5D1272EB67000B295AA /* AddAPet */,
 				234317F827551DA000D84CBF /* Settings */,
 			);
 			path = Screens;
@@ -252,6 +268,7 @@
 				23DEF8EA272037560022DCC6 /* AccountCreationCoordinator.swift */,
 				236F6B16274FA1770006FFBA /* LoginCoordinator.swift */,
 				237F4D14274A526400153D38 /* HomeCoordinator.swift */,
+				23D22D9427563BD9004E4650 /* MethodSelectionCoordinator.swift */,
 				23DCF5D4272EBE9600B295AA /* PetAdditionCoordinator.swift */,
 				234317FD2755229900D84CBF /* SettingsCoordinator.swift */,
 			);
@@ -460,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23D22D9527563BD9004E4650 /* MethodSelectionCoordinator.swift in Sources */,
 				23DEF8FD2721B0320022DCC6 /* UserState.swift in Sources */,
 				23DEF8F1272051ED0022DCC6 /* AccountProfileViewController.swift in Sources */,
 				236F6B17274FA1770006FFBA /* LoginCoordinator.swift in Sources */,
@@ -476,6 +494,7 @@
 				2301DC6B27490145008BF4AE /* PetTableViewCell.swift in Sources */,
 				23940CBE27527A3E00238263 /* SessionToken.swift in Sources */,
 				234317FC2755214500D84CBF /* SettingsViewModel.swift in Sources */,
+				23D22D9327563B7A004E4650 /* MethodSelectionViewModel.swift in Sources */,
 				234317FE2755229900D84CBF /* SettingsCoordinator.swift in Sources */,
 				23D5E1E3273692B800D75D4E /* PetInformation.swift in Sources */,
 				23D5E1E127368ADF00D75D4E /* PetAdditionRepository.swift in Sources */,
@@ -500,6 +519,7 @@
 				236F6B15274F96060006FFBA /* LoginViewController.swift in Sources */,
 				23F7FA3427281DB5009C2AC8 /* User.swift in Sources */,
 				23DCF5D5272EBE9600B295AA /* PetAdditionCoordinator.swift in Sources */,
+				23D22D9127563A95004E4650 /* MethodSelectionViewController.swift in Sources */,
 				237F4D15274A526400153D38 /* HomeCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
