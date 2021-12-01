@@ -34,6 +34,8 @@
 		23D22D9127563A95004E4650 /* MethodSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22D9027563A95004E4650 /* MethodSelectionViewController.swift */; };
 		23D22D9327563B7A004E4650 /* MethodSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22D9227563B7A004E4650 /* MethodSelectionViewModel.swift */; };
 		23D22D9527563BD9004E4650 /* MethodSelectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22D9427563BD9004E4650 /* MethodSelectionCoordinator.swift */; };
+		23D22D9727563EF6004E4650 /* PetSelectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22D9627563EF6004E4650 /* PetSelectionViewCell.swift */; };
+		23D22D99275645EB004E4650 /* MethodSelectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22D98275645EB004E4650 /* MethodSelectionViewCell.swift */; };
 		23D5E1E127368ADF00D75D4E /* PetAdditionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E1E027368ADF00D75D4E /* PetAdditionRepository.swift */; };
 		23D5E1E3273692B800D75D4E /* PetInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E1E2273692B800D75D4E /* PetInformation.swift */; };
 		23D5E1E52736AB4200D75D4E /* PetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E1E42736AB4200D75D4E /* PetState.swift */; };
@@ -88,6 +90,8 @@
 		23D22D9027563A95004E4650 /* MethodSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectionViewController.swift; sourceTree = "<group>"; };
 		23D22D9227563B7A004E4650 /* MethodSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectionViewModel.swift; sourceTree = "<group>"; };
 		23D22D9427563BD9004E4650 /* MethodSelectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectionCoordinator.swift; sourceTree = "<group>"; };
+		23D22D9627563EF6004E4650 /* PetSelectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectionViewCell.swift; sourceTree = "<group>"; };
+		23D22D98275645EB004E4650 /* MethodSelectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodSelectionViewCell.swift; sourceTree = "<group>"; };
 		23D5E1E027368ADF00D75D4E /* PetAdditionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetAdditionRepository.swift; sourceTree = "<group>"; };
 		23D5E1E2273692B800D75D4E /* PetInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInformation.swift; sourceTree = "<group>"; };
 		23D5E1E42736AB4200D75D4E /* PetState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetState.swift; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 			children = (
 				23D22D9027563A95004E4650 /* MethodSelectionViewController.swift */,
 				23D22D9227563B7A004E4650 /* MethodSelectionViewModel.swift */,
+				23D22D9627563EF6004E4650 /* PetSelectionViewCell.swift */,
+				23D22D98275645EB004E4650 /* MethodSelectionViewCell.swift */,
 			);
 			path = MethodSelection;
 			sourceTree = "<group>";
@@ -488,8 +494,10 @@
 				23DEF8FB2721AA4C0022DCC6 /* SessionRepository.swift in Sources */,
 				236F6B19274FA9470006FFBA /* LoginViewModel.swift in Sources */,
 				23DEF8E6272034880022DCC6 /* AccountCreationViewModel.swift in Sources */,
+				23D22D9727563EF6004E4650 /* PetSelectionViewCell.swift in Sources */,
 				23F7FA3627281E8F009C2AC8 /* Pet.swift in Sources */,
 				23DEF8E02720257A0022DCC6 /* StartScreenCoordinator.swift in Sources */,
+				23D22D99275645EB004E4650 /* MethodSelectionViewCell.swift in Sources */,
 				23DCF5D3272EB6AE00B295AA /* PetAdditionViewController.swift in Sources */,
 				2301DC6B27490145008BF4AE /* PetTableViewCell.swift in Sources */,
 				23940CBE27527A3E00238263 /* SessionToken.swift in Sources */,
