@@ -29,7 +29,7 @@ final class PetAdditionRepository {
         pet.dogBreed = breed
         pet.dogAge = birtday
         pet.dogDayEnergy = Int(weekdayQuantity) ?? 2
-        pet.dogWeeklyEnergy = (Int(weekdayQuantity) ?? 2 * 5) + (Int(weekendQuantity) ?? 3 * 2)
+        pet.dogWeeklyEnergy = ((Int(weekdayQuantity) ?? 2) * 5) + ((Int(weekendQuantity) ?? 3) * 2)
     
         try! realm.write {
             realm.add(pet)

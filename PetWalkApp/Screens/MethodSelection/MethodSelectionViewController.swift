@@ -30,9 +30,14 @@ class MethodSelectionViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
+    let realm = try! Realm()
     
-    var subtitle = UILabel()
+    var petSelectionLabel = UILabel()
+    var methodSelectionLabel = UILabel()
+    
+    private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    private let tableView = UITableView()
     
     override func loadView() {
         super.loadView()
@@ -45,11 +50,21 @@ class MethodSelectionViewController: BaseViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImageButton, style: .plain, target: self, action: #selector(onBack(_:)))
         
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 110.0, height: 120.0)
+        
+        collectionView.register(PetSelectionViewCell.self, forCellWithReuseIdentifier: PetSelectionViewCell.identifier)
+        collectionView.delegate = self
+        
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
-        backgroundView.addSubview(subtitle)
+        backgroundView.addSubview(petSelectionLabel)
+        backgroundView.addSubview(collectionView)
+        backgroundView.addSubview(methodSelectionLabel)
+        backgroundView.addSubview(tableView)
         
-        [subtitle].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [petSelectionLabel, collectionView, methodSelectionLabel, tableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -63,14 +78,37 @@ class MethodSelectionViewController: BaseViewController {
             backgroundView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
             backgroundView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            subtitle.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
-            subtitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            petSelectionLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
+            petSelectionLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            
+            collectionView.topAnchor.constraint(equalTo: petSelectionLabel.bottomAnchor, constant: 8),
+            collectionView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            collectionView.heightAnchor.constraint(equalToConstant: 140),
+            
+            methodSelectionLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 8),
+            methodSelectionLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            
+            tableView.topAnchor.constraint(equalTo: methodSelectionLabel.bottomAnchor, constant: 8),
+            tableView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            tableView.heightAnchor.constraint(equalToConstant: 480),
+            tableView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -250),
         ])
         
-        subtitle.textColor = UIColor.black
-        subtitle.font = UIFont.boldSystemFont(ofSize: 30)
-        subtitle.text = "Pet selection"
+        petSelectionLabel.textColor = UIColor.black
+        petSelectionLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        petSelectionLabel.text = "Pet selection"
         
+        collectionView.backgroundColor = UIColor(named: "Background")
+        
+        methodSelectionLabel.textColor = UIColor.black
+        methodSelectionLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        methodSelectionLabel.text = "Method selection"
+        
+        tableView.register(MethodSelectionViewCell.self, forCellReuseIdentifier: MethodSelectionViewCell.identifier)
+        tableView.backgroundColor = UIColor(named: "Background")
+        tableView.delegate = self
     }
     
     @objc func onBack(_ sender: Any) {
@@ -79,5 +117,61 @@ class MethodSelectionViewController: BaseViewController {
     
     func bind(viewModel: MethodSelectionViewModel) {
         self.viewModel = viewModel
+        
+        viewModel.petCells
+            .drive(collectionView.rx.items(cellIdentifier: PetSelectionViewCell.identifier, cellType: PetSelectionViewCell.self)) { index, model, cell in
+                cell.nameText = model.name
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.methodsCells
+            .drive(tableView.rx.items(cellIdentifier: MethodSelectionViewCell.identifier, cellType: MethodSelectionViewCell.self)) { index, model, cell in
+                cell.method = model.methodName
+                cell.imageMethod = model.methodImage
+            }
+            .disposed(by: disposeBag)
     }
 }
+
+extension MethodSelectionViewController: UICollectionViewDelegate {
+    private func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetSelectionViewCell.identifier, for: indexPath)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let item = collectionView.cellForItem(at: indexPath) as! PetSelectionViewCell
+        
+        if item.isSelected {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            item.layer.borderColor = UIColor.white.cgColor
+            
+            try! realm.write {
+                let dogs = realm.objects(Dog.self)
+                let dogsFilter = dogs.filter({ $0.dogName == item.nameText }).first
+                
+                dogsFilter?.dogSelectedForWalk = false
+            }
+        } else {
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+            item.layer.borderColor = UIColor(named: "Blue")?.cgColor
+            
+            try! realm.write {
+                let dogs = realm.objects(Dog.self)
+                let dogsFilter = dogs.filter({ $0.dogName == item.nameText }).first
+                
+                dogsFilter?.dogSelectedForWalk = true
+            }
+            return true
+        }
+        
+        return false
+    }
+}
+
+extension MethodSelectionViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 96
+    }
+}
+

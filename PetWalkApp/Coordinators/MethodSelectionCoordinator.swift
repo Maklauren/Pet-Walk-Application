@@ -22,7 +22,7 @@ class MethodSelectionCoordinator: CoordinatorType {
     
     func showMethodSelectionScreen() -> UIViewController {
         let viewController = MethodSelectionViewController()
-        let viewModel = MethodSelectionViewModel()
+        let viewModel = MethodSelectionViewModel(petsRepository: PetRepository())
         viewController.bind(viewModel: viewModel)
         
         return viewController

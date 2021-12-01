@@ -55,7 +55,7 @@ class HomeViewController: BaseViewController {
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 344.0, height: 96.0)
+        layout.itemSize = CGSize(width: 388.0, height: 96.0)
         
         collectionView.register(PetCollectionViewCell.self, forCellWithReuseIdentifier: PetCollectionViewCell.identifier)
         collectionView.delegate = self
@@ -70,8 +70,6 @@ class HomeViewController: BaseViewController {
         backgroundView.addSubview(startAWalkButton)
         
         scrollView.refreshControl = refreshControl
-        
-        collectionView.frame = backgroundView.bounds
         
         [screenTitle, subtitle, collectionView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
@@ -96,9 +94,9 @@ class HomeViewController: BaseViewController {
             collectionView.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            collectionView.heightAnchor.constraint(equalToConstant: 100),
+            collectionView.heightAnchor.constraint(equalToConstant: 115),
             
-            startAWalkButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 450),
+            startAWalkButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 400),
             startAWalkButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             startAWalkButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             startAWalkButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
