@@ -19,6 +19,7 @@ class Dog: Object {
     @Persisted var dogWalkLenghts: Double = 0
     @Persisted var dogWeeklyEnergyCurrent: Int = 0
     @Persisted var dogWeeklyEnergy: Int = 16
+    @Persisted var dogSelectedForWalk: Bool = false
     
     @Persisted var owner: User?
 }
