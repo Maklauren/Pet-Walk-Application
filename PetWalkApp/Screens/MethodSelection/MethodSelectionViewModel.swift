@@ -39,8 +39,12 @@ final class MethodSelectionViewModel {
             }
         }
     
-    lazy var route: Signal<Any> = Signal
-        .merge()
+    private let _startAWalkTapped = PublishRelay<Void>()
+    func startAWalkTapped() {
+        _startAWalkTapped.accept(())
+    }
+
+    lazy var route: Signal<Void> = _startAWalkTapped.asSignal()
     
     init(petsRepository: PetRepository) {
         petsRepository.getPets()

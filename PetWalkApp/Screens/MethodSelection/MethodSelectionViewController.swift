@@ -39,6 +39,8 @@ class MethodSelectionViewController: BaseViewController {
     
     private let tableView = UITableView()
     
+    var startAWalkButton = Stylesheet().createButton(buttonText: "Start a walk", buttonColor: "Blue button", textColor: UIColor.white)
+    
     override func loadView() {
         super.loadView()
         
@@ -63,6 +65,7 @@ class MethodSelectionViewController: BaseViewController {
         backgroundView.addSubview(collectionView)
         backgroundView.addSubview(methodSelectionLabel)
         backgroundView.addSubview(tableView)
+        backgroundView.addSubview(startAWalkButton)
         
         [petSelectionLabel, collectionView, methodSelectionLabel, tableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
@@ -92,8 +95,13 @@ class MethodSelectionViewController: BaseViewController {
             tableView.topAnchor.constraint(equalTo: methodSelectionLabel.bottomAnchor, constant: 8),
             tableView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            tableView.heightAnchor.constraint(equalToConstant: 480),
-            tableView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -250),
+            tableView.heightAnchor.constraint(equalToConstant: 288),
+            
+            startAWalkButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 100),
+            startAWalkButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            startAWalkButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
+            startAWalkButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
+            startAWalkButton.heightAnchor.constraint(equalToConstant: 53),
         ])
         
         petSelectionLabel.textColor = UIColor.black
@@ -129,6 +137,10 @@ class MethodSelectionViewController: BaseViewController {
                 cell.method = model.methodName
                 cell.imageMethod = model.methodImage
             }
+            .disposed(by: disposeBag)
+        
+        startAWalkButton.rx.tap
+            .bind(onNext: viewModel.startAWalkTapped)
             .disposed(by: disposeBag)
     }
 }

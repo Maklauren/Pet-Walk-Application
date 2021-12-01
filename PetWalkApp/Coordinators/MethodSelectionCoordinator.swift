@@ -25,6 +25,14 @@ class MethodSelectionCoordinator: CoordinatorType {
         let viewModel = MethodSelectionViewModel(petsRepository: PetRepository())
         viewController.bind(viewModel: viewModel)
         
+        let walkCoordinator = WalkCoordinator()
+        
+        viewModel.route
+            .emit(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.navigationController.present(walkCoordinator.start(), animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
         return viewController
     }
 }

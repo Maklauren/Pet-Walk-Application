@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2301DC6B27490145008BF4AE /* PetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301DC6A27490145008BF4AE /* PetTableViewCell.swift */; };
+		231CB9F72757887000DD0378 /* WalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231CB9F62757887000DD0378 /* WalkViewController.swift */; };
+		231CB9F92757887700DD0378 /* WalkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231CB9F82757887700DD0378 /* WalkViewModel.swift */; };
+		231CB9FB275789D100DD0378 /* WalkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231CB9FA275789D100DD0378 /* WalkCoordinator.swift */; };
 		2335FD1D2747DFBD00AC89CF /* PetsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335FD1C2747DFBD00AC89CF /* PetsRepository.swift */; };
 		234317F52754F9E100D84CBF /* AccountsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234317F42754F9E100D84CBF /* AccountsRepository.swift */; };
 		234317FA27551DB200D84CBF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234317F927551DB200D84CBF /* SettingsViewController.swift */; };
@@ -62,6 +65,9 @@
 /* Begin PBXFileReference section */
 		098BB68DA7546E48C96D539D /* Pods-PetWalkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetWalkApp.debug.xcconfig"; path = "Target Support Files/Pods-PetWalkApp/Pods-PetWalkApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2301DC6A27490145008BF4AE /* PetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTableViewCell.swift; sourceTree = "<group>"; };
+		231CB9F62757887000DD0378 /* WalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkViewController.swift; sourceTree = "<group>"; };
+		231CB9F82757887700DD0378 /* WalkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkViewModel.swift; sourceTree = "<group>"; };
+		231CB9FA275789D100DD0378 /* WalkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkCoordinator.swift; sourceTree = "<group>"; };
 		2335FD1C2747DFBD00AC89CF /* PetsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetsRepository.swift; sourceTree = "<group>"; };
 		234317F42754F9E100D84CBF /* AccountsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsRepository.swift; sourceTree = "<group>"; };
 		234317F927551DB200D84CBF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +149,15 @@
 				6C580E4AA26CFB5DFD1179EB /* Pods_PetWalkApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		231CB9F52757885C00DD0378 /* Walk */ = {
+			isa = PBXGroup;
+			children = (
+				231CB9F62757887000DD0378 /* WalkViewController.swift */,
+				231CB9F82757887700DD0378 /* WalkViewModel.swift */,
+			);
+			path = Walk;
 			sourceTree = "<group>";
 		};
 		234317F827551DA000D84CBF /* Settings */ = {
@@ -251,6 +266,7 @@
 				23B160F22729A6FB00ACAB86 /* MyPets */,
 				23DEF8F2272051F60022DCC6 /* AccountProfile */,
 				23D22D8F27563A4E004E4650 /* MethodSelection */,
+				231CB9F52757885C00DD0378 /* Walk */,
 				23DCF5D1272EB67000B295AA /* AddAPet */,
 				234317F827551DA000D84CBF /* Settings */,
 			);
@@ -276,6 +292,7 @@
 				237F4D14274A526400153D38 /* HomeCoordinator.swift */,
 				23D22D9427563BD9004E4650 /* MethodSelectionCoordinator.swift */,
 				23DCF5D4272EBE9600B295AA /* PetAdditionCoordinator.swift */,
+				231CB9FA275789D100DD0378 /* WalkCoordinator.swift */,
 				234317FD2755229900D84CBF /* SettingsCoordinator.swift */,
 			);
 			path = Coordinators;
@@ -491,6 +508,7 @@
 				237F4D13274A501D00153D38 /* HomeViewModel.swift in Sources */,
 				23B71E10270C7A5600010C87 /* StartScreenViewController.swift in Sources */,
 				2335FD1D2747DFBD00AC89CF /* PetsRepository.swift in Sources */,
+				231CB9FB275789D100DD0378 /* WalkCoordinator.swift in Sources */,
 				23DEF8FB2721AA4C0022DCC6 /* SessionRepository.swift in Sources */,
 				236F6B19274FA9470006FFBA /* LoginViewModel.swift in Sources */,
 				23DEF8E6272034880022DCC6 /* AccountCreationViewModel.swift in Sources */,
@@ -508,6 +526,7 @@
 				23D5E1E127368ADF00D75D4E /* PetAdditionRepository.swift in Sources */,
 				23D5E1E52736AB4200D75D4E /* PetState.swift in Sources */,
 				23B71E20270C8D7B00010C87 /* Stylesheet.swift in Sources */,
+				231CB9F92757887700DD0378 /* WalkViewModel.swift in Sources */,
 				23B71E22270DA74D00010C87 /* AccountCreationViewController.swift in Sources */,
 				23DEF8F4272052E90022DCC6 /* AccountProfileViewModel.swift in Sources */,
 				23DEF8E92720363A0022DCC6 /* Observable+replaceNil.swift in Sources */,
@@ -517,6 +536,7 @@
 				23DEF8DB272024D90022DCC6 /* StartScreenViewModel.swift in Sources */,
 				23DEF8DE272025610022DCC6 /* CoordinatorType.swift in Sources */,
 				237F4D18274A691E00153D38 /* PetCollectionViewCell.swift in Sources */,
+				231CB9F72757887000DD0378 /* WalkViewController.swift in Sources */,
 				23DEF8EB272037560022DCC6 /* AccountCreationCoordinator.swift in Sources */,
 				23DEF8EF272047AC0022DCC6 /* UserSession.swift in Sources */,
 				23B160F62729AAB600ACAB86 /* MyPetsViewModel.swift in Sources */,
