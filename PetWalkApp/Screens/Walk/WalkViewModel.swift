@@ -14,9 +14,14 @@ final class WalkViewModel {
     
     private let disposeBag = DisposeBag()
     
-    lazy var route: Signal<Void> = Signal
-        .merge(
-        )
+    private let petsRepository = PetRepository()
+    
+    private let _endTheWalkButtonTapped = PublishRelay<Void>()
+    func endTheWalkButtonTapped() {
+        _endTheWalkButtonTapped.accept(())
+    }
+    
+    lazy var route: Signal<Void> = _endTheWalkButtonTapped.asSignal().do(onNext: petsRepository.updateDogEnergy)
     
     init() {
     }

@@ -683,6 +683,8 @@
 				DEVELOPMENT_TEAM = 4F5C4V5J4M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PetWalkApp/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We want to find you";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your data";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -711,6 +713,8 @@
 				DEVELOPMENT_TEAM = 4F5C4V5J4M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PetWalkApp/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We want to find you";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your data";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

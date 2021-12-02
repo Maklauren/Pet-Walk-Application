@@ -18,4 +18,21 @@ final class PetRepository {
     func getPets() -> Single<Results<Dog>> {
         return .just(realm.objects(Dog.self))
     }
+    
+    func updateDogEnergy() {
+        
+        let dogs = realm.objects(Dog.self)
+        
+        for selectedDog in dogs {
+            if selectedDog.dogSelectedForWalk == true {
+                
+                try! realm.write {
+                    selectedDog.dogDayEnergyCurrent += 1
+                    selectedDog.dogWeeklyEnergyCurrent += 1
+                    selectedDog.dogSelectedForWalk = false
+                }
+            }
+        }
+    }
 }
+

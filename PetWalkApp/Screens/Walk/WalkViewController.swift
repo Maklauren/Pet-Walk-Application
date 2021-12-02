@@ -7,65 +7,95 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
-import RealmSwift
-import RxDataSources
+import CoreLocation
+import MapKit
 
-class WalkViewController: BaseViewController {
-    
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = UIColor(named: "Background")
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-    
-    private let backgroundView: UIView = {
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor(named: "Background")
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        return backgroundView
-    }()
+class WalkViewController: BaseViewController, CLLocationManagerDelegate {
     
     private var viewModel: WalkViewModel!
-    
     private let disposeBag = DisposeBag()
     
-    var screenTitle = UILabel()
+    private var screenTitle = UILabel()
+    
+    private let locationManager = CLLocationManager()
+    
+    private let mapView = MKMapView(frame: .zero)
+    
+    private var didZoomInitially = false
+    
+    var endTheWalkButton = Stylesheet().createButton(buttonText: "End the walk", buttonColor: "Background", textColor: UIColor.black)
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkAuthorizationAndRequestLocation()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.isHidden = true
         
-        view.addSubview(scrollView)
-        scrollView.addSubview(backgroundView)
-        backgroundView.addSubview(screenTitle)
+        view.backgroundColor = UIColor(named: "Background")
         
-        [screenTitle].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        view.addSubview(screenTitle)
+        view.addSubview(mapView)
+        view.addSubview(endTheWalkButton)
+        
+        [screenTitle, mapView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            screenTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            screenTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
             
-            backgroundView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
-            backgroundView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 0),
-            backgroundView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 0),
-            backgroundView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
-            backgroundView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            mapView.topAnchor.constraint(equalTo: screenTitle.bottomAnchor, constant: 5),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
             
-            screenTitle.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 50),
-            screenTitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            endTheWalkButton.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 15),
+            endTheWalkButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
+            endTheWalkButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
+            endTheWalkButton.heightAnchor.constraint(equalToConstant: 53),
         ])
         
         screenTitle.textColor = UIColor.black
         screenTitle.font = UIFont.systemFont(ofSize: 39, weight: UIFont.Weight.heavy)
         screenTitle.text = "Walk"
+        
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+        mapView.userTrackingMode = .follow
     }
     
     func bind(viewModel: WalkViewModel) {
         self.viewModel = viewModel
+        
+        endTheWalkButton.rx.tap
+            .bind(onNext: viewModel.endTheWalkButtonTapped)
+            .disposed(by: disposeBag)
+    }
+    
+    func checkAuthorizationAndRequestLocation() {
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case . denied:
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!,
+                                      options: [:], completionHandler: nil)
+        default:
+            locationManager.startUpdatingLocation()
+        }
+    }
+}
+
+extension WalkViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        if !didZoomInitially {
+            didZoomInitially = true
+            mapView.showAnnotations([mapView.userLocation], animated: true)
+        }
     }
 }
