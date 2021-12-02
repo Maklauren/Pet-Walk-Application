@@ -14,7 +14,7 @@ class PetTableViewCell: UITableViewCell {
     private let image = UIImageView()
     private let breed = UILabel()
     private let name = UILabel()
-    private let age = UILabel()
+    private var age = UILabel()
     private let infoButton = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -86,9 +86,29 @@ class PetTableViewCell: UITableViewCell {
         }
     }
     
-    var ageText: String = "" {
+    var ageText: Date = Date() {
         didSet {
-            name.text = ageText
+            let today = NSDate()
+            
+            let gregorian = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+            
+            let currentAge = gregorian.components([.year, .month, .day], from: ageText, to: today as Date, options: [])
+            
+            if currentAge.year == 0 {
+                age.text = "\(currentAge.month!) months, \(currentAge.day!) days"
+            } else if currentAge.month == 0 {
+                age.text = "\(currentAge.year!) years, \(currentAge.day!) days"
+            } else if currentAge.day == 0 {
+                age.text = "\(currentAge.year!) years, \(currentAge.month!) months"
+            } else if currentAge.year == 0 && currentAge.month == 0 {
+                age.text = "\(currentAge.day!) days"
+            } else if currentAge.year == 0 && currentAge.day == 0 {
+                age.text = "\(currentAge.month!) months"
+            } else if currentAge.month == 0 && currentAge.day == 0 {
+                age.text = "\(currentAge.year!) years"
+            } else {
+                age.text = "\(currentAge.year!) years, \(currentAge.month!) months, \(currentAge.day!) days"
+            }
         }
     }
 }

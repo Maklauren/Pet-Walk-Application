@@ -118,6 +118,7 @@ class MyPetsViewController: BaseViewController {
             .drive(tableView.rx.items(cellIdentifier: PetTableViewCell.identifier, cellType: PetTableViewCell.self)) { index, model, cell in
                 cell.breedText = model.breed
                 cell.nameText = model.name
+                cell.ageText = model.date
             }
             .disposed(by: disposeBag)
         

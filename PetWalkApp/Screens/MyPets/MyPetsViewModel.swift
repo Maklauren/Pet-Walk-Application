@@ -17,6 +17,7 @@ final class MyPetsViewModel {
     struct Cell {
         var breed: String
         var name: String
+        var date: Date
     }
     
     private var dogArray = BehaviorRelay<[Dog]>(value: [])
@@ -24,7 +25,7 @@ final class MyPetsViewModel {
     lazy var cells = dogArray.asDriver()
         .map {
             $0.map { (dog: Dog) -> Cell in
-                Cell(breed: dog.dogBreed, name: dog.dogName)
+                Cell(breed: dog.dogBreed, name: dog.dogName, date: dog.dogAge!)
             }
         }
     

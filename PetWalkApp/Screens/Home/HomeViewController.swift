@@ -125,6 +125,7 @@ class HomeViewController: BaseViewController {
                 cell.nameText = model.name
                 cell.breedText = model.breed
                 cell.moodText = String(model.mood)
+                cell.ageText = model.age
             }
             .disposed(by: disposeBag)
         

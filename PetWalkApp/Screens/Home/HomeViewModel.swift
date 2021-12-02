@@ -19,6 +19,7 @@ final class HomeViewModel {
         var name: String
         var breed: String
         var mood: Int
+        var age: Date
     }
     
     private let _startAWalkTapped = PublishRelay<Void>()
@@ -36,7 +37,7 @@ final class HomeViewModel {
     lazy var cells = dogArray.asDriver()
         .map {
             $0.map { (dog: Dog) -> Cell in
-                Cell(name: dog.dogName, breed: dog.dogBreed, mood: dog.dogDayEnergyCurrent)
+                Cell(name: dog.dogName, breed: dog.dogBreed, mood: dog.dogDayEnergyCurrent, age: dog.dogAge!)
             }
         }
     

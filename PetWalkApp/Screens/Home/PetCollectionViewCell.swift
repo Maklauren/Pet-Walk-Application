@@ -69,7 +69,6 @@ class PetCollectionViewCell: UICollectionViewCell {
         
         name.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.heavy)
         
-        age.text = "No age information"
         age.textColor = UIColor(named: "Text")
         age.font = UIFont.systemFont(ofSize: 16)
         
@@ -107,6 +106,32 @@ class PetCollectionViewCell: UICollectionViewCell {
                 moodStatus.text = "Happy"
             } else {
                 moodStatus.text = "Sad"
+            }
+        }
+    }
+    
+    var ageText: Date = Date() {
+        didSet {
+            let today = NSDate()
+            
+            let gregorian = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+            
+            let currentAge = gregorian.components([.year, .month, .day], from: ageText, to: today as Date, options: [])
+            
+            if currentAge.year == 0 {
+                age.text = "\(currentAge.month!) months, \(currentAge.day!) days"
+            } else if currentAge.month == 0 {
+                age.text = "\(currentAge.year!) years, \(currentAge.day!) days"
+            } else if currentAge.day == 0 {
+                age.text = "\(currentAge.year!) years, \(currentAge.month!) months"
+            } else if currentAge.year == 0 && currentAge.month == 0 {
+                age.text = "\(currentAge.day!) days"
+            } else if currentAge.year == 0 && currentAge.day == 0 {
+                age.text = "\(currentAge.month!) months"
+            } else if currentAge.month == 0 && currentAge.day == 0 {
+                age.text = "\(currentAge.year!) years"
+            } else {
+                age.text = "\(currentAge.year!) years, \(currentAge.month!) months, \(currentAge.day!) days"
             }
         }
     }
