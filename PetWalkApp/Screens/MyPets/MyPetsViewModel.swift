@@ -25,7 +25,7 @@ final class MyPetsViewModel {
     lazy var cells = dogArray.asDriver()
         .map {
             $0.map { (dog: Dog) -> Cell in
-                Cell(breed: dog.dogBreed, name: dog.dogName, date: dog.dogAge!)
+                Cell(breed: dog.dogBreed, name: dog.dogName, date: dog.dogAge)
             }
         }
     

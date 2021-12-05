@@ -25,6 +25,7 @@ final class PetAdditionRepository {
         state = .added(PetInformation(name: name, breed: breed, birthday: birtday))
         
         let pet = Dog()
+        pet.id = UUID().uuidString
         pet.dogName = name
         pet.dogBreed = breed
         pet.dogAge = birtday

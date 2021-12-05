@@ -12,11 +12,11 @@ import RxCocoa
 
 final class MethodSelectionViewModel {
     
-    struct petCell {
+    struct PetCell {
         var name: String
     }
     
-    struct methodCell {
+    struct MethodCell {
         var methodName: String
         var methodImage: UIImage
     }
@@ -25,17 +25,17 @@ final class MethodSelectionViewModel {
     
     private var dogArray = BehaviorRelay<[Dog]>(value: [])
     
-    private var methodsArray = BehaviorRelay<[methodCell]>(value: [
-        methodCell(methodName: "On foot", methodImage: UIImage(named: "On foot")!),
-        methodCell(methodName: "On bike", methodImage: UIImage(named: "On bike")!),
-        methodCell(methodName: "Other", methodImage: UIImage(named: "Other method")!)])
+    private var methodsArray = BehaviorRelay<[MethodCell]>(value: [
+        MethodCell(methodName: "On foot", methodImage: UIImage(named: "On foot")!),
+        MethodCell(methodName: "On bike", methodImage: UIImage(named: "On bike")!),
+        MethodCell(methodName: "Other", methodImage: UIImage(named: "Other method")!)])
     
     lazy var methodsCells = methodsArray.asDriver()
     
     lazy var petCells = dogArray.asDriver()
         .map {
-            $0.map { (dog: Dog) -> petCell in
-                petCell(name: dog.dogName)
+            $0.map { (dog: Dog) -> PetCell in
+                PetCell(name: dog.dogName)
             }
         }
     

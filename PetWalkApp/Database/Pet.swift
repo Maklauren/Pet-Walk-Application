@@ -8,15 +8,14 @@
 import Foundation
 import RealmSwift
 
-class Dog: Object {
-    @Persisted(primaryKey: true) var id: ObjectId
+class Dog: Object, Codable {
+    @Persisted(primaryKey: true) var id: String
     
     @Persisted var dogName: String = ""
-    @Persisted var dogAge: Date? = nil
+    @Persisted var dogAge: Date = NSDate() as Date
     @Persisted var dogBreed: String = ""
     @Persisted var dogDayEnergyCurrent: Int = 0
     @Persisted var dogDayEnergy: Int = 2
-    @Persisted var dogWalkLenghts: Double = 0
     @Persisted var dogWeeklyEnergyCurrent: Int = 0
     @Persisted var dogWeeklyEnergy: Int = 16
     @Persisted var dogSelectedForWalk: Bool = false

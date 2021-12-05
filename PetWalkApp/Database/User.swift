@@ -8,8 +8,8 @@
 import Foundation
 import RealmSwift
 
-class User: Object {
-    @Persisted(primaryKey: true) var id: ObjectId
+class User: Object, Codable {
+    @Persisted(primaryKey: true) var id: String
     
     @Persisted var fullName: String = ""
     @Persisted var email: String = ""
