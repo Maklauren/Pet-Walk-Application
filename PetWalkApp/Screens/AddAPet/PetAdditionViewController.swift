@@ -160,6 +160,8 @@ class PetAdditionViewController: BaseViewController {
         
         dogBirthdayDatePicker.datePickerMode = .date
         dogBirthdayDatePicker.tintColor = UIColor.white
+        dogBirthdayDatePicker.maximumDate = NSDate() as Date
+        dogBirthdayDatePicker.preferredDatePickerStyle = UIDatePickerStyle.compact
         
         question.text = "How many times a day you walk your dog?"
         question.textColor = UIColor(named: "Text-2")
