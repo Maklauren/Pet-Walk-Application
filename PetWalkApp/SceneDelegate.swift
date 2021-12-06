@@ -34,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sessionRepository.getActiveSession()
             .observe(on: MainScheduler.instance)
             .subscribe { _ in
+                sessionRepository.getInformationForExistingPerson()
                 self.rootCoordinator = HomeCoordinator()
             } onFailure: { _ in
                 self.rootCoordinator = StartScreenCoordinator()
