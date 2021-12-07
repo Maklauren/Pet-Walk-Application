@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class PetSelectionViewCell: UICollectionViewCell {
     
@@ -13,6 +14,10 @@ class PetSelectionViewCell: UICollectionViewCell {
     
     private let dogImage = UIImageView()
     private let dogName = UILabel()
+    
+    private let petRepository = PetRepository()
+    
+    private let disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,7 +34,7 @@ class PetSelectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             dogImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            dogImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            dogImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             dogImage.widthAnchor.constraint(equalToConstant: 80),
             dogImage.heightAnchor.constraint(equalToConstant: 80),
             
@@ -37,12 +42,11 @@ class PetSelectionViewCell: UICollectionViewCell {
             dogName.topAnchor.constraint(equalTo: dogImage.bottomAnchor, constant: 4),
         ])
         
-        dogImage.image = UIImage(named: "DefaultDog")
         dogImage.contentMode = .scaleAspectFill
         dogImage.layer.cornerRadius = 40
         dogImage.clipsToBounds = true
-        dogImage.layer.borderWidth = 1.5
-        dogImage.layer.borderColor = UIColor(named: "Text")?.cgColor
+        dogImage.layer.borderWidth = 4
+        dogImage.layer.borderColor = UIColor.white.cgColor
         
         dogName.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.semibold)
     }
@@ -53,6 +57,16 @@ class PetSelectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+    }
+    
+    var dogID: String = "" {
+        didSet {
+            petRepository.downloadAvatar(selectedDogID: dogID)
+                .subscribe(onSuccess: {
+                    self.dogImage.image = $0
+                })
+                .disposed(by: disposeBag)
+        }
     }
     
     var nameText: String = "" {

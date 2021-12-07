@@ -13,6 +13,7 @@ import RxCocoa
 final class MethodSelectionViewModel {
     
     struct PetCell {
+        var id: String
         var name: String
     }
     
@@ -35,7 +36,7 @@ final class MethodSelectionViewModel {
     lazy var petCells = dogArray.asDriver()
         .map {
             $0.map { (dog: Dog) -> PetCell in
-                PetCell(name: dog.dogName)
+                PetCell(id: dog.id, name: dog.dogName)
             }
         }
     

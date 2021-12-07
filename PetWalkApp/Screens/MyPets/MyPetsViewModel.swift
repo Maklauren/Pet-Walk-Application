@@ -15,6 +15,7 @@ final class MyPetsViewModel {
     private let disposeBag = DisposeBag()
     
     struct Cell {
+        var id: String
         var breed: String
         var name: String
         var date: Date
@@ -25,7 +26,7 @@ final class MyPetsViewModel {
     lazy var cells = dogArray.asDriver()
         .map {
             $0.map { (dog: Dog) -> Cell in
-                Cell(breed: dog.dogBreed, name: dog.dogName, date: dog.dogAge)
+                Cell(id: dog.id, breed: dog.dogBreed, name: dog.dogName, date: dog.dogAge)
             }
         }
     

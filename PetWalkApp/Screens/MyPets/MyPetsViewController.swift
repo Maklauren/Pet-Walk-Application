@@ -116,6 +116,7 @@ class MyPetsViewController: BaseViewController {
                 self?.refreshControl.endRefreshing()
             })
             .drive(tableView.rx.items(cellIdentifier: PetTableViewCell.identifier, cellType: PetTableViewCell.self)) { index, model, cell in
+                cell.dogID = model.id
                 cell.breedText = model.breed
                 cell.nameText = model.name
                 cell.ageText = model.date

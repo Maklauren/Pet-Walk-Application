@@ -54,7 +54,7 @@ class MethodSelectionViewController: BaseViewController {
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 110.0, height: 120.0)
+        layout.itemSize = CGSize(width: 110.0, height: 130.0)
         
         collectionView.register(PetSelectionViewCell.self, forCellWithReuseIdentifier: PetSelectionViewCell.identifier)
         collectionView.delegate = self
@@ -128,6 +128,7 @@ class MethodSelectionViewController: BaseViewController {
         
         viewModel.petCells
             .drive(collectionView.rx.items(cellIdentifier: PetSelectionViewCell.identifier, cellType: PetSelectionViewCell.self)) { index, model, cell in
+                cell.dogID = model.id
                 cell.nameText = model.name
             }
             .disposed(by: disposeBag)

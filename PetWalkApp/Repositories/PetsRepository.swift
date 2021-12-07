@@ -10,10 +10,18 @@ import RealmSwift
 import RxSwift
 import RxCocoa
 import Alamofire
+import FirebaseAuth
+import FirebaseStorage
 
 final class PetRepository {
     
     private lazy var realm = try! Realm()
+    
+    private var storageRef: StorageReference!
+    
+    init() {
+        storageRef = Storage.storage().reference()
+    }
     
     func getPets() -> Single<Results<Dog>> {
         return .just(realm.objects(Dog.self))
@@ -33,6 +41,23 @@ final class PetRepository {
                 }
             }
         }
+    }
+    
+    func downloadAvatar(selectedDogID: String) -> Single<UIImage> {
+        Single.create { observer in
+            
+            let avatarRef = self.storageRef.child("Pets").child(selectedDogID)
+            avatarRef.getData(maxSize: 5_000_000) { data, error in
+                if let error = error {
+                    observer(.failure(error))
+                } else {
+                    observer(.success(data!))
+                }
+            }
+            
+            return Disposables.create()
+        }
+        .map { UIImage(data: $0)! }
     }
 }
 
