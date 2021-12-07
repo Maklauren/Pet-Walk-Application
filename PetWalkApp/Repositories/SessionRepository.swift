@@ -117,12 +117,17 @@ final class SessionRepository {
         }
         
         databaseRef.child(userID!).child("pets").observeSingleEvent(of: .value, with: { [self] snapshot in
-
+            
             let value = (snapshot.value as? NSDictionary) as? [String:Any]
-
-            for dogKey in value!.keys {
+            
+            
+            guard let value = value else {
+                return
+            }
+            
+            for dogKey in value.keys {
                 let dog = Dog()
-                guard let dogDict = value![dogKey] as? [String: Any],
+                guard let dogDict = value[dogKey] as? [String: Any],
                       let dogName = dogDict["dogName"] as? String,
                       let dogBreed = dogDict["dogBreed"] as? String,
                       let dogDayEnergy = dogDict["dogDayEnergy"] as? Int,
@@ -133,7 +138,7 @@ final class SessionRepository {
                 else {
                     return
                 }
-
+                
                 dog.id = dogKey
                 dog.dogName = dogName
                 dog.dogBreed = dogBreed
@@ -143,11 +148,11 @@ final class SessionRepository {
                 dog.dogWeeklyEnergyCurrent = dogWeeklyEnergyCurrent
                 dog.dogSelectedForWalk = false
                 dog.owner = realm.objects(User.self).first
-
+                
                 let dateFormatter = ISO8601DateFormatter()
                 let correctDate = dateFormatter.date(from: dogAge)
                 dog.dogAge = correctDate ?? NSDate() as Date
-
+                
                 try! self.realm.write {
                     self.realm.add(dog)
                 }

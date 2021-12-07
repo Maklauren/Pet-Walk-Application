@@ -39,14 +39,17 @@ class SettingsViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
+    private var realm = try! Realm()
     
     var subtitle = UILabel()
     var userPicture = UIImageView()
     var selectUserPicture = UIButton()
     
-    var userCityLabel = Stylesheet().createLabel(labelText: "Enter your country and city")
-    var userCityTextField = Stylesheet().createTextField(textFieldText: "Country, city")
+    var userFullnameLabel = Stylesheet().createLabel(labelText: "Change your full name")
+    lazy var userFullnameTextField = Stylesheet().createTextField(textFieldText: "\(self.realm.objects(User.self).last!.fullName)")
+    
+    var userCityLabel = Stylesheet().createLabel(labelText: "Change your country and city")
+    lazy var userCityTextField = Stylesheet().createTextField(textFieldText: self.realm.objects(User.self).last?.city ?? "Country, City")
     
     var bottomButton = Stylesheet().createButton(buttonText: "Apply changes", buttonColor: "Background", textColor: UIColor.black)
     
@@ -77,11 +80,14 @@ class SettingsViewController: BaseViewController {
         
         [subtitle, userPicture, selectUserPicture].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
+        stackView.addArrangedSubview(userFullnameLabel)
+        stackView.addArrangedSubview(userFullnameTextField)
         stackView.addArrangedSubview(userCityLabel)
         stackView.addArrangedSubview(userCityTextField)
         
+        stackView.setCustomSpacing(4, after: userFullnameLabel)
+        stackView.setCustomSpacing(16, after: userFullnameTextField)
         stackView.setCustomSpacing(4, after: userCityLabel)
-        stackView.setCustomSpacing(16, after: userCityTextField)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -110,6 +116,7 @@ class SettingsViewController: BaseViewController {
             stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             
+            userFullnameTextField.heightAnchor.constraint(equalToConstant: 35),
             userCityTextField.heightAnchor.constraint(equalToConstant: 35),
             
             bottomButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 163),
@@ -150,8 +157,19 @@ class SettingsViewController: BaseViewController {
             .drive(userPicture.rx.image)
             .disposed(by: disposeBag)
         
+        viewModel.userFullnameTextField
+            .drive(userFullnameTextField.rx.text)
+            .disposed(by: disposeBag)
+        
         viewModel.userCityTextField
             .drive(userCityTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        userFullnameTextField.rx.controlEvent(.editingChanged)
+            .withLatestFrom(userFullnameTextField.rx.text)
+            .distinctUntilChanged()
+            .replaceNil(with: realm.objects(User.self).last!.fullName)
+            .bind(onNext: viewModel.userFullnameChanged)
             .disposed(by: disposeBag)
         
         userCityTextField.rx.controlEvent(.editingChanged)

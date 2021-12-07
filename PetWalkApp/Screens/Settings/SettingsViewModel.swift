@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 import RxSwift
 import RxRelay
 import RxCocoa
@@ -20,6 +21,8 @@ final class SettingsViewModel {
     
     private let accountsRepository: AccountsRepository
     
+    private var realm = try! Realm()
+    
     func uploadPhoto(_ image: UIImage) {
         accountsRepository.uploadAvatar(image: image)
             .subscribe(onSuccess: { print("Photo uploaded") })
@@ -28,6 +31,11 @@ final class SettingsViewModel {
     
     private let _userImage = BehaviorRelay<UIImage?>(value: nil)
     lazy var userImage = _userImage.asDriver()
+    
+    private let _userFullnameChanged = PublishRelay<String>()
+    func userFullnameChanged(_ text: String) {
+        _userFullnameChanged.accept(text)
+    }
     
     private let _userCityChanged = PublishRelay<String>()
     func userCityChanged(_ text: String) {
@@ -39,14 +47,16 @@ final class SettingsViewModel {
         _applySettingsTapped.accept(())
     }
     
-    lazy var userCityTextField = _userCityChanged.asDriver(onErrorJustReturn: "").startWith("")
+    lazy var userFullnameTextField = _userFullnameChanged.asDriver(onErrorJustReturn: "").startWith(realm.objects(User.self).last!.fullName)
+    
+    lazy var userCityTextField = _userCityChanged.asDriver(onErrorJustReturn: "").startWith(realm.objects(User.self).last?.city ?? "")
     
     lazy var route: Signal<Route> = Signal
         .merge(
             _applySettingsTapped.asObservable()
-                .withLatestFrom(userCityTextField.asObservable())
-                .flatMapLatest { city in
-                    AccountsRepository.shared.settingsChanges(city: city).asObservable()
+                .withLatestFrom(Observable.combineLatest(userFullnameTextField.asObservable(), userCityTextField.asObservable()))
+                .flatMapLatest { fullname, city in
+                    AccountsRepository.shared.settingsChanges(fullname: fullname, city: city).asObservable()
                 }
                 .debug("SETTING SESSION")
                 .filter { $0 == true }
@@ -61,8 +71,6 @@ final class SettingsViewModel {
                 self._userImage.accept($0)
             })
             .disposed(by: disposeBag)
-        
-        _applySettingsTapped.asSignal().emit(onNext: { print("APPLY SETTINGS") }).disposed(by: disposeBag)
     }
 }
 

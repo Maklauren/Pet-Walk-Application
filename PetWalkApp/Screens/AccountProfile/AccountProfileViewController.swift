@@ -48,7 +48,9 @@ class AccountProfileViewController: BaseViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        bind(viewModel: viewModel)
+        viewModel.userImage
+            .drive(userPicture.rx.image)
+            .disposed(by: disposeBag)
     }
     
     override func loadView() {
