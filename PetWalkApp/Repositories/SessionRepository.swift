@@ -145,9 +145,8 @@ final class SessionRepository {
                 dog.owner = realm.objects(User.self).first
 
                 let dateFormatter = ISO8601DateFormatter()
-                dateFormatter.formatOptions.insert(.withFractionalSeconds)
-                let correctDate = dateFormatter.date(from: dogAge)!
-                dog.dogAge = correctDate
+                let correctDate = dateFormatter.date(from: dogAge)
+                dog.dogAge = correctDate ?? NSDate() as Date
 
                 try! self.realm.write {
                     self.realm.add(dog)

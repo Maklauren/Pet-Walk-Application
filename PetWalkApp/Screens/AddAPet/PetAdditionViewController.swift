@@ -41,7 +41,8 @@ class PetAdditionViewController: BaseViewController {
     let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
     
     var subtitle = UILabel()
-    var dogPicture = UIButton()
+    var dogPicture = UIImageView()
+    var selectDogPicture = UIButton()
     
     var dogNameLabel = Stylesheet().createLabel(labelText: "Name")
     var dogNameTextField = Stylesheet().createTextField(textFieldText: "Name")
@@ -78,11 +79,12 @@ class PetAdditionViewController: BaseViewController {
         scrollView.addSubview(backgroundView)
         backgroundView.addSubview(subtitle)
         backgroundView.addSubview(dogPicture)
+        backgroundView.addSubview(selectDogPicture)
         backgroundView.addSubview(stackView)
         backgroundView.addSubview(bottomButton)
         backgroundView.addSubview(dogBirthdayDatePicker)
         
-        [subtitle, dogPicture, dogBirthdayDatePicker].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [subtitle, dogPicture, selectDogPicture, dogBirthdayDatePicker].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         //MARK: -Stack View
         stackView.addArrangedSubview(dogNameLabel)
@@ -128,7 +130,10 @@ class PetAdditionViewController: BaseViewController {
             dogPicture.heightAnchor.constraint(equalToConstant: 120),
             dogPicture.widthAnchor.constraint(equalToConstant: 120),
             
-            stackView.topAnchor.constraint(equalTo: dogPicture.bottomAnchor, constant: 16),
+            selectDogPicture.topAnchor.constraint(equalTo: dogPicture.bottomAnchor, constant: 0),
+            selectDogPicture.centerXAnchor.constraint(equalTo: dogPicture.centerXAnchor),
+            
+            stackView.topAnchor.constraint(equalTo: dogPicture.bottomAnchor, constant: 32),
             stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             
@@ -152,11 +157,15 @@ class PetAdditionViewController: BaseViewController {
         subtitle.font = UIFont.boldSystemFont(ofSize: 30)
         subtitle.text = "Add a pet"
         
-        dogPicture.setImage(UIImage(named: "Default user"), for: .normal)
+        dogPicture.image = UIImage(named: "Default user")
         dogPicture.contentMode = .scaleAspectFill
         dogPicture.layer.cornerRadius = 60
         dogPicture.clipsToBounds = true
-        dogPicture.addTarget(self, action: #selector(addPicture(_:)), for: .touchUpInside)
+        
+        selectDogPicture.setTitleColor(UIColor(named: "Text-2"), for: .normal)
+        selectDogPicture.setTitle("Select photo", for: .normal)
+        selectDogPicture.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        selectDogPicture.addTarget(self, action: #selector(addPicture(_:)), for: .touchUpInside)
         
         dogBirthdayDatePicker.datePickerMode = .date
         dogBirthdayDatePicker.tintColor = UIColor.white
@@ -192,12 +201,12 @@ class PetAdditionViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel.weekdayQuantityTextField
-                    .drive(weekdayTextField.rx.text)
-                    .disposed(by: disposeBag)
+            .drive(weekdayTextField.rx.text)
+            .disposed(by: disposeBag)
         
-                viewModel.weekendQuantityTextField
-                    .drive(weekendTextField.rx.text)
-                    .disposed(by: disposeBag)
+        viewModel.weekendQuantityTextField
+            .drive(weekendTextField.rx.text)
+            .disposed(by: disposeBag)
         
         dogNameTextField.rx.controlEvent(.editingChanged)
             .withLatestFrom(dogNameTextField.rx.text)
@@ -225,7 +234,7 @@ class PetAdditionViewController: BaseViewController {
             .replaceNil(with: "")
             .bind(onNext: viewModel.weekdayQuantityChanged)
             .disposed(by: disposeBag)
-
+        
         weekendTextField.rx.controlEvent(.editingChanged)
             .withLatestFrom(weekendTextField.rx.text)
             .distinctUntilChanged()
@@ -287,7 +296,9 @@ extension PetAdditionViewController: UIImagePickerControllerDelegate, UINavigati
         
         if let imageUrl = info[.editedImage] as? UIImage {
             
-            dogPicture.setImage(imageUrl, for: .normal)
+            dogPicture.image = imageUrl
+            
+            viewModel.uploadPhoto(imageUrl)
         }
         
         picker.dismiss(animated: true, completion: nil)

@@ -18,6 +18,8 @@ final class PetAdditionViewModel {
     
     private let disposeBag = DisposeBag()
     
+    private let petAdditionRepository: PetAdditionRepository
+    
     private let _dogNameFieldChanged = PublishRelay<String>()
     func dogNameFieldChanged(_ text: String) {
         _dogNameFieldChanged.accept(text)
@@ -48,6 +50,12 @@ final class PetAdditionViewModel {
         _createPetTapped.accept(())
     }
     
+    func uploadPhoto(_ image: UIImage) {
+        petAdditionRepository.uploadAvatar(image: image)
+            .subscribe(onSuccess: { print("Photo uploaded") })
+            .disposed(by: disposeBag)
+    }
+    
     lazy var dogNameTextField = _dogNameFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
     
     lazy var dogBreedTextField = _dogBreedFieldChanged.asDriver(onErrorJustReturn: "").startWith("")
@@ -72,6 +80,8 @@ final class PetAdditionViewModel {
         )
     
     init() {
+        self.petAdditionRepository = PetAdditionRepository()
+        
         _createPetTapped.asSignal().emit(onNext: { print("PET ADDED") }).disposed(by: disposeBag)
     }
 }
