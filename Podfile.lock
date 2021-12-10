@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (5.4.4)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - Differentiator (5.0.0)
   - Firebase/Auth (8.8.0):
     - Firebase/CoreOnly
@@ -98,6 +101,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.4)
+  - Charts
   - Firebase/Auth
   - Firebase/Crashlytics
   - Firebase/Database
@@ -113,6 +117,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Charts
     - Differentiator
     - Firebase
     - FirebaseAuth
@@ -139,6 +144,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   Firebase: 629510f1a9ddb235f3a7c5c8ceb23ba887f0f814
   FirebaseAuth: bcf0adeff88bda5dcb3beeabe5760f1226ab7b2f
@@ -163,6 +169,6 @@ SPEC CHECKSUMS:
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
 
-PODFILE CHECKSUM: 41e2f64e89e6101593edf5ed9b9e38d2b66edb6b
+PODFILE CHECKSUM: 5953c342e7d8793753cbb3e6d3b9f52cfeaca6b4
 
 COCOAPODS: 1.11.2

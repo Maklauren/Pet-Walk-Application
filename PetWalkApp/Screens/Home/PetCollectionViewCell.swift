@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class PetCollectionViewCell: UICollectionViewCell {
     
@@ -18,13 +19,13 @@ class PetCollectionViewCell: UICollectionViewCell {
     private let moodButton = UIImageView()
     private let moodStatus = UILabel()
     
+    private let petRepository = PetRepository()
+    
+    private let disposeBag = DisposeBag()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = UIColor(named: "Background")
-        
-        layer.borderColor = UIColor.white.cgColor
-        layer.borderWidth = 3.5
-        layer.cornerRadius = 10.0
         
         contentView.addSubview(image)
         contentView.addSubview(name)
@@ -57,12 +58,11 @@ class PetCollectionViewCell: UICollectionViewCell {
             moodStatus.centerXAnchor.constraint(equalTo: moodButton.centerXAnchor),
         ])
         
-        image.image = UIImage(named: "DefaultDog")
         image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 40
         image.clipsToBounds = true
-        image.layer.borderWidth = 1.5
-        image.layer.borderColor = UIColor(named: "Text")?.cgColor
+        image.layer.borderWidth = 4
+        image.layer.borderColor = UIColor.white.cgColor
         
         breed.textColor = UIColor(named: "Text")
         breed.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
@@ -86,6 +86,25 @@ class PetCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderWidth = 3.5
+        self.layer.cornerRadius = 15.0
+        
+        self.layer.shadowRadius = 5
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOffset = CGSize(width: 5.0, height: 8.0)
+        self.layer.shadowColor = UIColor.white.cgColor
+    }
+    
+    var dogID: String = "" {
+        didSet {
+            petRepository.downloadAvatar(selectedDogID: dogID)
+                .subscribe(onSuccess: {
+                    self.image.image = $0
+                })
+                .disposed(by: disposeBag)
+        }
     }
     
     var nameText: String = "" {

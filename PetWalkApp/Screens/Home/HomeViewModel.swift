@@ -15,11 +15,16 @@ final class HomeViewModel {
     
     private let disposeBag = DisposeBag()
     
-    struct Cell {
+    struct PetCell {
+        var id: String
         var name: String
         var breed: String
         var mood: Int
         var age: Date
+    }
+    
+    struct StatsCell {
+        var statName: String
     }
     
     private let _startAWalkTapped = PublishRelay<Void>()
@@ -32,14 +37,23 @@ final class HomeViewModel {
         _refresh.accept(())
     }
     
+    private let _refreshStatistic = PublishRelay<Void>()
+    func refreshStatistic() {
+        _refreshStatistic.accept(())
+    }
+    
     private var dogArray = BehaviorRelay<[Dog]>(value: [])
     
-    lazy var cells = dogArray.asDriver()
+    lazy var petCells = dogArray.asDriver()
         .map {
-            $0.map { (dog: Dog) -> Cell in
-                Cell(name: dog.dogName, breed: dog.dogBreed, mood: dog.dogDayEnergyCurrent, age: dog.dogAge!)
+            $0.map { (dog: Dog) -> PetCell in
+                PetCell(id: dog.id, name: dog.dogName, breed: dog.dogBreed, mood: dog.dogDayEnergyCurrent, age: dog.dogAge)
             }
         }
+    
+    private var statsArray = BehaviorRelay<[StatsCell]>(value: [StatsCell(statName: "Today's plan"), StatsCell(statName: "Weekly objectives")])
+    
+    lazy var statArray = statsArray.asDriver()
     
     lazy var route: Signal<Void> = _startAWalkTapped.asSignal()
     

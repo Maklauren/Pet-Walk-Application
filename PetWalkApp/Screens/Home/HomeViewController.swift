@@ -12,6 +12,7 @@ import RealmSwift
 import RxDataSources
 import RxOptional
 import RAMAnimatedTabBarController
+import Charts
 
 class HomeViewController: BaseViewController {
     
@@ -35,8 +36,11 @@ class HomeViewController: BaseViewController {
     
     var screenTitle = UILabel()
     var subtitle = UILabel()
+    var statsTitle = UILabel()
     
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    private let tableView = UITableView()
     
     var startAWalkButton = Stylesheet().createButton(buttonText: "Start a walk", buttonColor: "Blue button", textColor: UIColor.white)
     
@@ -44,10 +48,16 @@ class HomeViewController: BaseViewController {
         self?.viewModel.refresh()
     }))
     
+    let realm = try! Realm()
+    
     override init() {
         super.init()
         self.tabBarItem = RAMAnimatedTabBarItem(title: "", image: UIImage(systemName: "house"), tag: 1)
         (self.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -60,18 +70,18 @@ class HomeViewController: BaseViewController {
         collectionView.register(PetCollectionViewCell.self, forCellWithReuseIdentifier: PetCollectionViewCell.identifier)
         collectionView.delegate = self
         
-        navigationController?.navigationBar.isHidden = true
-        
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
         backgroundView.addSubview(screenTitle)
         backgroundView.addSubview(subtitle)
         backgroundView.addSubview(collectionView)
         backgroundView.addSubview(startAWalkButton)
+        backgroundView.addSubview(statsTitle)
+        backgroundView.addSubview(tableView)
         
         scrollView.refreshControl = refreshControl
         
-        [screenTitle, subtitle, collectionView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [screenTitle, subtitle, collectionView, statsTitle, tableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -96,7 +106,15 @@ class HomeViewController: BaseViewController {
             collectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
             collectionView.heightAnchor.constraint(equalToConstant: 115),
             
-            startAWalkButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 400),
+            statsTitle.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16),
+            statsTitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
+            
+            tableView.topAnchor.constraint(equalTo: statsTitle.bottomAnchor, constant: 8),
+            tableView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            tableView.heightAnchor.constraint(equalToConstant: 288),
+            
+            startAWalkButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 100),
             startAWalkButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             startAWalkButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             startAWalkButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
@@ -112,20 +130,36 @@ class HomeViewController: BaseViewController {
         subtitle.text = "Dashboard"
         
         collectionView.backgroundColor = UIColor(named: "Background")
+        collectionView.isPagingEnabled = true
+        
+        statsTitle.textColor = UIColor.black
+        statsTitle.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
+        statsTitle.text = "Stats"
+        
+        tableView.register(PetStatsTableViewCell.self, forCellReuseIdentifier: PetStatsTableViewCell.identifier)
+        tableView.backgroundColor = UIColor(named: "Background")
+        tableView.delegate = self
     }
     
     func bind(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         
-        viewModel.cells
+        viewModel.petCells
             .do(onNext: { [weak self] _ in
                 self?.refreshControl.endRefreshing()
             })
-            .drive(collectionView.rx.items(cellIdentifier: PetCollectionViewCell.identifier, cellType: PetCollectionViewCell.self)) { index, model, cell in
-                cell.nameText = model.name
-                cell.breedText = model.breed
-                cell.moodText = String(model.mood)
-                cell.ageText = model.age
+                .drive(collectionView.rx.items(cellIdentifier: PetCollectionViewCell.identifier, cellType: PetCollectionViewCell.self)) { index, model, cell in
+                    cell.dogID = model.id
+                    cell.nameText = model.name
+                    cell.breedText = model.breed
+                    cell.moodText = String(model.mood)
+                    cell.ageText = model.age
+                }
+                .disposed(by: disposeBag)
+        
+        viewModel.statArray
+            .drive(tableView.rx.items(cellIdentifier: PetStatsTableViewCell.identifier, cellType: PetStatsTableViewCell.self)) { index, model, cell in
+                cell.statText = model.statName
             }
             .disposed(by: disposeBag)
         
@@ -140,5 +174,45 @@ extension HomeViewController: UICollectionViewDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetCollectionViewCell.identifier, for: indexPath)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = collectionView.cellForItem(at: indexPath) as! PetCollectionViewCell
+        
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+        item.layer.borderColor = UIColor(named: "Blue button")?.cgColor
+        
+        let dogs = realm.objects(Dog.self)
+        let dogsFilter = dogs.filter({ $0.dogName == item.nameText }).first
+        
+        let itemStatistic = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! PetStatsTableViewCell
+        itemStatistic.energyCurrentInt = dogsFilter!.dogDayEnergyCurrent
+        
+        var difference = dogsFilter!.dogDayEnergy - dogsFilter!.dogDayEnergyCurrent
+        if difference < 0 {
+            difference = 0
+        }
+        itemStatistic.energyTotalInt = difference
+        
+        let percent = Int((Double(dogsFilter!.dogDayEnergyCurrent) / Double(dogsFilter!.dogDayEnergy)) * 100)
+        itemStatistic.detailedInfo = "\(percent)% accomplished"
+        tableView.reloadData()
+        
+        let itemStatisticSecond = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! PetStatsTableViewCell
+        itemStatisticSecond.energyCurrentInt = dogsFilter!.dogDayEnergy
+        difference = dogsFilter!.dogWeeklyEnergy - dogsFilter!.dogWeeklyEnergyCurrent
+        if difference < 0 {
+            difference = 0
+        }
+        itemStatisticSecond.energyTotalInt = difference
+        
+        let countWalksLeft = dogsFilter!.dogWeeklyEnergy - dogsFilter!.dogWeeklyEnergyCurrent
+        itemStatisticSecond.detailedInfo = "\(countWalksLeft) walks left"
+        tableView.reloadData()
+    }
 }
 
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 96
+    }
+}
