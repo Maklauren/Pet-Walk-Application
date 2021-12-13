@@ -65,10 +65,17 @@ class HomeCoordinator: CoordinatorType {
         
         let settingsCoordinator = SettingsCoordinator()
         
+        let petProfileCoordinator = PetProfileCoordinator()
+        
         viewModel.route
-            .emit(onNext: { [weak self] in
+            .emit(onNext: {  [weak self] in
                 guard let self = self else { return }
-                self.navigationController.present(settingsCoordinator.start(), animated: true, completion: nil)
+                switch $0 {
+                case .viewSettings:
+                    self.navigationController.present(settingsCoordinator.start(), animated: true, completion: nil)
+                case let .viewPetProfile(PetProfileInformation):
+                    self.navigationController.present(petProfileCoordinator.start(id: PetProfileInformation.id, name: PetProfileInformation.name), animated: true, completion: nil)
+                }
             })
             .disposed(by: disposeBag)
         

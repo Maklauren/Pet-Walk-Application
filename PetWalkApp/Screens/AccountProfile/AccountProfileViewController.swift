@@ -39,7 +39,13 @@ class AccountProfileViewController: BaseViewController {
     var userPicture = UIImageView()
     var userName = UILabel()
     var userCity = UILabel()
-//    var userPetQuantity = UILabel()
+    var userPetQuantity = UILabel()
+    
+    private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    private lazy var refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { [weak self] _ in
+        self?.viewModel.refresh()
+    }))
     
     override init() {
         super.init()
@@ -55,8 +61,16 @@ class AccountProfileViewController: BaseViewController {
     
     override func loadView() {
         super.loadView()
+        viewModel.refresh()
         
         navigationController?.navigationBar.isHidden = true
+        
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 120.0, height: 120.0)
+        
+        collectionView.register(PetProfileCollectionView.self, forCellWithReuseIdentifier: PetProfileCollectionView.identifier)
+        collectionView.delegate = self
         
         view.addSubview(scrollView)
         scrollView.addSubview(backgroundView)
@@ -66,8 +80,10 @@ class AccountProfileViewController: BaseViewController {
         backgroundView.addSubview(userPicture)
         backgroundView.addSubview(userName)
         backgroundView.addSubview(userCity)
+        backgroundView.addSubview(userPetQuantity)
+        backgroundView.addSubview(collectionView)
         
-        [screenTitle, subtitle, settings, userPicture, userName, userCity].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [screenTitle, subtitle, settings, userPicture, userName, userCity, userPetQuantity, collectionView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -100,8 +116,18 @@ class AccountProfileViewController: BaseViewController {
             userName.leadingAnchor.constraint(equalTo: userPicture.trailingAnchor, constant: 8),
             
             userCity.leadingAnchor.constraint(equalTo: userPicture.trailingAnchor, constant: 8),
-            userCity.bottomAnchor.constraint(equalTo: userName.topAnchor, constant: -4),
+            userCity.bottomAnchor.constraint(equalTo: userName.topAnchor, constant: -2),
+            
+            userPetQuantity.leadingAnchor.constraint(equalTo: userPicture.trailingAnchor, constant: 8),
+            userPetQuantity.topAnchor.constraint(equalTo: userName.bottomAnchor, constant: 2),
+            
+            collectionView.topAnchor.constraint(equalTo: userPicture.bottomAnchor, constant: 8),
+            collectionView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            collectionView.heightAnchor.constraint(equalToConstant: 115),
         ])
+        
+        scrollView.refreshControl = refreshControl
         
         screenTitle.textColor = UIColor.black
         screenTitle.font = UIFont.systemFont(ofSize: 39, weight: UIFont.Weight.heavy)
@@ -128,6 +154,12 @@ class AccountProfileViewController: BaseViewController {
         userCity.text = realm.objects(User.self).last?.city
         userCity.textColor = UIColor(named: "Text")
         userCity.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
+        
+        userPetQuantity.text = "\(realm.objects(Dog.self).count) pets"
+        userPetQuantity.textColor = UIColor(named: "Text")
+        userPetQuantity.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
+        
+        collectionView.backgroundColor = UIColor(named: "Background")
     }
     
     func bind(viewModel: AccountProfileViewModel) {
@@ -140,5 +172,26 @@ class AccountProfileViewController: BaseViewController {
         settings.rx.tap
             .bind(onNext: viewModel.settingsTapped)
             .disposed(by: disposeBag)
+        
+        viewModel.petCells
+            .do(onNext: { [weak self] _ in
+                self?.refreshControl.endRefreshing()
+            })
+                .drive(collectionView.rx.items(cellIdentifier: PetProfileCollectionView.identifier, cellType: PetProfileCollectionView.self)) { index, model, cell in
+                    cell.dogID = model.id
+                    cell.ididid = model.id
+                }
+                .disposed(by: disposeBag)
+    }
+}
+
+extension AccountProfileViewController: UICollectionViewDelegate {
+    private func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PetProfileCollectionView.identifier, for: indexPath)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.petSelected(index: indexPath.item)
     }
 }
