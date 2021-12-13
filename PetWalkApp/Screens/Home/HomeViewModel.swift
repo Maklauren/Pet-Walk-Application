@@ -37,11 +37,6 @@ final class HomeViewModel {
         _refresh.accept(())
     }
     
-    private let _refreshStatistic = PublishRelay<Void>()
-    func refreshStatistic() {
-        _refreshStatistic.accept(())
-    }
-    
     private var dogArray = BehaviorRelay<[Dog]>(value: [])
     
     lazy var petCells = dogArray.asDriver()
@@ -58,12 +53,6 @@ final class HomeViewModel {
     lazy var route: Signal<Void> = _startAWalkTapped.asSignal()
     
     init(petsRepository: PetRepository) {
-        petsRepository.getPets()
-            .subscribe(onSuccess: {
-                self.dogArray.accept(Array($0))
-            })
-            .disposed(by: disposeBag)
-        
         _refresh
             .flatMap {
                 petsRepository.getPets()

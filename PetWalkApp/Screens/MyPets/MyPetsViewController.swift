@@ -47,6 +47,10 @@ class MyPetsViewController: BaseViewController {
         (self.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.refresh()
+    }
+    
     override func loadView() {
         super.loadView()
         

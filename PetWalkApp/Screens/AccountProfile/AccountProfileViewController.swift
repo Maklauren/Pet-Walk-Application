@@ -57,11 +57,12 @@ class AccountProfileViewController: BaseViewController {
         viewModel.userImage
             .drive(userPicture.rx.image)
             .disposed(by: disposeBag)
+        
+        viewModel.refresh()
     }
     
     override func loadView() {
         super.loadView()
-        viewModel.refresh()
         
         navigationController?.navigationBar.isHidden = true
         
