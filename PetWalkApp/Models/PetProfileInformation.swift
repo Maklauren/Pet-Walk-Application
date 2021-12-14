@@ -10,10 +10,10 @@ import Foundation
 struct PetProfileInformation: Equatable {
     var id: String
     var name: String
-//    var breed: String
-//    var birthday: Date
-//    var dogDayEnergyCurrent: Int
-//    var dogDayEnergy: Int
-//    var dogWeeklyEnergyCurrent: Int
-//    var dogWeeklyEnergy: Int
+    var breed: String
+    var birthday: Date
+    var dogDayEnergyCurrent: Int
+    var dogDayEnergy: Int
+    var dogWeeklyEnergyCurrent: Int
+    var dogWeeklyEnergy: Int
 }

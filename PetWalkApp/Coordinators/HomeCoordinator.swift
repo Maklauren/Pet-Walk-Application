@@ -74,7 +74,13 @@ class HomeCoordinator: CoordinatorType {
                 case .viewSettings:
                     self.navigationController.present(settingsCoordinator.start(), animated: true, completion: nil)
                 case let .viewPetProfile(PetProfileInformation):
-                    self.navigationController.present(petProfileCoordinator.start(id: PetProfileInformation.id, name: PetProfileInformation.name), animated: true, completion: nil)
+                    self.navigationController.present(petProfileCoordinator.start(id: PetProfileInformation.id, 							name: PetProfileInformation.name,
+                                                    breed: PetProfileInformation.breed,
+                                                    birthday: PetProfileInformation.birthday,
+                                                    dogDayEnergyCurrent: PetProfileInformation.dogDayEnergyCurrent,
+                                                    dogDayEnergy: PetProfileInformation.dogDayEnergy,
+                                                    dogWeeklyEnergyCurrent: PetProfileInformation.dogWeeklyEnergyCurrent,
+                                                    dogWeeklyEnergy: PetProfileInformation.dogWeeklyEnergy), animated: true, completion: nil)
                 }
             })
             .disposed(by: disposeBag)

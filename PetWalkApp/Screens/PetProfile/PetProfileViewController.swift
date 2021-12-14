@@ -32,15 +32,20 @@ class PetProfileViewController: BaseViewController {
     
     let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
     
-    var screenTitle = UILabel()
-    var subtitle = UILabel()
-    var dogPicture = UIImageView()
-    var dogName = UILabel()
-    var dogBreed = UILabel()
-    var dogAge = UILabel()
+    private var screenTitle = UILabel()
+    private var subtitle = UILabel()
+    
+    private var dogPicture = UIImageView()
+    private var dogName = UILabel()
+    private var dogBreed = UILabel()
+    private var dayEnergyCurrent = UILabel()
+    private var dayEnergyTotal = UILabel()
+    private var weeklyEnergyCurrent = UILabel()
+    private var weeklyEnergyTotal = UILabel()
     
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     override func loadView() {
@@ -60,9 +65,12 @@ class PetProfileViewController: BaseViewController {
         backgroundView.addSubview(dogPicture)
         backgroundView.addSubview(dogName)
         backgroundView.addSubview(dogBreed)
-        backgroundView.addSubview(dogAge)
+        backgroundView.addSubview(dayEnergyCurrent)
+        backgroundView.addSubview(dayEnergyTotal)
+        backgroundView.addSubview(weeklyEnergyCurrent)
+        backgroundView.addSubview(weeklyEnergyTotal)
         
-        [screenTitle, subtitle, dogPicture, dogName, dogBreed, dogAge].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [screenTitle, subtitle, dogPicture, dogName, dogBreed, dayEnergyCurrent, dayEnergyTotal, weeklyEnergyCurrent, weeklyEnergyTotal].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -76,7 +84,7 @@ class PetProfileViewController: BaseViewController {
             backgroundView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
             backgroundView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            screenTitle.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 50),
+            screenTitle.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 0),
             screenTitle.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             
             subtitle.topAnchor.constraint(equalTo: screenTitle.bottomAnchor, constant: 0),
@@ -84,9 +92,9 @@ class PetProfileViewController: BaseViewController {
             
             dogPicture.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 19),
             dogPicture.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
-            dogPicture.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -300),
-            dogPicture.heightAnchor.constraint(equalToConstant: 80),
-            dogPicture.widthAnchor.constraint(equalToConstant: 80),
+            dogPicture.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -350),
+            dogPicture.heightAnchor.constraint(equalToConstant: 100),
+            dogPicture.widthAnchor.constraint(equalToConstant: 100),
             
             dogName.centerYAnchor.constraint(equalTo: dogPicture.centerYAnchor),
             dogName.leadingAnchor.constraint(equalTo: dogPicture.trailingAnchor, constant: 8),
@@ -94,8 +102,17 @@ class PetProfileViewController: BaseViewController {
             dogBreed.leadingAnchor.constraint(equalTo: dogPicture.trailingAnchor, constant: 8),
             dogBreed.bottomAnchor.constraint(equalTo: dogName.topAnchor, constant: -2),
             
-            dogAge.leadingAnchor.constraint(equalTo: dogPicture.trailingAnchor, constant: 8),
-            dogAge.topAnchor.constraint(equalTo: dogName.bottomAnchor, constant: 2),
+            dayEnergyTotal.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            dayEnergyTotal.topAnchor.constraint(equalTo: dogPicture.bottomAnchor, constant: 19),
+            
+            dayEnergyCurrent.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            dayEnergyCurrent.topAnchor.constraint(equalTo: dayEnergyTotal.bottomAnchor, constant: 5),
+            
+            weeklyEnergyTotal.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            weeklyEnergyTotal.topAnchor.constraint(equalTo: dayEnergyCurrent.bottomAnchor, constant: 5),
+            
+            weeklyEnergyCurrent.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 24),
+            weeklyEnergyCurrent.topAnchor.constraint(equalTo: weeklyEnergyTotal.bottomAnchor, constant: 5)
         ])
         
         screenTitle.textColor = UIColor.black
@@ -108,22 +125,17 @@ class PetProfileViewController: BaseViewController {
         
         dogPicture.image = UIImage(named: "Default user")
         dogPicture.contentMode = .scaleAspectFill
-        dogPicture.layer.cornerRadius = 40
+        dogPicture.layer.cornerRadius = 50
         dogPicture.clipsToBounds = true
         dogPicture.layer.borderColor = UIColor.white.cgColor
         dogPicture.layer.borderWidth = 3.5
         
-//        dogName.text = viewModel.petProfile.name
-        dogName.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.bold)
+        dogName.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.bold)
         
-        
-        dogBreed.text = realm.objects(User.self).last?.city
         dogBreed.textColor = UIColor(named: "Text")
-        dogBreed.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
+        dogBreed.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.light)
         
-//        dogAge.text = "\(realm.objects(Dog.self).count) pets"
-//        dogAge.textColor = UIColor(named: "Text")
-//        dogAge.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
+        [dayEnergyTotal, dayEnergyCurrent, weeklyEnergyTotal, weeklyEnergyCurrent].forEach { $0.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium) }
     }
     
     @objc func onBack(_ sender: Any) {
@@ -134,9 +146,32 @@ class PetProfileViewController: BaseViewController {
     func bind(viewModel: PetProfileViewModel) {
         self.viewModel = viewModel
         
-        viewModel.dogNameLabelText
-            .debug()
+        viewModel.dogName
             .bind(to: dogName.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.dogBreed
+            .bind(to: dogBreed.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.dogDayEnergyTotal
+            .map({ "Number of walks per day: \(String($0))" })
+            .bind(to: dayEnergyTotal.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.dogDayEnergyCurrent
+            .map({ "Current number of walks per day: \(String($0))" })
+            .bind(to: dayEnergyCurrent.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.dogWeeklyEnergyTotal
+            .map({ "Number of walks per week: \(String($0))" })
+            .bind(to: weeklyEnergyTotal.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.dogWeeklyEnergyCurrent
+            .map({ "Current number of walks per week: \(String($0))" })
+            .bind(to: weeklyEnergyCurrent.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.dogImage

@@ -57,7 +57,7 @@ final class AccountProfileViewModel {
     lazy var route: Signal<Route> = Signal.merge(_settingsTapped.asSignal().map({ .viewSettings }),
                                                  
                                                  _petSelected.asSignal().withLatestFrom(dogArray.asSignal(onErrorSignalWith: .never())) { index, dogs in
-            .viewPetProfile(PetProfileInformation(id: dogs[index].id, name: dogs[index].dogName))
+            .viewPetProfile(PetProfileInformation(id: dogs[index].id, name: dogs[index].dogName, breed: dogs[index].dogBreed, birthday: dogs[index].dogAge, dogDayEnergyCurrent: dogs[index].dogDayEnergyCurrent, dogDayEnergy: dogs[index].dogDayEnergy, dogWeeklyEnergyCurrent: dogs[index].dogWeeklyEnergyCurrent, dogWeeklyEnergy: dogs[index].dogWeeklyEnergy))
     })
     
     init() {
