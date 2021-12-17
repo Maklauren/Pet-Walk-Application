@@ -161,4 +161,18 @@ final class SessionRepository {
             print(error.localizedDescription)
         }
     }
+    
+    func logout() {
+        
+        try! self.realm.write {
+            self.realm.deleteAll()
+        }
+        
+        let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+    }
 }

@@ -53,6 +53,8 @@ class SettingsViewController: BaseViewController {
     
     var bottomButton = Stylesheet().createButton(buttonText: "Apply changes", buttonColor: "Background", textColor: UIColor.black)
     
+    var logoutBottom = UIButton()
+    
     override init() {
         super.init()
         self.tabBarItem = RAMAnimatedTabBarItem(title: "", image: UIImage(systemName: "person.circle"), tag: 1)
@@ -77,8 +79,9 @@ class SettingsViewController: BaseViewController {
         backgroundView.addSubview(selectUserPicture)
         backgroundView.addSubview(stackView)
         backgroundView.addSubview(bottomButton)
+        backgroundView.addSubview(logoutBottom)
         
-        [subtitle, userPicture, selectUserPicture].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [subtitle, userPicture, selectUserPicture, logoutBottom].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         stackView.addArrangedSubview(userFullnameLabel)
         stackView.addArrangedSubview(userFullnameTextField)
@@ -122,9 +125,12 @@ class SettingsViewController: BaseViewController {
             bottomButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 163),
             bottomButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             bottomButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
-            bottomButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
             bottomButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             bottomButton.heightAnchor.constraint(equalToConstant: 53),
+            
+            logoutBottom.topAnchor.constraint(equalTo: bottomButton.bottomAnchor, constant: 4),
+            logoutBottom.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            logoutBottom.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
         ])
         
         subtitle.textColor = UIColor.black
@@ -140,6 +146,10 @@ class SettingsViewController: BaseViewController {
         selectUserPicture.setTitle("Select photo", for: .normal)
         selectUserPicture.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         selectUserPicture.addTarget(self, action: #selector(addPicture(_:)), for: .touchUpInside)
+        
+        logoutBottom.setTitle("Log out", for: .normal)
+        logoutBottom.setTitleColor(UIColor(named: "Blue"), for: .normal)
+        logoutBottom.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(notification:)), name: UIView.keyboardWillChangeFrameNotification, object: nil)
         
@@ -181,6 +191,10 @@ class SettingsViewController: BaseViewController {
         
         bottomButton.rx.tap
             .bind(onNext: viewModel.applySettingsTapped)
+            .disposed(by: disposeBag)
+        
+        logoutBottom.rx.tap
+            .bind(onNext: viewModel.logoutTapped)
             .disposed(by: disposeBag)
     }
     

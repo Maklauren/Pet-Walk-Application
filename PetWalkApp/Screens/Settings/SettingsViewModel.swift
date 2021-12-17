@@ -15,6 +15,7 @@ final class SettingsViewModel {
     
     enum Route {
         case creationSuccess
+        case logout
     }
     
     private let disposeBag = DisposeBag()
@@ -47,6 +48,11 @@ final class SettingsViewModel {
         _applySettingsTapped.accept(())
     }
     
+    private let _logoutTapped = PublishRelay<Void>()
+    func logoutTapped() {
+        _logoutTapped.accept(())
+    }
+    
     lazy var userFullnameTextField = _userFullnameChanged.asDriver(onErrorJustReturn: "").startWith(realm.objects(User.self).last!.fullName)
     
     lazy var userCityTextField = _userCityChanged.asDriver(onErrorJustReturn: "").startWith(realm.objects(User.self).last?.city ?? "")
@@ -61,7 +67,11 @@ final class SettingsViewModel {
                 .debug("SETTING SESSION")
                 .filter { $0 == true }
                 .map { _ in .creationSuccess }
-                .asSignal(onErrorSignalWith: .never())
+                .asSignal(onErrorSignalWith: .never()),
+            
+            _logoutTapped.asSignal()
+                .map { SessionRepository.shared.logout() }
+                .map { _ in .logout }
         )
     
     init() {

@@ -31,6 +31,8 @@ class SettingsCoordinator: CoordinatorType {
                 switch $0 {
                 case .creationSuccess:
                     self.navigationController.dismiss(animated: true, completion: nil)
+                case .logout:
+                    self.coordinate(to: StartScreenCoordinator(), animating: true)
                 }
             })
             .disposed(by: disposeBag)
