@@ -35,9 +35,9 @@ class MyPetsViewController: BaseViewController {
         self?.viewModel.refresh()
     }))
     
-    var screenTitle = UILabel()
-    var subtitle = UILabel()
-    var addButton = UIButton()
+    private var screenTitle = UILabel()
+    private var subtitle = UILabel()
+    private var addButton = UIButton()
     
     private let tableView = UITableView()
     
@@ -94,7 +94,7 @@ class MyPetsViewController: BaseViewController {
             addButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -100),
             addButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             addButton.heightAnchor.constraint(equalToConstant: 200),
-            addButton.widthAnchor.constraint(equalToConstant: 200),
+            addButton.widthAnchor.constraint(equalToConstant: 200)
         ])
         
         screenTitle.textColor = UIColor.black

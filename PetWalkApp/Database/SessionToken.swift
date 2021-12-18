@@ -12,4 +12,3 @@ class SessionToken: Object {
     @Persisted var token: String = ""
     @Persisted var expiresAt: Date?
 }
-

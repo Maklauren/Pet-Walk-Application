@@ -23,7 +23,7 @@ class WalkViewController: BaseViewController, CLLocationManagerDelegate {
     
     private var didZoomInitially = false
     
-    var endTheWalkButton = Stylesheet().createButton(buttonText: "End the walk", buttonColor: "Background", textColor: UIColor.black)
+    private var endTheWalkButton = Stylesheet().createButton(buttonText: "End the walk", buttonColor: "Background", textColor: UIColor.black)
     
     override func viewDidAppear(_ animated: Bool) {
         checkAuthorizationAndRequestLocation()
@@ -39,7 +39,7 @@ class WalkViewController: BaseViewController, CLLocationManagerDelegate {
         navigationController?.navigationBar.isHidden = true
         
         view.backgroundColor = UIColor(named: "Background")
-        
+
         view.addSubview(screenTitle)
         view.addSubview(mapView)
         view.addSubview(endTheWalkButton)
@@ -58,7 +58,7 @@ class WalkViewController: BaseViewController, CLLocationManagerDelegate {
             endTheWalkButton.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 15),
             endTheWalkButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
             endTheWalkButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
-            endTheWalkButton.heightAnchor.constraint(equalToConstant: 53),
+            endTheWalkButton.heightAnchor.constraint(equalToConstant: 53)
         ])
         
         screenTitle.textColor = UIColor.black

@@ -26,7 +26,7 @@ class PetAdditionViewController: BaseViewController {
         return backgroundView
     }()
     
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -38,31 +38,31 @@ class PetAdditionViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
+    private let realm = try! Realm()
     
-    var subtitle = UILabel()
-    var dogPicture = UIImageView()
-    var selectDogPicture = UIButton()
+    private var subtitle = UILabel()
+    private var dogPicture = UIImageView()
+    private var selectDogPicture = UIButton()
     
-    var dogNameLabel = Stylesheet().createLabel(labelText: "Name")
-    var dogNameTextField = Stylesheet().createTextField(textFieldText: "Name")
+    private var dogNameLabel = Stylesheet().createLabel(labelText: "Name")
+    private var dogNameTextField = Stylesheet().createTextField(textFieldText: "Name")
     
-    var dogBreedLabel = Stylesheet().createLabel(labelText: "Breed")
-    var dogBreedTextField = Stylesheet().createTextField(textFieldText: "Breed")
+    private var dogBreedLabel = Stylesheet().createLabel(labelText: "Breed")
+    private var dogBreedTextField = Stylesheet().createTextField(textFieldText: "Breed")
     
-    var dogBirthdayLabel = Stylesheet().createLabel(labelText: "Birthday")
+    private var dogBirthdayLabel = Stylesheet().createLabel(labelText: "Birthday")
     
-    var question = UILabel()
+    private var question = UILabel()
     
-    var weekdayLabel = Stylesheet().createLabel(labelText: "Weekday")
-    var weekdayTextField = Stylesheet().createTextField(textFieldText: "Just a number")
+    private var weekdayLabel = Stylesheet().createLabel(labelText: "Weekday")
+    private var weekdayTextField = Stylesheet().createTextField(textFieldText: "Just a number")
     
-    var weekendLabel = Stylesheet().createLabel(labelText: "Weekend")
-    var weekendTextField = Stylesheet().createTextField(textFieldText: "Just a number")
+    private var weekendLabel = Stylesheet().createLabel(labelText: "Weekend")
+    private var weekendTextField = Stylesheet().createTextField(textFieldText: "Just a number")
     
-    var dogBirthdayDatePicker = UIDatePicker()
+    private var dogBirthdayDatePicker = UIDatePicker()
     
-    var bottomButton = Stylesheet().createButton(buttonText: "Add a pet", buttonColor: "Blue button", textColor: UIColor.white)
+    private var bottomButton = Stylesheet().createButton(buttonText: "Add a pet", buttonColor: "Blue button", textColor: UIColor.white)
     
     override func loadView() {
         super.loadView()
@@ -86,7 +86,7 @@ class PetAdditionViewController: BaseViewController {
         
         [subtitle, dogPicture, selectDogPicture, dogBirthdayDatePicker].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        //MARK: -Stack View
+        // MARK: -Stack View
         stackView.addArrangedSubview(dogNameLabel)
         stackView.addArrangedSubview(dogNameTextField)
         stackView.addArrangedSubview(dogBreedLabel)
@@ -150,7 +150,7 @@ class PetAdditionViewController: BaseViewController {
             bottomButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 22),
             bottomButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             bottomButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
-            bottomButton.heightAnchor.constraint(equalToConstant: 53),
+            bottomButton.heightAnchor.constraint(equalToConstant: 53)
         ])
         
         subtitle.textColor = UIColor.black

@@ -29,7 +29,7 @@ class MethodSelectionViewCell: UITableViewCell {
             methodImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             methodImage.centerYAnchor.constraint(equalTo: methodText.centerYAnchor),
             methodImage.heightAnchor.constraint(equalToConstant: 36),
-            methodImage.widthAnchor.constraint(equalToConstant: 36),
+            methodImage.widthAnchor.constraint(equalToConstant: 36)
         ])
         
         contentView.backgroundColor = UIColor(named: "BackgroundCell")

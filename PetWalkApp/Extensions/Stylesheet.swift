@@ -9,7 +9,7 @@ import UIKit
 
 class Stylesheet {
     
-    //MARK: -Main Bottom Button
+    // MARK: - Main Bottom Button
     func createButton(buttonText: String, buttonColor: String, textColor: UIColor) -> UIButton {
         let button = UIButton(type: .custom)
         
@@ -33,7 +33,7 @@ class Stylesheet {
         return button
     }
     
-    //MARK: -Label
+    // MARK: - Label
     func createLabel(labelText: String) -> UILabel {
         let label = UILabel()
         
@@ -45,7 +45,7 @@ class Stylesheet {
         return label
     }
     
-    //MARK: -TextField
+    // MARK: - TextField
     func createTextField(textFieldText: String) -> UITextField {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false

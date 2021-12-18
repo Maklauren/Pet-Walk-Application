@@ -27,7 +27,7 @@ class SettingsViewController: BaseViewController {
         return backgroundView
     }()
     
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -41,11 +41,11 @@ class SettingsViewController: BaseViewController {
     
     private var realm = try! Realm()
     
-    var subtitle = UILabel()
-    var userPicture = UIImageView()
-    var selectUserPicture = UIButton()
+    private var subtitle = UILabel()
+    private var userPicture = UIImageView()
+    private var selectUserPicture = UIButton()
     
-    var userFullnameLabel = Stylesheet().createLabel(labelText: "Change your full name")
+    private var userFullnameLabel = Stylesheet().createLabel(labelText: "Change your full name")
     lazy var userFullnameTextField = Stylesheet().createTextField(textFieldText: "\(self.realm.objects(User.self).last!.fullName)")
     
     var userCityLabel = Stylesheet().createLabel(labelText: "Change your country and city")
@@ -130,7 +130,7 @@ class SettingsViewController: BaseViewController {
             
             logoutBottom.topAnchor.constraint(equalTo: bottomButton.bottomAnchor, constant: 4),
             logoutBottom.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            logoutBottom.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
+            logoutBottom.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50)
         ])
         
         subtitle.textColor = UIColor.black

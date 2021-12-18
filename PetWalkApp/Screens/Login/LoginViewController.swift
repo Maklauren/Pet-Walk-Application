@@ -25,7 +25,7 @@ class LoginViewController: BaseViewController {
         return backgroundView
     }()
     
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -37,13 +37,13 @@ class LoginViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    var emailLabel = Stylesheet().createLabel(labelText: "Required field")
-    var emailTextField = Stylesheet().createTextField(textFieldText: "Email adress")
+    private var emailLabel = Stylesheet().createLabel(labelText: "Required field")
+    private var emailTextField = Stylesheet().createTextField(textFieldText: "Email adress")
     
-    var passwordLabel = Stylesheet().createLabel(labelText: "Required field")
-    var passwordTextField = Stylesheet().createTextField(textFieldText: "Password")
+    private var passwordLabel = Stylesheet().createLabel(labelText: "Required field")
+    private var passwordTextField = Stylesheet().createTextField(textFieldText: "Password")
     
-    var loginButton = Stylesheet().createButton(buttonText: "LOG IN", buttonColor: "Background", textColor: UIColor.black)
+    private var loginButton = Stylesheet().createButton(buttonText: "LOG IN", buttonColor: "Background", textColor: UIColor.black)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +98,7 @@ class LoginViewController: BaseViewController {
             loginButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -22),
             loginButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
             loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            loginButton.heightAnchor.constraint(equalToConstant: 53),
+            loginButton.heightAnchor.constraint(equalToConstant: 53)
         ])
         
         emailTextField.keyboardType = .emailAddress
@@ -109,6 +109,7 @@ class LoginViewController: BaseViewController {
         passwordTextField.autocapitalizationType = .none
         passwordTextField.autocorrectionType = .no
         passwordTextField.textContentType = .password
+        passwordTextField.isSecureTextEntry = true
     }
     
     @objc func onBack(_ sender: Any) {
@@ -145,4 +146,3 @@ class LoginViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 }
-

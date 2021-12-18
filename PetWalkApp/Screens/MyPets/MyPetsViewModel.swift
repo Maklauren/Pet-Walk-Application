@@ -60,5 +60,3 @@ final class MyPetsViewModel {
             .disposed(by: disposeBag)
     }
 }
-
-

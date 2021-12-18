@@ -65,4 +65,3 @@ class PetProfileCollectionView: UICollectionViewCell {
         }
     }
 }
-

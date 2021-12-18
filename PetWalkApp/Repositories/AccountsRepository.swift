@@ -73,7 +73,7 @@ final class AccountsRepository {
         databaseRef.child(userID!).updateChildValues(["fullname": fullname,
                                                       "city": city,
                                                      ]) {
-            (error:Error?, ref:DatabaseReference) in
+            (error: Error?, _: DatabaseReference) in
             if let error = error {
                 print("Data could not be saved: \(error).")
             } else {

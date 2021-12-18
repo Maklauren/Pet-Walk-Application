@@ -34,15 +34,15 @@ class HomeViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    var screenTitle = UILabel()
-    var subtitle = UILabel()
-    var statsTitle = UILabel()
+    private var screenTitle = UILabel()
+    private var subtitle = UILabel()
+    private var statsTitle = UILabel()
     
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     private let tableView = UITableView()
     
-    var startAWalkButton = Stylesheet().createButton(buttonText: "Start a walk", buttonColor: "Blue button", textColor: UIColor.white)
+    private var startAWalkButton = Stylesheet().createButton(buttonText: "Start a walk", buttonColor: "Blue button", textColor: UIColor.white)
     
     private lazy var refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { [weak self] _ in
         self?.viewModel.refresh()

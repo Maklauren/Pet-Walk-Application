@@ -88,4 +88,3 @@ class HomeCoordinator: CoordinatorType {
         return viewController
     }
 }
-

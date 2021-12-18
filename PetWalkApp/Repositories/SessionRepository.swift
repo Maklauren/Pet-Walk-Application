@@ -15,7 +15,7 @@ import FirebaseDatabase
 final class SessionRepository {
     static let shared = SessionRepository()
     
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
     private var databaseRef: DatabaseReference!
     
@@ -47,7 +47,7 @@ final class SessionRepository {
         }
     }
     
-    func createUser(fullname: String, email: String, password: String) -> Single<Void>  {
+    func createUser(fullname: String, email: String, password: String) -> Single<Void> {
         Single.create { observer in
             Auth.auth().createUser(withEmail: email, password: password) { auth, error in
                 if auth != nil {

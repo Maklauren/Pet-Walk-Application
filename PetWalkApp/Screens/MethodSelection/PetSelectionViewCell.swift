@@ -39,7 +39,7 @@ class PetSelectionViewCell: UICollectionViewCell {
             dogImage.heightAnchor.constraint(equalToConstant: 80),
             
             dogName.centerXAnchor.constraint(equalTo: dogImage.centerXAnchor),
-            dogName.topAnchor.constraint(equalTo: dogImage.bottomAnchor, constant: 4),
+            dogName.topAnchor.constraint(equalTo: dogImage.bottomAnchor, constant: 4)
         ])
         
         dogImage.contentMode = .scaleAspectFill
@@ -75,5 +75,3 @@ class PetSelectionViewCell: UICollectionViewCell {
         }
     }
 }
-
-

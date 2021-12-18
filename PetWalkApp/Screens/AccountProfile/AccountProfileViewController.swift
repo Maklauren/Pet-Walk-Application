@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import RealmSwift
 import RAMAnimatedTabBarController
+import RealmSwift
 
 class AccountProfileViewController: BaseViewController {
     
@@ -31,15 +32,15 @@ class AccountProfileViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
+    private var realm = try! Realm()
     
-    var screenTitle = UILabel()
-    var settings = UIButton()
-    var subtitle = UILabel()
-    var userPicture = UIImageView()
-    var userName = UILabel()
-    var userCity = UILabel()
-    var userPetQuantity = UILabel()
+    private var screenTitle = UILabel()
+    private var settings = UIButton()
+    private var subtitle = UILabel()
+    private var userPicture = UIImageView()
+    private var userName = UILabel()
+    private var userCity = UILabel()
+    private var userPetQuantity = UILabel()
     
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     

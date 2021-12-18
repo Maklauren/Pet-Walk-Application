@@ -40,7 +40,7 @@ class PetStatsTableViewCell: UITableViewCell {
             pieCharts.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             pieCharts.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             pieCharts.widthAnchor.constraint(equalToConstant: 100),
-            pieCharts.heightAnchor.constraint(equalToConstant: 100),
+            pieCharts.heightAnchor.constraint(equalToConstant: 100)
         ])
         
         contentView.backgroundColor = UIColor(named: "BackgroundCell")

@@ -30,7 +30,7 @@ class PetProfileViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    let realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration, queue: DispatchQueue.main)
+    private let realm = try! Realm()
     
     private var screenTitle = UILabel()
     private var subtitle = UILabel()
@@ -141,7 +141,6 @@ class PetProfileViewController: BaseViewController {
     @objc func onBack(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
     
     func bind(viewModel: PetProfileViewModel) {
         self.viewModel = viewModel

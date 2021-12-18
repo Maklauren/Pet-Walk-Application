@@ -25,7 +25,7 @@ class StartScreenViewController: BaseViewController {
         return backgroundView
     }()
     
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -37,11 +37,11 @@ class StartScreenViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    var logoImage = UIImageView()
-    var illustrationImage = UIImageView()
-    var appInformation = UILabel()
+    private var logoImage = UIImageView()
+    private var illustrationImage = UIImageView()
+    private var appInformation = UILabel()
     
-    var bottomButton = Stylesheet().createButton(buttonText: "Let's start", buttonColor: "Background", textColor: UIColor.black)
+    private var bottomButton = Stylesheet().createButton(buttonText: "Let's start", buttonColor: "Background", textColor: UIColor.black)
     
     override func loadView() {
         super.loadView()
@@ -76,9 +76,8 @@ class StartScreenViewController: BaseViewController {
             stackView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 72),
             stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 29),
             stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -29),
-            stackView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -83),
-            
-            bottomButton.heightAnchor.constraint(equalToConstant: 53),
+            stackView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -83),            
+            bottomButton.heightAnchor.constraint(equalToConstant: 53)
         ])
         
         logoImage.image = UIImage(named: "Logo")
@@ -96,7 +95,7 @@ class StartScreenViewController: BaseViewController {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 8
         paragraphStyle.alignment = .left
-        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
         appInformation.attributedText = attributedString
     }
     

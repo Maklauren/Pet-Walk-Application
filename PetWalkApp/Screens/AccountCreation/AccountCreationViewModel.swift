@@ -75,7 +75,6 @@ final class AccountCreationViewModel {
                         .debug("Registration Result")
                         .asSignal(onErrorSignalWith: .never())
                 }
-                .debug("SESSION LOGIN")
                 .map { _ in .creationSuccess}
                 .asSignal(onErrorSignalWith: .never()),
             
@@ -85,8 +84,5 @@ final class AccountCreationViewModel {
     
     init() {
         self.accountRepository = AccountsRepository()
-        
-        _createAccountTapped.asSignal().emit(onNext: { print("NEXT VC") }).disposed(by: disposeBag)
     }
 }
-

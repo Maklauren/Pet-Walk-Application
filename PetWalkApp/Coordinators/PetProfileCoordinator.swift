@@ -13,7 +13,6 @@ class PetProfileCoordinator: CoordinatorType {
         fatalError()
     }
     
-    
     private let disposeBag = DisposeBag()
     
     let navigationController = UINavigationController(rootViewController: UIViewController())

@@ -25,7 +25,7 @@ class AccountCreationViewController: BaseViewController {
         return backgroundView
     }()
     
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -37,20 +37,20 @@ class AccountCreationViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    var subtitle = UILabel()
-    var logoPicture = UIImageView()
+    private var subtitle = UILabel()
+    private var logoPicture = UIImageView()
     
-    var fullNameLabel = Stylesheet().createLabel(labelText: "Required field")
-    var fullNameTextField = Stylesheet().createTextField(textFieldText: "Full name")
+    private var fullNameLabel = Stylesheet().createLabel(labelText: "Required field")
+    private var fullNameTextField = Stylesheet().createTextField(textFieldText: "Full name")
     
-    var emailLabel = Stylesheet().createLabel(labelText: "Required field")
-    var emailTextField = Stylesheet().createTextField(textFieldText: "Email adress")
+    private var emailLabel = Stylesheet().createLabel(labelText: "Required field")
+    private var emailTextField = Stylesheet().createTextField(textFieldText: "Email adress")
     
-    var passwordLabel = Stylesheet().createLabel(labelText: "Required field")
-    var passwordTextField = Stylesheet().createTextField(textFieldText: "Password")
+    private var passwordLabel = Stylesheet().createLabel(labelText: "Required field")
+    private var passwordTextField = Stylesheet().createTextField(textFieldText: "Password")
     
-    var bottomButton = Stylesheet().createButton(buttonText: "Create my account", buttonColor: "Background", textColor: UIColor.black)
-    var loginButton = UIButton()
+    private var bottomButton = Stylesheet().createButton(buttonText: "Create my account", buttonColor: "Background", textColor: UIColor.black)
+    private var loginButton = UIButton()
     
     override func loadView() {
         super.loadView()
@@ -120,7 +120,7 @@ class AccountCreationViewController: BaseViewController {
             
             loginButton.topAnchor.constraint(equalTo: bottomButton.bottomAnchor, constant: 4),
             loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            loginButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50),
+            loginButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -50)
         ])
         
         subtitle.textColor = UIColor.black
@@ -148,6 +148,7 @@ class AccountCreationViewController: BaseViewController {
         passwordTextField.autocapitalizationType = .none
         passwordTextField.autocorrectionType = .no
         passwordTextField.textContentType = .password
+        passwordTextField.isSecureTextEntry = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(notification:)), name: UIView.keyboardWillChangeFrameNotification, object: nil)
         
@@ -224,5 +225,3 @@ class AccountCreationViewController: BaseViewController {
         scrollView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: view.frame.height - keyboardFrame.origin.y, right: 0.0)
     }
 }
-
-

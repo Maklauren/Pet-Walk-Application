@@ -55,4 +55,3 @@ final class MethodSelectionViewModel {
             .disposed(by: disposeBag)
     }
 }
-

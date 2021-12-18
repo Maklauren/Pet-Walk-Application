@@ -15,7 +15,7 @@ import FirebaseStorage
 
 final class PetAdditionRepository {
     
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
     static let shared = PetAdditionRepository()
     
@@ -92,9 +92,3 @@ final class PetAdditionRepository {
         }
     }
 }
-
-
-/*
- let generateID = UUID().uuidString
- let dogId = UserDefaults.standard.set(generateID, forKey: "dogID")
- */

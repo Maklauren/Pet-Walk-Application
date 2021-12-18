@@ -121,7 +121,7 @@ class PetCollectionViewCell: UICollectionViewCell {
     
     var moodText: String = "" {
         didSet {
-            if Int(moodText) ?? 0 > 2 {
+            if Int(moodText) ?? 0 >= 2 {
                 moodStatus.text = "Happy"
             } else {
                 moodStatus.text = "Sad"
@@ -155,4 +155,3 @@ class PetCollectionViewCell: UICollectionViewCell {
         }
     }
 }
-

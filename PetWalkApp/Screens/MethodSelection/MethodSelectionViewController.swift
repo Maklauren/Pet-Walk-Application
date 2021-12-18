@@ -30,16 +30,16 @@ class MethodSelectionViewController: BaseViewController {
     
     private let disposeBag = DisposeBag()
     
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
-    var petSelectionLabel = UILabel()
-    var methodSelectionLabel = UILabel()
+    private var petSelectionLabel = UILabel()
+    private var methodSelectionLabel = UILabel()
     
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     private let tableView = UITableView()
     
-    var startAWalkButton = Stylesheet().createButton(buttonText: "Start a walk", buttonColor: "Blue button", textColor: UIColor.white)
+    private var startAWalkButton = Stylesheet().createButton(buttonText: "Start a walk", buttonColor: "Blue button", textColor: UIColor.white)
     
     override func loadView() {
         super.loadView()
@@ -187,4 +187,3 @@ extension MethodSelectionViewController: UITableViewDelegate {
         return 96
     }
 }
-
