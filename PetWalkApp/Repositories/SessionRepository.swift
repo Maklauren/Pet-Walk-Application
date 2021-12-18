@@ -34,9 +34,11 @@ final class SessionRepository {
     func logUserIn(email: String, password: String) -> Single<Void> {
         Single.create { observer in
             Auth.auth().signIn(withEmail: email, password: password) { auth, error in
-                if let auth = auth {
+                if auth != nil {
                     observer(.success(()))
-                    print(auth)
+                    
+                    self.getInformationForExistingPerson()
+                    
                     return
                 }
                 observer(.failure(error ?? SessionError.noError))
@@ -48,9 +50,12 @@ final class SessionRepository {
     func createUser(fullname: String, email: String, password: String) -> Single<Void>  {
         Single.create { observer in
             Auth.auth().createUser(withEmail: email, password: password) { auth, error in
-                if let auth = auth {
+                if auth != nil {
                     observer(.success(()))
-                    print(auth)
+                    
+                    try! self.realm.write {
+                        self.realm.deleteAll()
+                    }
                     
                     let user = User()
                     user.fullName = fullname
@@ -60,10 +65,24 @@ final class SessionRepository {
                     try! self.realm.write {
                         self.realm.add(user)
                     }
+                    
+                    let userID = Auth.auth().currentUser?.uid
+                    
+                    self.databaseRef.child(userID!).setValue(["fullname": fullname,
+                                                              "city": " "
+                                                             ]) {
+                        (error:Error?, ref:DatabaseReference) in
+                        if let error = error {
+                            print("Data could not be saved: \(error).")
+                        } else {
+                            print("Data saved successfully!")
+                        }
+                    }
                     return
                 }
                 observer(.failure(error ?? SessionError.noError))
             }
+            
             return Disposables.create()
         }
     }
@@ -169,10 +188,10 @@ final class SessionRepository {
         }
         
         let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
-            }
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
     }
 }
