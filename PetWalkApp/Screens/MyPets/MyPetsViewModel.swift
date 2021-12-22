@@ -30,6 +30,10 @@ final class MyPetsViewModel {
             }
         }
     
+    func emptyDogArray() {
+        dogArray = BehaviorRelay<[Dog]>(value: [])
+    }
+    
     private let _createPetTapped = PublishRelay<Void>()
     func createPetTapped() {
         _createPetTapped.accept(())

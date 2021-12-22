@@ -54,6 +54,10 @@ final class AccountProfileViewModel {
             }
         }
     
+    func emptyDogArray() {
+        dogArray = BehaviorRelay<[Dog]>(value: [])
+    }
+    
     lazy var route: Signal<Route> = Signal.merge(_settingsTapped.asSignal().map({ .viewSettings }),
                                                  
                                                  _petSelected.asSignal().withLatestFrom(dogArray.asSignal(onErrorSignalWith: .never())) { index, dogs in

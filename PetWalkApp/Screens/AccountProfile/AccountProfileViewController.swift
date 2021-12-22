@@ -54,11 +54,7 @@ class AccountProfileViewController: BaseViewController {
         (self.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        viewModel.userImage
-            .drive(userPicture.rx.image)
-            .disposed(by: disposeBag)
-        
+    override func viewWillAppear(_ animated: Bool) {
         viewModel.refresh()
     }
     
@@ -143,7 +139,6 @@ class AccountProfileViewController: BaseViewController {
         settings.setTitle("settings", for: .normal)
         settings.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         
-        userPicture.image = UIImage(named: "Default user")
         userPicture.contentMode = .scaleAspectFill
         userPicture.layer.cornerRadius = 40
         userPicture.clipsToBounds = true
@@ -162,6 +157,10 @@ class AccountProfileViewController: BaseViewController {
         userPetQuantity.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
         
         collectionView.backgroundColor = UIColor(named: "Background")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        viewModel.emptyDogArray()
     }
     
     func bind(viewModel: AccountProfileViewModel) {

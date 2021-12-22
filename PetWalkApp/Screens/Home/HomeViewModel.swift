@@ -46,6 +46,10 @@ final class HomeViewModel {
             }
         }
     
+    func emptyDogArray() {
+        dogArray = BehaviorRelay<[Dog]>(value: [])
+    }
+    
     private var statsArray = BehaviorRelay<[StatsCell]>(value: [StatsCell(statName: "Today's plan"), StatsCell(statName: "Weekly objectives")])
     
     lazy var statArray = statsArray.asDriver()
@@ -53,6 +57,12 @@ final class HomeViewModel {
     lazy var route: Signal<Void> = _startAWalkTapped.asSignal()
     
     init(petsRepository: PetRepository) {
+        petsRepository.getPets()
+            .subscribe(onSuccess: {
+                self.dogArray.accept(Array($0))
+            })
+            .disposed(by: disposeBag)
+        
         _refresh
             .flatMap {
                 petsRepository.getPets()

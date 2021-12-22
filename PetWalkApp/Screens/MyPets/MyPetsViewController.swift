@@ -112,6 +112,10 @@ class MyPetsViewController: BaseViewController {
         addButton.setImage(UIImage(named: "Add button"), for: .normal)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        viewModel.emptyDogArray()
+    }
+    
     func bind(viewModel: MyPetsViewModel) {
         self.viewModel = viewModel
         

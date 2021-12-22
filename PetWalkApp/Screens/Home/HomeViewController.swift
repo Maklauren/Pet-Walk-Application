@@ -56,7 +56,7 @@ class HomeViewController: BaseViewController {
         (self.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
         
         viewModel.refresh()
@@ -141,6 +141,10 @@ class HomeViewController: BaseViewController {
         tableView.register(PetStatsTableViewCell.self, forCellReuseIdentifier: PetStatsTableViewCell.identifier)
         tableView.backgroundColor = UIColor(named: "Background")
         tableView.delegate = self
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        viewModel.emptyDogArray()
     }
     
     func bind(viewModel: HomeViewModel) {
