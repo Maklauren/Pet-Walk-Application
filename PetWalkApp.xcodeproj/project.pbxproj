@@ -246,7 +246,6 @@
 				23DEF8D8272023D20022DCC6 /* Screens */,
 				23DEF8DC272025180022DCC6 /* Coordinators */,
 				23DEF8E1272026290022DCC6 /* Types */,
-				23F7FA3227281DA6009C2AC8 /* Database */,
 				23DEF8E7272036200022DCC6 /* Extensions */,
 				23B71E0D270C7A5600010C87 /* SceneDelegate.swift */,
 				23B71E0B270C7A5600010C87 /* AppDelegate.swift */,
@@ -351,6 +350,7 @@
 		23DEF8EC2720479B0022DCC6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				23F7FA3227281DA6009C2AC8 /* Database */,
 				23DEF8EE272047AC0022DCC6 /* UserSession.swift */,
 				23DEF8FC2721B0320022DCC6 /* UserState.swift */,
 				23D5E1E2273692B800D75D4E /* PetInformation.swift */,

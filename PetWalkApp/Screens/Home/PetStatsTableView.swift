@@ -88,7 +88,7 @@ class PetStatsTableViewCell: UITableViewCell {
         let chardData = PieChartData(dataSets: [chardDataSet])
         chardData.setDrawValues(false)
         
-        let colors = [UIColor.systemTeal, UIColor.systemGray5]
+        let colors = [UIColor(red: 0.61, green: 0.73, blue: 0.92, alpha: 1.00), UIColor.systemGray5]
         chardDataSet.colors = colors
         
         pieCharts.data = chardData
