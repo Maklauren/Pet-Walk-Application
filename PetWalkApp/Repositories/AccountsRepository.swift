@@ -81,6 +81,10 @@ final class AccountsRepository {
             }
         }
         
-        return .just(true).delay(.seconds(1), scheduler: MainScheduler.asyncInstance)
+        return .just(true)
+    }
+    
+    func getUserInformation() -> Single<Results<User>> {
+        return .just(realm.objects(User.self))
     }
 }

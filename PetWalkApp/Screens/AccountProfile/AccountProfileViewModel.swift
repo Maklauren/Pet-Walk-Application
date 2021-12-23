@@ -12,6 +12,10 @@ import RxCocoa
 
 final class AccountProfileViewModel {
     
+    private let accountsRepository = AccountsRepository()
+    
+    private let petRepository = PetRepository()
+    
     enum Route {
         case viewSettings
         case viewPetProfile(PetProfileInformation)
@@ -28,10 +32,6 @@ final class AccountProfileViewModel {
     func refresh() {
         _refresh.accept(())
     }
-    
-    private let accountsRepository = AccountsRepository()
-    
-    private let petRepository = PetRepository()
     
     private let _petSelected = PublishRelay<Int>()
     func petSelected(index: Int) {
@@ -56,6 +56,26 @@ final class AccountProfileViewModel {
     
     func emptyDogArray() {
         dogArray = BehaviorRelay<[Dog]>(value: [])
+    }
+    
+    struct UserInformationStruct {
+        var name: String
+        var city: String
+        var dogsCount: Int
+    }
+    
+    var usersArray = BehaviorRelay<[User]>(value: [])
+    
+    lazy var userInformation = usersArray.asDriver()
+        .map {
+            $0.map { (user: User) -> UserInformationStruct in
+                UserInformationStruct(name: user.fullName, city: user.city, dogsCount: self.dogArray.value.count)
+            }
+        }
+    
+    private let _update = PublishRelay<Void>()
+    func update() {
+        _update.accept(())
     }
     
     lazy var route: Signal<Route> = Signal.merge(_settingsTapped.asSignal().map({ .viewSettings }),
@@ -85,6 +105,20 @@ final class AccountProfileViewModel {
                 self.dogArray.accept(Array($0))
             })
             .disposed(by: disposeBag)
+        
+        accountsRepository.getUserInformation()
+            .subscribe(onSuccess: {
+                self.usersArray.accept(Array($0))
+            })
+            .disposed(by: disposeBag)
+        
+        _update
+            .flatMap {
+                self.accountsRepository.getUserInformation()
+            }
+            .subscribe(onNext: {
+                self.usersArray.accept(Array($0))
+            })
+            .disposed(by: disposeBag)
     }
 }
-

@@ -56,6 +56,7 @@ class AccountProfileViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.refresh()
+        viewModel.update()
     }
     
     override func loadView() {
@@ -122,7 +123,7 @@ class AccountProfileViewController: BaseViewController {
             collectionView.topAnchor.constraint(equalTo: userPicture.bottomAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
-            collectionView.heightAnchor.constraint(equalToConstant: 115),
+            collectionView.heightAnchor.constraint(equalToConstant: 115)
         ])
         
         scrollView.refreshControl = refreshControl
@@ -145,14 +146,11 @@ class AccountProfileViewController: BaseViewController {
         userPicture.layer.borderColor = UIColor.white.cgColor
         userPicture.layer.borderWidth = 3.5
         
-        userName.text = realm.objects(User.self).last?.fullName
         userName.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.bold)
         
-        userCity.text = realm.objects(User.self).last?.city
         userCity.textColor = UIColor(named: "Text")
         userCity.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
         
-        userPetQuantity.text = "\(realm.objects(Dog.self).count) pets"
         userPetQuantity.textColor = UIColor(named: "Text")
         userPetQuantity.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.light)
         
@@ -168,6 +166,21 @@ class AccountProfileViewController: BaseViewController {
         
         viewModel.userImage
             .drive(userPicture.rx.image)
+            .disposed(by: disposeBag)
+        
+        viewModel.userInformation
+            .map { $0.map { $0.name }.first ?? "" }
+            .drive(userName.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.userInformation
+            .map { $0.map { $0.city }.first ?? "" }
+            .drive(userCity.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.userInformation
+            .map { "\($0.map { String($0.dogsCount) }.first ?? "") pets" }
+            .drive(userPetQuantity.rx.text)
             .disposed(by: disposeBag)
         
         settings.rx.tap
