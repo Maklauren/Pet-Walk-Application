@@ -6,11 +6,9 @@
 * `Cloud database:` Firebase. Realtime database Authentication: Firebase Authentication
 * `Other frameworks:` RxSwift, Firebase (Storage, Crashlytics), Charts, SwiftLint,  RAMAnimatedTabBarController
 ## App Preview
-![alt text](https://i.yapx.ru/PjWqY.png)
-![alt text](https://i.yapx.ru/PjWry.png)
-![alt text](https://i.yapx.ru/PjWwX.png)
-![alt text](https://i.yapx.ru/PjWyI.png)
-![alt text](https://i.yapx.ru/PjWyy.png)
-![alt text](https://i.yapx.ru/PjWz1.png)
-![alt text](https://i.yapx.ru/PjW0v.png)
-![alt text](https://i.yapx.ru/PjW1X.png)
+
+<img src="https://i.imgur.com/TXpjBoX.png" width="200"> <img src="https://i.imgur.com/E7zU3SZ.png" alt="drawing" width="200"/> <img src="https://i.imgur.com/73XV1d3.png" alt="drawing" width="200"/>
+
+<img src="https://i.imgur.com/mJwMAox.png" width="200"> <img src="https://i.imgur.com/RsGIGEi.png" alt="drawing" width="200"/> <img src="https://i.imgur.com/weeAhXX.png" alt="drawing" width="200"/>
+
+<img src="https://i.imgur.com/0BjcgzW.png" width="200"> <img src="https://i.imgur.com/aFhhVle.png" alt="drawing" width="200"/>
